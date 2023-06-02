@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/data.table.css">
+<script src="/js/script.js"></script>
+<script src="https://kit.fontawesome.com/bb1b5dec7c.js"
+	crossorigin="anonymous"></script>
+<style>
+.userlogin {
+	color: #fff;
+}
+</style>
+
+<title>Área Administrativa</title>
+</head>
+<body>
+	<section id="banner">
+		<div class="banner" style="padding: 5px">
+			<div class="imagem-banner">
+				<img src="/img/admin.png" class="imagem-astronauta">
+			</div>
+			<div class="texto">
+				<h2 style="color: #fff">Área Administrativa</h2>
+				<span class="userlogin" th:text="${userLogin}"></span>
+				<div class="botao">
+					<form th:action="@{/logout}" method="post">
+						<input type="submit" value="Sair" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="tabela">
+		<h1>Usuários Cadastrados</h1>
+		<div class="tabela">
+			<table id="dtBasicExample" cellspacing="0">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Usuário</th>
+						<th>Email</th>
+						<th>CPF</th>
+						<th>Telefone</th>
+						<th data-orderable="false">Excluir</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="usuario : ${usuarios}">
+						<td th:text="${usuario.nome}"></td>
+						<td th:text="${usuario.login}"></td>
+						<td th:text="${usuario.email}"></td>
+						<td th:text="${usuario.infoUsuario != null ? usuario.infoUsuario.cpf : 'N/A'}"></td>
+    					<td th:text="${usuario.infoUsuario != null ? usuario.infoUsuario.telefone: 'N/A'}"></td>           							
+						
+						
+						<td>
+							<form th:action="@{'/excluir/user/' + ${usuario.id}}"
+								method=post>
+								<button type="submit" value="" class="btn-acoes" title="Excluir">
+									<i class="fas fa-trash-alt" style="color:#0a0233"></i>
+								</button>
+							</form></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<footer class="rodape">
+		<img src="/img/logo-livronauta.png" class="logo-rodape">
+	</footer>
+	<script src="/datatable/jquery-3.5.1.min.js"></script>
+	<script src="/datatable/datatable.js"></script>
+	<script src="/datatable/popper.min.js"></script>
+	<script src="/datatable/dataTables.min.js"></script>
+</body>
+</html>

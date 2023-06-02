@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="https:www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title> Livros Lidos </title>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
+<link rel="icon" href="/img/icone-astronauta.png">
+
+</head>
+<body>
+	
+	
+	<header>
+    <input type="checkbox" id="check">
+    <label for="check">
+      <i class="fas fa-bars fa-2x menu"></i>
+    </label>
+    <nav>
+        <ul>
+                    <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
+        
+            <li id="logo"> <a href="{/}"> <img src="{img/logo-livronauta.png}" class="logo"> </a>  </li>
+            
+             <li><i class="fas fa-home"></i><a href="{/}"> Home </a> </li>
+            <li><i class="fas fa-book-reader"></i><a href="{/livros-lidos}"> Livros lidos  </a> </li>
+			<li> <i class="fas fa-book"></i> <a href="{/proximas-leituras}"> Próximas leituras </a> </li>
+			<li><i class="far fa-bookmark"></i> <a href="{/lista-desejos}"> Lista de desejos  </a> </li>
+			<li> <i class="fas fa-book-open"></i> <a href="{/emprestados}"> Emprestados </a> </li>
+			<li> <i class="fas fa-meteor"></i> <a href="{/conquistas}"> Conquistas </a> </li>
+			<li> <i class="fas fa-bullhorn"></i> <a href="{/guia}"> Guia das Galáxias </a> </li>
+			<br>
+			<li> <i class="fas fa-sign-out-alt"></i> <a href="/logout"> Sair </a> </li>
+			
+
+        </ul>
+        </nav>
+  </header>
+	
+	 <section id="banner">
+        <div class="banner">
+            <div class="imagem-banner">
+                <img th:src=@{img/icone-cadastrar-lidos.png} class="imagem-astronauta">
+            </div>
+            <div class="texto">
+                <p> Cadastre seus livros lidos <br> durante o ano </p>
+                <div class="botao">
+                    <a href="#" onclick="form()" class="cadastro">  Cadastre aqui  </a> 
+                </div>
+            </div>
+        </div>
+    </section>
+	
+	
+ <section id="tabela">
+        <h1> Lista de livros lidos </h1>
+        <div class="tabela">
+            <table>
+                <tr>
+                    <th> Livro </th>
+                    <th> Autor </th>
+                    <th> Gênero </th>
+                    <th> Ano lido </th>
+                    <th> Sua Opinião  </th>
+                    <th> Editar </th>
+                    <th> Excluir </th>
+                </tr>
+
+            </table>
+        </div>
+    </section>
+    
+      <!-- Formulário -->
+
+	<div id="modal" class="modal-container">
+		<div class="modalpopup">
+			<div class="topo-form">
+				<h1>Cadastre seus livros já lidos</h1>
+				<a href="/livros-lidos" class="fechar"> X </a>
+			</div>
+			<div class="formulario">
+				<form action="/save-livro-lido" method="post">
+					<input type="text" name="livro" placeholder="Nome do Livro"
+						required> <input type="text" name="autor"
+						placeholder="Autor" required> <input type="text"
+						name="genero" placeholder="Gênero" required> <input
+						type="number" name="ano" placeholder="Ano que foi lido" required>
+					<input type="text" name="avaliacao" placeholder="Sua Opinião"
+						required>
+
+					<div class="btn">
+						<button type="submit" class="salvar">Salvar</button>
+						<a href="/livros-lidos" class="cancelar">Cancelar</a>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+	<footer>
+        <img src="/img/logo-livronauta.png" class="logo-rodape">
+    </footer>
+
+
+</body>
+</html>

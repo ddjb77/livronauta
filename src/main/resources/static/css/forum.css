@@ -1,0 +1,209 @@
+.container-forum,
+.container-recomendacoes,
+.container-avaliacoes,
+.container-opinioes,
+.container-todas {
+
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin: 1%;
+    
+}
+
+
+.pesquisa {
+    height: 100%;
+    width: 100%;
+    border: #1f185a 20px;
+    display: contents;
+
+}
+
+#search {
+    cursor: pointer;
+}
+
+.imagem-astronauta-binoculo {
+    width: 230px;
+    height: auto;
+}
+
+.barra-pesquisa {
+    max-width: 90%;
+    display: flex;
+    padding: 1%;
+    height:2.9rem;
+    background-color: rgb(231, 231, 231);
+}
+
+.opcoes {
+    cursor: pointer;
+    height:2.9rem;
+}
+
+.opcoes:focus{
+    background-color: rgb(206, 206, 206);
+    color:#1c0a75;
+    
+}
+
+#select {
+    background-color: #301c41;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    cursor: pointer;
+    position: relative;
+    padding: 1%;
+    border-radius: 5px;
+    text-align: center;
+
+
+
+
+}
+
+#select img {
+    width: 5%;
+
+}
+
+#select ul {
+    position: absolute;
+    top: 120%;
+    left: 0;
+    list-style-type: none;
+    background-color: #1f185a;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    border-radius: 5px;
+
+
+}
+
+#select ul li {
+    padding: 25px 20px;
+    cursor: pointer;
+
+}
+
+
+
+#select ul.open {
+    max-height: 300px;
+    padding: 5px;
+}
+
+.recomendacoes {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+.container-recomendacoes,
+.container-avaliacoes,
+.container-opinioes,
+.container-todas {
+    width:50%;
+    height:auto;
+    justify-content: left;
+    display: none;
+    text-align: center;
+    background-color:#c4c4c428;
+    border-radius:1em;
+    padding:.3em;
+    -webkit-box-shadow: 2px 2px 15px 5px hsla(0, 0%, 0%, 0.123); 
+    box-shadow: 2px 2px 15px 5px rgba(0, 0, 0, 0.123);
+    
+}
+
+.categorias button {
+    margin: 0 0.2em;
+    padding: 1em;
+    background-color: #0a0233;
+    color:white;
+    border:none;
+    border-radius:0.5em;
+   
+}
+
+.categorias {
+    display:contents;
+}
+
+.categorias input {
+
+    padding: 1em;
+    border:none;
+    outline: none;
+    margin:0;
+    
+
+
+}
+
+
+
+.recomendacoes div .icones {
+
+    padding: 10px;
+
+}
+
+.icones {
+    text-align: left;
+}
+
+.icones img {
+
+    width: 30px;
+    height: auto;
+}
+
+#livros{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding:1.5em;
+    text-align: center;
+}
+
+
+#livros div{
+    font-size: 0.9em;
+    padding:.2em;
+}
+
+
+.image-container img {
+    width: 100px;
+    height: auto;
+}
+
+
+.image-container img{
+    -webkit-transition: -webkit-transform .5s ease;
+    transition: transform .5s ease-out;
+ }
+ 
+ .image-container:hover img{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    -webkit-box-shadow: 2px 2px 15px 5px hsla(0, 0%, 0%, 0.123); 
+    box-shadow: 2px 2px 15px 5px rgba(0, 0, 0, 0.123);
+ }
+
+/*oculta itens antes de serem encontrados pela busca*/
+
+.hide {
+    display: none;
+}
+
+

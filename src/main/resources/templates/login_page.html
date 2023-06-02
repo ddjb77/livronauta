@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+    <script src="js/validacao.js"></script>
+    <title> Login </title>
+</head>
+
+<body>
+
+    <div class="img-login">
+        <img src="img/botao-entrar.png" class="imagem-login">
+    </div>
+    <section id="login">
+        <div class="formulario">
+            <h1> Login </h1>
+            <form method="post" action="/login" th:object="${usuario}">
+                <input type="text" id="usuario" name="username" placeholder="login" class="nome" required>
+
+                <input type="password" id="senha" name="password" min="6" placeholder="Senha" class="senha"  onkeypress="senha()"
+                    required>
+
+				<div class="btn">
+                    <input type="submit" class="entrar" value="Entrar" onclick="verificar()" id="btn-login">
+                </div>
+                
+                <div class="signed">
+                    <span>
+                        Ainda não tem cadastro?
+                    </span>
+                    <span>
+                        <a href="/register"> Cadastre-se </a>
+                    </span>
+                </div>
+				<div class="credenciaisIncorretas" th:if="${param.error}">
+				    <span>Usuário ou senha incorretos. Tente novamente.</span>
+				</div>
+              
+            </form>
+           
+			
+
+		</div>
+    </section>
+     
+    <footer class="rodape">
+        <img src="img/logo-livronauta.png" alt="logo do site no rodapé " class="logo-rodape">
+    </footer>
+</body>
+
+</html>
+
+

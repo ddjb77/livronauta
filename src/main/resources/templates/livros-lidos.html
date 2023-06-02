@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="https:www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title> Livros Lidos </title>
+<link rel="stylesheet" href="/css/criar-perfil.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/style-conquistas.css/">
+<link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
+<link rel="icon" href="/img/icone-astronauta.png">
+
+</head>
+<body>
+	
+	
+<header>
+    <input type="checkbox" id="check">
+    <label for="check">
+      <i class="fas fa-bars fa-2x menu"></i>
+    </label>
+    	<div class="barra">
+              <div class="item-geral">
+                <div class="item">
+                    <span id="nivel">Nível 1 </span>
+                </div>
+                <div class="img-item">
+                    <img src="img/nv1.png">
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="img/expbars.png"> 
+                </div>
+                <div class="item">
+                   <span id="exp"> 0 / 100</span>
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="img/star-i.png"> 
+                </div>
+                <div class="item">
+                   <span id="estrelas"> 0 </span>
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="img/livro-de-capa-preta-fechado.png" width="20px" > 
+                </div>
+                <div class="item">
+                   <span id="lidos"> 0 </span>
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <span> <a href="#"> <img src="img/news-b2.png"> </a></span>
+                </div>
+            </div>
+        </div>
+        
+      <nav>
+        <ul>
+                    <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
+        
+            <li id="logo"> <a href="{/}"> <img src="/img/logo-livronauta.png" class="logo"> </a>  </li>
+            
+             <li><i class="fas fa-home"></i><a href="{/}"> Home </a> </li>
+            <li><i class="fas fa-book-reader"></i><a href="{/livros-lidos}"> Livros lidos  </a> </li>
+			<li> <i class="fas fa-book"></i> <a href="{/proximas-leituras}"> Próximas leituras </a> </li>
+			<li><i class="far fa-bookmark"></i> <a href="{/lista-desejos}"> Lista de desejos  </a> </li>
+			<li> <i class="fas fa-book-open"></i> <a href="{/emprestados}"> Emprestados </a> </li>
+			<li> <i class="fas fa-meteor"></i> <a href="{/conquistas}"> Conquistas </a> </li>
+			<li> <i class="fas fa-bullhorn"></i> <a href="{/guia}"> Guia das Galáxias </a> </li>
+			<br>
+			<li> <i class="fas fa-sign-out-alt"></i> <a href="/logout"> Sair </a> </li>
+			
+
+        </ul>
+        </nav>
+  </header>
+	
+	 <section id="banner">
+        <div class="banner">
+            <div class="imagem-banner">
+                 <img src="/img/inicio-cadastro-leitura.png" class="imagem-astronauta">
+            </div>
+            <div class="texto">
+                <p> Cadastre seus livros lidos <br> durante o ano </p>
+                <div class="botao">
+                    <a href="/lidos" class="cadastro">  Cadastre aqui  </a> 
+                </div>
+            </div>
+        </div>
+    </section>
+	
+	
+ <section id="tabela">
+        <h1> Lista de livros lidos </h1>
+        <div class="tabela">
+            <table>
+    <thead>
+        <tr>
+            <th> Livro </th>
+            <th> Autor </th>
+            <th> Gênero </th>
+            <th> Ano lido </th>
+            <th> Sua Opinião </th>
+            <th> Editar </th>
+            <th> Excluir </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="livro : ${livrosLidos}">
+            <td th:text="${livro.livro}"></td>
+            <td th:text="${livro.autor}"></td>
+            <td th:text="${livro.genero}"></td>
+            <td th:text="${livro.ano}"></td>
+            <td th:text="${livro.avaliacao}"></td>
+            <td>
+                <a th:href="@{'updlidos/' + ${livro.id}}" title="Editar">
+                    <i class="far fa-edit icone-tabela"></i>
+                </a>
+            </td>
+            <td>
+                <form th:action="@{'apagar-lidos/' + ${livro.id}}" method="post">
+                    <button type="submit" value="" class="btn-acoes" title="Excluir">
+                        <i class="fas fa-trash icone-tabela"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+        </div>
+    </section>
+
+
+
+    <footer>
+        <img src="/img/logo-livronauta.png" class="logo-rodape">
+    </footer>
+    
+    
+    <section id="robo">
+        <div class="robo">
+            
+                <div class="balao">
+                <div id="frases">
+                   
+                </div>
+            </div>    
+            <img id="robo-img" src="/img/robo.gif" class="img-robo" onload="novaFrase()">
+            <div id="fechar"> X </div> 
+        </div>
+    </section>
+    
+   
+
+ 	<script src="/js/script-robo.js"></script>
+    <script src="/datatable/jquery-3.5.1.min.js"></script>
+	<script src="/datatable/datatable.js"></script>
+	<script src="/datatable/popper.min.js"></script>
+	<script src="/datatable/dataTables.min.js"></script>
+
+
+</body>
+</html>

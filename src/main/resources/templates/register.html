@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+    <script src="js/validacao.js"></script>
+
+    <title> Cadastrar </title>
+</head>
+
+<body>
+
+    <div class="img-login">
+        <img src="img/cadastrar.png" alt="astronauta com um laptop" class="imagem-cadastro">
+    </div>
+    <section id="cadastrar">
+        <div class="formulario">
+            <h1> Cadastro</h1>
+            <form method="post" action="/register" th:object="${registerRequest}">
+                <input type="text" id="nome" name="nome" placeholder="Nome" class="nome" required>
+                
+                <input type="text" id="username" name="username" placeholder="Nome Usuário" class="username" required>
+
+                <input type="text" id="usuario" name="login" placeholder="login" class="nome" required>
+
+                <input type="text" name="email" placeholder="Email" class="email" required>
+
+                <input type="password" id="senha" name="password" minlength="6" placeholder="Senha" class="senha"
+                    required>
+
+                <input type="password" id="confirmaSenha" minlength="6" placeholder="Repetir a senha"
+                    class="senha" required>
+                <div class="signed">
+                    <span>
+                        Já tem cadastro?
+                    </span>
+                    <span>
+                        <a href="/login">Entre</a>
+                    </span>
+                </div>
+                
+                <div class="buttons">
+                <div class="btn">
+                    <input type="submit" class="entrar" id="btn-cadastro" onclick="verificar()" value="Cadastrar">
+                </div>
+            </div>
+            </form>
+
+            
+
+        </div>
+
+    </section>
+    
+   <!--  <div id="modal" class="modal-container">
+         <div class="modalperfil">
+             <div class="topo-form">
+                 <h1>  Bem vindo ao livronauta  </h1>
+             </div>
+             <div id="verificar-email">
+               <h1> Verifique seu email</h1>
+               <img src="img/admin.png">
+               <h3> Enviamos uma verificação para seu email! Não deixe de verificar também sua caixa de spam </h3>
+             </div>
+           </div>
+      </div>
+      -->
+      
+    <footer class="rodape">
+        <img src="img/logo-livronauta.png" alt="logo do site no rodapé " class="logo-rodape">
+    </footer>
+
+</body>
+
+</html>

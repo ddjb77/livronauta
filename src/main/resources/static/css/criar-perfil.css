@@ -1,0 +1,264 @@
+
+#bem-vindo-user {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#btnQuiz {
+  display: none;
+}
+
+#checarLivros {
+  color: #fff;
+  margin: auto 2px;
+}
+
+
+#banner  p {
+    color: #fff;
+}
+
+#imagem-banner {
+    padding: 0 10px;
+     margin: 15px 20px 15px 5px;
+     width: 30%;
+     height: 300px;
+}
+
+.imagem-astronauta{
+    max-width: 80%;
+}
+
+#texto {
+   font-family: 'Logo';
+   font-size: 1.6rem;
+   margin: 80px auto;
+   padding:  20px -50px ;
+   color: #fff;
+   width: 50%;
+}
+
+
+#habilitar-quiz{
+    font-family: 'Logo';
+    font-size: 1.6rem;
+    margin: -50px auto;
+    padding:  5px -50px ;
+    color: #fff;
+    display: flex;
+    text-align: center;
+
+}
+/** CONFIGURAÇÕES **/
+
+::selection{
+    color: #fff;
+    background: #0a0233;
+  }
+  .container{
+    width: 330px;
+    text-align: center;
+    border-radius: 5px;
+    margin: 0 auto;
+    
+  }
+  .container .form-outer{
+    width: 100%;
+    overflow: hidden;
+  }
+  .container .form-outer form{
+    display: flex;
+    width: 400%;
+  }
+  .form-outer form .page{
+    width: 25%;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  .form-outer form .page .title{
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+  .form-outer form .page .field{
+    width: 330px;
+    height: 45px;
+    margin: 45px 0;
+    display: flex;
+    position: relative;
+  }
+  form .page .field .label{
+    position: absolute;
+    top: -30px;
+    font-weight: 500;
+  }
+  form .page .field input{
+    height: 100%;
+    width: 100%;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    padding-left: 15px;
+    font-size: 18px;
+  }
+  form .page .field select{
+    width: 100%;
+    padding-left: 10px;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  form .page .field button{
+    width: 100%;
+    height: calc(100% + 5px);
+    border: none;
+    background: #0a0233;
+    margin-top: -20px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.5s ease;
+  }
+  form .page .field button:hover{
+    background: #000;
+  }
+  form .page .btns button{
+    margin-top: -20px!important;
+  }
+  form .page .btns button.prev{
+    margin-right: 3px;
+    font-size: 17px;
+  }
+  form .page .btns button.next{
+    margin-left: 3px;
+  }
+  .container .progress-bar{
+    display: flex;
+    margin: 15px 0;
+    user-select: none;
+  }
+  .container .progress-bar .step{
+    text-align: center;
+    width: 100%;
+    position: relative;
+  }
+  .container .progress-bar .step p{
+    font-weight: 500;
+    font-size: 18px;
+    color: #000;
+    margin-bottom: 8px;
+  }
+  .progress-bar .step .bullet{
+    height: 25px;
+    width: 25px;
+    border: 2px solid #000;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+    transition: 0.2s;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 25px;
+  }
+  .progress-bar .step .bullet.active{
+    border-color: #0a0233;
+    background: #0a0233;
+  }
+  .progress-bar .step .bullet span{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .progress-bar .step .bullet.active span{
+    display: none;
+  }
+  .progress-bar .step .bullet:before,
+  .progress-bar .step .bullet:after{
+    position: absolute;
+    content: '';
+    bottom: 11px;
+    right: -51px;
+    height: 3px;
+    width: 44px;
+    background: #262626;
+  }
+  .progress-bar .step .bullet.active:after{
+    background: #0a0233;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 0.3s linear forwards;
+  }
+  @keyframes animate {
+    100%{
+      transform: scaleX(1);
+    }
+  }
+  .progress-bar .step:last-child .bullet:before,
+  .progress-bar .step:last-child .bullet:after{
+    display: none;
+  }
+  .progress-bar .step p.active{
+    color: #0a0233;
+    transition: 0.2s linear;
+  }
+  .progress-bar .step .check{
+    position: absolute;
+    left: 50%;
+    top: 70%;
+    font-size: 15px;
+    transform: translate(-50%, -50%);
+    display: none;
+  }
+  .progress-bar .step .check.active{
+    display: block;
+    margin: 5px 0;
+    color: #fff;
+  }
+
+  
+.opcoes {
+  position: inherit;
+  display: flex;
+  
+}
+
+input[type=radio], input[type=checkbox]{
+  display: flex;
+  width: 7%;
+}
+
+
+.titulo-perfil{
+  margin: 20px auto;
+  text-indent: initial;
+}
+
+.selecionar-meta {
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 10px ;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.selecionar-meta:hover{
+  background-color: #0a0233;
+  color: #fff;
+}
+
+label {
+  font-size: 1.2rem;
+}
+
+small {
+  margin: 8px 0 0 0;
+  font-size: 1rem;
+}
+
+#pergunta-desbloqueio {
+  display: none;
+}
+
+
+  

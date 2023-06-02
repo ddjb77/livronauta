@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title> Página inicial </title>
+<link rel="stylesheet" href="/css/criar-perfil.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/style-conquistas.css/">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
+<link rel="icon" href="/img/icone-astronauta.png">
+</head>
+<body>
+<header>
+    <input type="checkbox" id="check">
+    <label for="check">
+      <i class="fas fa-bars fa-2x menu"></i>
+    </label>
+    	<div class="barra">
+              <div class="item-geral">
+                <div class="item">
+                    <span id="nivel">Nível 1 </span>
+                </div>
+                <div class="img-item">
+                    <img src="/img/nv1.png">
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="/img/expbars.png"> 
+                </div>
+                <div class="item">
+                   <span id="exp"> 0 / 100</span>
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="/img/star-i.png"> 
+                </div>
+                <div class="item">
+                   <span id="estrelas"> 0 </span>
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="/img/livro-de-capa-preta-fechado.png" width="20px" > 
+                </div>
+                <div class="item">
+                   <span id="lidos"> 0 </span>
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <span> <a href="#"> <img src="/img/news-b2.png"> </a></span>
+                </div>
+            </div>
+        </div>
+        
+      <nav>
+        <ul>
+        	
+        	
+            <li id="logo"><img src="/img/logo-livronauta.png" class="logo"></li>
+            <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
+            <li> <i class="fas fa-home"></i><a href="/"> Home </a> </li>
+            <li> <i class="fas fa-book-reader"></i><a href="{/livros-lidos}"> Livros lidos  </a> </li>
+			<li> <i class="fas fa-book"></i> <a href="{/proximas-leituras}"> Próximas leituras </a> </li>
+			<li> <i class="far fa-bookmark"></i> <a href="{/lista-desejos}"> Lista de desejos  </a> </li>
+			<li> <i class="fas fa-book-open"></i> <a href="{/emprestados}"> Emprestados </a> </li>
+			<li> <i class="fas fa-meteor"></i> <a href="{/conquistas}"> Conquistas </a> </li>
+			<li> <i class="fas fa-bullhorn"></i> <a href="{/guia}"> Guia das Galáxias </a> </li>
+			<li> <i class="fas fa-sign-out-alt"></i> <a href="{/logout}"> Sair </a> </li>
+			
+
+        </ul>
+        </nav>
+  </header>
+	
+	<!-- ---- BANNER  ------>
+	<section id="banner">
+         <div class="banner">
+            <div id="imagem-banner">
+            <img id="imagePlaceholder" src="" alt="Imagem">
+            </div>
+            <div id="texto">
+ 				<h1> Olá, <span th:text="${userNome}"></span>!</h1>
+ 				<br> Você está lendo: <span th:text="${userLivroAtual}"></span> 
+ 				<br> Gênero: <span th:text="${userGenero}"></span>
+ 				<br> Página Atual: <span th:text="${userNumeroPaginas}"></span>
+            </div>
+            
+            </div>
+      </section>
+    
+    
+    <section id="escolha">
+        <h1>  Escolha o que deseja fazer </h1>
+        <div class="escolha">
+            <div class="lidos">
+                <a href="/livros-lidos"> <img src="/img/icone-lidos.png" class="icone" alt="desenho de um astronauta lendo um livro"> </a>
+                <p> Cadastre seus livros lidos  </p>
+            </div>
+
+            <div class="proximos">
+              <a href="proximas-leituras"> <img src="/img/icone-proximo.png" class="icone" alt="desenho de um astronauta em um foguete"> </a> 
+                <p> Liste suas próximas leituras </p>
+            </div>
+           
+            <div class="lista">
+                <a th:href="@{/lista-desejos}">  <img src="/img/icone-lista.png" class="icone" alt="desenho de um astronauta pegando uma estrela"> </a>
+                <p> Faça sua lista de desejos </p>
+            </div>
+
+            <div class="emprestimo">
+                <a th:href="@{/emprestados}"> <img src="/img/icone-emprestimo.png" class="icone" alt="desenho de dois astronautas conversando"> </a>
+                <p> Marque aqui seus livros emprestados </p>
+            </div>
+
+        </div>
+    </section>
+    
+    <footer>
+        <img src="/img/logo-livronauta-rodape.png" class="logo-rodape">
+    </footer>
+    
+     <section id="robo">
+        <div class="robo">
+            
+                <div class="balao">
+                <div id="frases">
+                   
+                </div>
+            </div>    
+            <img id="robo-img" src="/img/robo.gif" class="img-robo" onclick="novaFrase()">
+            <div id="fechar"> X </div> 
+        </div>
+    </section>
+    
+    
+   
+    
+    <!-- ---------  MODAL BEM VINDO -------------- -->
+    <div id="modal-user" class="modal-container" th:if="${user.infoUsuario == null}">
+         <div class="modalperfil">
+             <div class="topo-form">
+                 <h1>  Bem vindo ao livronauta  </h1>
+             </div>
+             <div id="bem-vindo-user">
+               <h2> Bem vindo(a) <span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span>\o/ </h2>
+               <img src="/img/icone-configurar.png">
+               <a href="#" class="ok" onclick="fecharUser()"> Começar </a>
+             </div>
+           </div>
+      </div>
+  
+       <!-- ---------  MODAL FORMULARIO  -------------- -->
+       
+ 	<div id="modal" class="modal-container" th:if="${user.infoUsuario == null}">
+ 		<div class="modalperfil">
+ 			<div class="topo-form">
+               <h1> Vamos configurar seu perfil  </h1>
+            </div>
+            <div class="container">
+            
+            	<div class="progress-bar">
+            		<div class="step">
+            			<p> Dados </p>
+            			<div class="bullet">
+            				<span>1</span>
+            			</div>
+            			<div class="check fas fa-star"></div>
+            		</div>
+            		
+            		<div class="step">
+            			<p> Leitura </p>
+            			<div class="bullet">
+            				<span> 2 </span>
+            			</div>
+            			<div class="check fas fa-star"></div>
+            		</div>
+            		
+            		<div class="step">
+            			<p> Gênero </p>
+            			<div class="bullet">
+            				<span> 3 </span>
+            			</div>
+            			<div class="check fas fa-star"></div>
+            		</div>
+            		
+            		<div class="step">
+            			<p> Conferir </p>
+            			<div class="bullet">
+            				<span> 4</span>
+            			</div>
+            			<div class="check fas fa-star"></div>
+            		</div>
+            	</div>
+            	
+            	<div class="form-outer" >
+            		<form method="post" th:action="@{/save-info}" th:object="${user.infoUsuario}">
+            		
+            			<div class="page slide-page">
+            				<div class="title titulo-perfil"> Dados Pessoais </div>
+            				<input type="text" id="nome" placeholder="Nome" class="nome"  name="nome" required >
+                        	<input type="tel" id="telefone" placeholder="Telefone" class="tel" name="telefone"  maxlength="15" onkeyup="handlePhone(event)"required>
+                        	<input type="text" id="cpf" placeholder="CPF" class="cpf" name="cpf" onkeyup="handleCPF(event)" required>
+                        	
+                        	<div class="field">
+                        		<button class="firstNext next" type="button">Próximo</button>
+                        	</div>
+            			</div>
+            			
+            			<div class="page">
+            				<div class="title titulo-perfil"> Leitura Atual </div>
+            				<div class="leitura-atual">
+            					<div id="livro-atual">
+            						<label for="genero" class="label"> Qual livro você está lendo agora ?</label>
+                              		<input type="text" id="livro" name="livroAtual" placeholder="Nome do livro">
+                             		<label for="pagina" class="label"> Em qual página você está?</label>
+                              		<input type="number" id="pagina" name="numeroPagina" placeholder="Página">
+            					</div>
+            					
+            					<div class="opcoes">
+            						<input type="checkbox" id="checar" onclick="leituraAtual()"><small> Não estou lendo nada no momento </small> 
+            					</div>
+            					
+            					<div id="pergunta-desbloqueio">
+            						<label for="genero" class="label"> Qual livro você pretende ler agora ?</label>
+                              		<input type="text" id="livro-futuro" name="livroLido" placeholder="Nome do livro">
+            					</div>
+            				</div>
+            				<div class="field btns">
+            					<button class="prev-1 prev"  type="button">Anterior</button>
+                           		<button class="next-1 next"  type="button">Próximo</button>
+            				</div>
+            			</div>
+            			
+            			<div class="page">
+            				<div class="title"> Gênero do Livro </div> <br>
+            				<label for="generos" class="label"> Qual é o gênero do seu livro atual?</label>
+            				
+            				<div class="opcoes">
+            					<select id="generos" name="genero" onchange="updateImage()">
+            						  <option value="genero"> Gênero </option>
+		                              <option value="aventura"> Aventura </option>
+		                              <option value="autoajuda"> Auto Ajuda </option>
+		                              <option value="biografia"> Biografia </option>
+		                              <option value="conto"> Conto </option>
+		                              <option value="didatico"> Didático/Educacional </option>
+		                              <option value="drama"> Drama </option>
+		                              <option value="ficcao"> Ficção </option>
+		                              <option value="fantasia"> Fantasia </option>
+		                              <option value="poema"> Poema / Poesia </option>
+		                              <option value="policial"> Policial </option>
+		                              <option value="romance"> Romance </option>
+		                              <option value="suspense"> Suspense </option>
+		                              <option value="terror"> Terror </option>
+		                              <option value="outros"> Outros </option>
+            					</select>
+            				</div>
+            					
+            					<div class="field btns">
+	            					<button class="prev-2 prev" type="button">Anterior</button>
+	                           		<button class="next-2 next" type="button">Próximo</button>
+            					</div>
+            				
+            				</div>
+            				
+            			   <div class="page">
+            					<div class="title">Detalhes do perfil </div>
+							<table id="dtBasicExample" cellspacing="0">
+								<thead>
+									<tr>
+										<th>Nome</th>
+										<th>CPF</th>
+										<th>Telefone</th>
+										<th>Numero Páginas</th>
+										
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td th:text="${userNome}"></td>
+										<td th:text="${userCpf}"></td>
+										<td th:text="${userTel}"></td>
+										<td th:text="${userNumeroPaginas}"></td>
+										
+										
+										
+									</tr>
+								</tbody>
+							</table>
+
+							<div class="field btns">
+	            					<button class="prev-3 prev"  type="button">Anterior</button>
+	                          		<button class="submit" type="submit"> Confirmar </button>
+            					</div>
+            					
+		            		</div>
+            		</form>		
+            			</div>
+            		
+            	</div>
+            </div>
+ 		</div>
+ 	
+ 	
+ 	 <div id="modal-conquista" class="modal-container-cometa">
+         <div class="modalpopup">
+            <div class="topo-form">
+               <h1> Desbloqueio de Conquista: Cadastro no Livronauta  </h1>
+            </div>
+            <div>
+               <img src="/img/cometas/nova-conquista-cadastro.png">
+            </div>
+            <div class="btn-ok">
+               <a href="#" class="ok" onclick="cometa()"> OK </a>
+            </div>
+         </div>
+      </div>
+    
+  
+      
+      
+      
+      
+	<script src="/js/script-leitura.js"></script>
+   	<script src="/js/script-perfil.js"></script>
+   	<script src="/js/script-robo.js"></script>
+   	<script src="/js/validacao.js"></script>
+   	<script src="/js/script-guia.js"></script>
+
+
+
+</body>
+</html>
