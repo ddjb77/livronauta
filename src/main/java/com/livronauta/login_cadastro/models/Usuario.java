@@ -72,6 +72,11 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LivrosLidos> livrosLidos = new ArrayList<>();
     
+    
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Emprestimos> emprestimos = new ArrayList<>();
+    
+    
     public void setInfoUsuario(InfoUsuario infoUsuario) {
         if (infoUsuario == null) {
             if (this.infoUsuario != null) {
@@ -83,6 +88,12 @@ public class Usuario {
         this.infoUsuario = infoUsuario;
     }
     
+    
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProximasLeituras> proximasLeituras = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ListaDesejos> listaDesejos = new ArrayList<>();
     
 	@ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;

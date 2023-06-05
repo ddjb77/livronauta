@@ -1,6 +1,7 @@
 package com.livronauta.login_cadastro.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -8,7 +9,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -61,6 +64,31 @@ public class LivrosLidosController {
 		return "formlidos";
 	}
 	
+	
+	
+	
+	@PostMapping("/apagar-lidos/{id}")
+	@Transactional
+	@PreAuthorize("hasRole('ROLE_USER')")
+	public String deletarLivroLido(@PathVariable("id") Long Id) {
+	    // Verificar se o livro lido existe no repositório
+	    Optional<LivrosLidos> livroLidoOptional = livrosLidosRepository.findById(Id);
+	    
+	    if (livroLidoOptional.isPresent()) {
+	        LivrosLidos livroLido = livroLidoOptional.get();
+	        
+	        // Deletar o livro lido do repositório
+	        livrosLidosRepository.delete(livroLido);
+	        
+	        return "redirect:/livros-lidos";
+	    }
+	    
+	    // Retornar uma mensagem de erro, redirecionar para uma página de erro, etc.
+	    return "error";
+	}
+	
+	
+	
 	@PostMapping("/save-livro-lido")
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_USER')")
@@ -69,7 +97,7 @@ public class LivrosLidosController {
 	                              @RequestParam(name = "autor", required = true) String autor,
 	                              @RequestParam(name = "genero", required = true) String genero,
 	                              @RequestParam(name = "ano", required = true) int ano,
-	                              @RequestParam(name = "avaliacao", required = true) String avaliacao,
+	                              @RequestParam(name = "avaliacao", required = true) int avaliacao,
 	                              Authentication authentication) {
 
 	    // Obter o usuário autenticado
@@ -100,8 +128,7 @@ public class LivrosLidosController {
 	        return "redirect:/livros-lidos";
 	    }
 
-	    // Tratar o caso em que o usuário não está autenticado
-	    // Retornar uma mensagem de erro, redirecionar para a página de login, etc.
+
 	    return "error";
 	}
 }

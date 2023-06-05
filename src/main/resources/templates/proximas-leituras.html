@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="https:www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org/">
 <head>
 <meta charset="UTF-8">
-<title> Livros Lidos </title>
-<link rel="stylesheet" href="/css/criar-perfil.css">
-<link rel="stylesheet" th:href=@{css/style.css}>
-<link rel="stylesheet" href="/css/style-conquistas.css/">
-<link rel="stylesheet" href="/css/data.table.css">
-<link rel="stylesheet" href="https:/cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
-<link rel="icon" href="/img/icone-astronauta.png">
+<title> Próximas Leituras </title>
+<link rel="stylesheet" th:href="@{css/style.css}">
+<link rel="stylesheet" th:href="@{css/data.table.css}">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css}">
+<link rel="icon" th:href="@{img/icone-astronauta.png}">
 
 </head>
 <body onload="novaFrase()">
 	
-	
-<header>
+	<header>
     <input type="checkbox" id="check">
     <label for="check">
       <i class="fas fa-bars fa-2x menu"></i>
@@ -63,6 +60,7 @@
             </div>
         </div>
         
+       
       <nav>
         <ul>
             <li id="logo"> <a th:href="@{/}"> <img th:src=@{img/logo-livronauta.png} class="logo"> </a>  </li>
@@ -83,70 +81,76 @@
         </nav>
   </header>
 	
-	 <section id="banner">
+  
+	<section id="banner">
         <div class="banner">
             <div class="imagem-banner">
-                 <img src="/img/inicio-cadastro-leitura.png" class="imagem-astronauta">
+                <img th:src=@{img/icone-cadastro-proximos.png} class="imagem-astronauta">
             </div>
             <div class="texto">
-                <p> Cadastre seus livros lidos <br> durante o ano </p>
+                <p> Cadastre suas próximas <br> leituras </p>
                 <div class="botao">
-                    <a href="/lidos" class="cadastro">  Cadastre aqui  </a> 
+                    <a href="/proximas" class="cadastro">  Cadastre aqui  </a> 
                 </div>
             </div>
         </div>
     </section>
 	
 	
- <section id="tabela">
-        <h1> Lista de livros lidos </h1>
+<section id="tabela">
+        <h1> Próximas Leituras </h1>
         <div class="tabela">
-            <table>
-    <thead>
-        <tr>
-            <th> Livro </th>
-            <th> Autor </th>
-            <th> Gênero </th>
-            <th> Ano lido </th>
-            <th> Sua Opinião </th>
-            <th> Editar </th>
-            <th> Excluir </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="livro : ${livrosLidos}">
-            <td th:text="${livro.livro}"></td>
-            <td th:text="${livro.autor}"></td>
-            <td th:text="${livro.genero}"></td>
-            <td th:text="${livro.ano}"></td>
-            <td th:text="${livro.avaliacao}"></td>
-            <td>
-                <a th:href="@{'updlidos/' + ${livro.id}}" title="Editar">
-                    <i class="far fa-edit icone-tabela"></i>
-                </a>
-            </td>
-            <td>
-                <form th:action="@{'apagar-lidos/' + ${livro.id}}" method="post">
-                    <button type="submit" value="" class="btn-acoes" title="Excluir">
-                        <i class="fas fa-trash icone-tabela"></i>
-                    </button>
-                </form>
-            </td>
-        </tr>
-    </tbody>
-</table>
+            <table id="dtBasicExample" cellspacing="0">
+            <thead>
+                <tr>
+                    <th> Livro </th>
+                    <th> Autor </th>
+                    <th> Gênero </th>
+                    <th> Editar </th>
+                    <th> Excluir </th>
+                </tr>
+                </thead>
+                
+                <tbody>
 
+                <tr th:each="prox : ${proximasLeituras}">
+                    <td th:text="${prox.livro}"> </td>
+                    <td th:text="${prox.autor}"></td>
+                    <td th:text="${prox.genero}"> </td>
+                
+                    
+                <td>
+						<a th:href="@{'upd/' + ${prox.id}}" title="Editar">
+	
+		                  	<i class="fas fa-edit icone-tabela">  </i>
+		                 </a>
+		           
+					
+					</td>
+
+
+					<td>
+						<form th:action="@{'apagar/' + ${prox.id}}" method=post>
+		       
+		                  <button type="submit" value="" class="btn-acoes" title="Excluir">
+		                  	<i class="fas fa-trash icone-tabela">  </i>
+		                  </button>
+		           
+						</form>
+					</td>
+						                   
+               </tr>
+              </tbody>
+            </table>
         </div>
     </section>
-
-
+    
 
     <footer>
-        <img src="/img/logo-livronauta.png" class="logo-rodape">
+        <img th:src=@{img/logo-livronauta.png} class="logo-rodape">
     </footer>
     
-    
-    <section id="robo">
+     <section id="robo">
         <div class="robo">
             
                 <div class="balao">
@@ -154,18 +158,21 @@
                    
                 </div>
             </div>    
-            <img id="robo-img" src="/img/robo.gif" class="img-robo">
+            <img id="robo-img" th:src=@{img/robo.gif} class="img-robo" onclick=novaFrase()>
             <div id="fechar"> X </div> 
         </div>
     </section>
     
-   
-
-   	<script th:src="@{js/script-robo.js}"></script>
-    <script src="/datatable/jquery-3.5.1.min.js"></script>
-	<script src="/datatable/datatable.js"></script>
-	<script src="/datatable/popper.min.js"></script>
-	<script src="/datatable/dataTables.min.js"></script>
+    
+    
+	
+    <script th:src=@{js/script-robo.js}></script>
+    <script th:src=@{datatable/jquery-3.5.1.min.js}></script>
+    <script th:src=@{datatable/datatable.js}></script>
+    <script th:src=@{datatable/popper.min.js}></script>
+    <script th:src=@{datatable/dataTables.min.js}></script>
+    
+    
 
 
 </body>

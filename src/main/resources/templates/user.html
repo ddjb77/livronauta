@@ -4,13 +4,13 @@
 <head>
 <meta charset="UTF-8">
 <title> Página inicial </title>
-<link rel="stylesheet" href="/css/criar-perfil.css">
+<link rel="stylesheet" th:href="@{/css/criar-perfil.css}">
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/style-conquistas.css/">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
-<link rel="icon" href="/img/icone-astronauta.png">
+<link rel="icon" th:href="@{/img/icone-astronauta.png}">
 </head>
-<body>
+<body onload="novaFrase()">
 <header>
     <input type="checkbox" id="check">
     <label for="check">
@@ -40,7 +40,7 @@
                     <img src="/img/star-i.png"> 
                 </div>
                 <div class="item">
-                   <span id="estrelas"> 0 </span>
+                   <span id="estrelas" th:text="${listaDesejos}"> 0 </span>
                 </div>
             </div>
 
@@ -49,7 +49,7 @@
                     <img src="/img/livro-de-capa-preta-fechado.png" width="20px" > 
                 </div>
                 <div class="item">
-                   <span id="lidos"> 0 </span>
+                   <span id="lidos" th:text="${livrosLidos}"> 0 </span>
                 </div>
             </div>
 
@@ -60,20 +60,20 @@
             </div>
         </div>
         
-      <nav>
+     <nav>
         <ul>
-        	
-        	
-            <li id="logo"><img src="/img/logo-livronauta.png" class="logo"></li>
-            <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
-            <li> <i class="fas fa-home"></i><a href="/"> Home </a> </li>
-            <li> <i class="fas fa-book-reader"></i><a href="{/livros-lidos}"> Livros lidos  </a> </li>
-			<li> <i class="fas fa-book"></i> <a href="{/proximas-leituras}"> Próximas leituras </a> </li>
-			<li> <i class="far fa-bookmark"></i> <a href="{/lista-desejos}"> Lista de desejos  </a> </li>
-			<li> <i class="fas fa-book-open"></i> <a href="{/emprestados}"> Emprestados </a> </li>
-			<li> <i class="fas fa-meteor"></i> <a href="{/conquistas}"> Conquistas </a> </li>
-			<li> <i class="fas fa-bullhorn"></i> <a href="{/guia}"> Guia das Galáxias </a> </li>
-			<li> <i class="fas fa-sign-out-alt"></i> <a href="{/logout}"> Sair </a> </li>
+            <li id="logo"> <a th:href="@{/}"> <img th:src=@{/img/logo-livronauta.png} class="logo"> </a>  </li>
+                        <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
+            
+             <li><i class="fas fa-home"></i><a th:href="@{/}"> Home </a> </li>
+            <li><i class="fas fa-book-reader"></i><a th:href="@{/livros-lidos}"> Livros lidos  </a> </li>
+			<li> <i class="fas fa-book"></i> <a th:href="@{/proximas-leituras}"> Próximas leituras </a> </li>
+			<li><i class="far fa-bookmark"></i> <a th:href="@{/lista-desejos}"> Lista de desejos  </a> </li>
+			<li> <i class="fas fa-book-open"></i> <a th:href="@{/emprestados}"> Emprestados </a> </li>
+			<li> <i class="fas fa-meteor"></i> <a th:href="@{/conquistas}"> Conquistas </a> </li>
+			<li> <i class="fas fa-bullhorn"></i> <a th:href="@{/guia}"> Guia das Galáxias </a> </li>
+			<br>
+			<li> <i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}"> Sair </a> </li>
 			
 
         </ul>
@@ -106,7 +106,7 @@
             </div>
 
             <div class="proximos">
-              <a href="proximas-leituras"> <img src="/img/icone-proximo.png" class="icone" alt="desenho de um astronauta em um foguete"> </a> 
+              <a href="/proximas-leituras"> <img src="/img/icone-proximo.png" class="icone" alt="desenho de um astronauta em um foguete"> </a> 
                 <p> Liste suas próximas leituras </p>
             </div>
            
@@ -135,7 +135,7 @@
                    
                 </div>
             </div>    
-            <img id="robo-img" src="/img/robo.gif" class="img-robo" onclick="novaFrase()">
+            <img id="robo-img" src="/img/robo.gif" class="img-robo">
             <div id="fechar"> X </div> 
         </div>
     </section>
@@ -144,7 +144,7 @@
    
     
     <!-- ---------  MODAL BEM VINDO -------------- -->
-    <div id="modal-user" class="modal-container" th:if="${user.infoUsuario == null}">
+    <div id="modal-user" class="modal-container" th:if="${cadastrado}">
          <div class="modalperfil">
              <div class="topo-form">
                  <h1>  Bem vindo ao livronauta  </h1>
@@ -201,7 +201,7 @@
             	</div>
             	
             	<div class="form-outer" >
-            		<form method="post" th:action="@{/save-info}" th:object="${user.infoUsuario}">
+            		<form method="post" th:action="@{/save-info}">
             		
             			<div class="page slide-page">
             				<div class="title titulo-perfil"> Dados Pessoais </div>
@@ -222,14 +222,7 @@
                               		<input type="text" id="livro" name="livroAtual" placeholder="Nome do livro">
                              		<label for="pagina" class="label"> Em qual página você está?</label>
                               		<input type="number" id="pagina" name="numeroPagina" placeholder="Página">
-            					</div>
-            					
-            					<div class="opcoes">
-            						<input type="checkbox" id="checar" onclick="leituraAtual()"><small> Não estou lendo nada no momento </small> 
-            					</div>
-            					
-            					<div id="pergunta-desbloqueio">
-            						<label for="genero" class="label"> Qual livro você pretende ler agora ?</label>
+                              		<label for="genero" class="label"> Qual livro você pretende ler agora ?</label>
                               		<input type="text" id="livro-futuro" name="livroLido" placeholder="Nome do livro">
             					</div>
             				</div>
@@ -244,7 +237,7 @@
             				<label for="generos" class="label"> Qual é o gênero do seu livro atual?</label>
             				
             				<div class="opcoes">
-            					<select id="generos" name="genero" onchange="updateImage()">
+            					<select id="generos" name="genero">
             						  <option value="genero"> Gênero </option>
 		                              <option value="aventura"> Aventura </option>
 		                              <option value="autoajuda"> Auto Ajuda </option>
@@ -325,15 +318,73 @@
     
   
       
+      <script>
       
-      
-      
-	<script src="/js/script-leitura.js"></script>
-   	<script src="/js/script-perfil.js"></script>
-   	<script src="/js/script-robo.js"></script>
-   	<script src="/js/validacao.js"></script>
-   	<script src="/js/script-guia.js"></script>
+      function updateImage(genero) {
+          var imagePath = "/img/genero-livros/";
 
+          // Verifique a opção selecionada e defina o caminho da imagem correspondente
+          switch (genero) {
+            case "aventura":
+              imagePath += "icone-livros-aventura.png";
+              break;
+            case "autoajuda":
+              imagePath += "icone-livros-autoajuda.png";
+              break;
+            case "biografia":
+              imagePath += "icone-livros-biografia.png";
+              break;
+            case "conto":
+              imagePath += "icone-livros-conto.png";
+              break;
+            case "didatico":
+              imagePath += "icone-livros-didatico.png";
+              break;
+            case "drama":
+              imagePath += "icone-livros-drama.png";
+              break;
+            case "ficcao":
+              imagePath += "icone-livros-ficcao.png";
+              break;
+            case "fantasia":
+              imagePath += "icone-livros-fantasia.png";
+              break;
+            case "poema":
+              imagePath += "icone-livros-poema.png";
+              break;
+            case "policial":
+              imagePath += "icone-livros-policial.png";
+              break;
+            case "romance":
+              imagePath += "icone-livros-romance.png";
+              break;
+            case "suspense":
+              imagePath += "icone-livros-suspense.png";
+              break;
+            case "terror":
+              imagePath += "icone-livros-terror.png";
+              break;
+            default:
+              imagePath += "icone-livros-outros.png";
+              break;
+          }
+			
+          var imagePlaceholder = document.getElementById("imagePlaceholder");
+          imagePlaceholder.src = imagePath;
+          
+        }
+      </script>
+      <script>
+      //recupera o genero do livro adicionado no banco de dados pelo usuario//
+      var userGenero = "[[${userGenero}]]";
+        updateImage(userGenero);
+    </script>
+    <script th:src="@{/js/script.js}"></script>
+	<script th:src="@{/js/script-robo.js}"></script>
+	<!-- <script th:src="@{/js/script-leitura.js}"></script> -->
+    <!--  <script th:src="@{/js/script-perfil.js}"></script>--> 
+  	<script th:src="@{/js/validacao.js}"></script>
+   <!--<script src="/js/script-guia.js"></script> -->
 
 
 </body>

@@ -53,7 +53,7 @@ function email() {
 function senha() {
   var img = document.querySelector(".imagem-login");
   img.style.backgroundAttachment = "fixed"
-  //var inputSenha = document.querySelector("input[type='password']").value;
+  inputSenha = document.querySelector("input[type='password']").value;
 
     img.setAttribute('src','img/botao-senha.png');
 

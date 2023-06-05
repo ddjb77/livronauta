@@ -21,7 +21,7 @@
         <ul>
                     <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
         
-            <li id="logo"> <a href="{/}"> <img src="{img/logo-livronauta.png}" class="logo"> </a>  </li>
+            <li id="logo"> <a href="{/}"> <img src="/img/logo-livronauta.png" class="logo"> </a>  </li>
             
              <li><i class="fas fa-home"></i><a href="{/}"> Home </a> </li>
             <li><i class="fas fa-book-reader"></i><a href="{/livros-lidos}"> Livros lidos  </a> </li>
@@ -41,7 +41,7 @@
 	 <section id="banner">
         <div class="banner">
             <div class="imagem-banner">
-                <img th:src=@{img/icone-cadastrar-lidos.png} class="imagem-astronauta">
+                <img src="/img/icone-cadastrar-lidos.png" class="imagem-astronauta">
             </div>
             <div class="texto">
                 <p> Cadastre seus livros lidos <br> durante o ano </p>
@@ -85,9 +85,16 @@
 						required> <input type="text" name="autor"
 						placeholder="Autor" required> <input type="text"
 						name="genero" placeholder="Gênero" required> <input
-						type="number" name="ano" placeholder="Ano que foi lido" required>
-					<input type="text" name="avaliacao" placeholder="Sua Opinião"
-						required>
+						type="number" name="ano" placeholder="Ano que foi lido" required> 
+				<!--	 <input type="text" name="avaliacao" placeholder="Sua Opinião"
+						required>-->
+					<div class="avaliacao">
+						<label for="avaliacao">Avaliação: <span id="rangeValue">0</span></label> 
+						<Input class="range" type="range" name="avaliacao" value="0"
+							min="0" max="10" onChange="rangeSlide(this.value)"
+							onmousemove="rangeSlide(this.value)"></Input>
+					</div>
+
 
 					<div class="btn">
 						<button type="submit" class="salvar">Salvar</button>
@@ -108,6 +115,10 @@
         <img src="/img/logo-livronauta.png" class="logo-rodape">
     </footer>
 
-
+<script type="text/javascript">
+        function rangeSlide(value) {
+            document.getElementById('rangeValue').innerHTML = value;
+        }
+    </script>
 </body>
 </html>

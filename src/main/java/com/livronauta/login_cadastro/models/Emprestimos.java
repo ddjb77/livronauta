@@ -15,17 +15,43 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name="livros_lidos")
-public class LivrosLidos {
+@Table(name="emprestimos")
+public class Emprestimos {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Long id;
+	
+	@Override
+	public String toString() {
+		return "Emprestimos [id=" + id + ", livro=" + livro + ", autor=" + autor + ", genero=" + genero + ", pessoa="
+				+ pessoa + ", data=" + data + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(autor, data, genero, id, livro, pessoa);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Emprestimos other = (Emprestimos) obj;
+		return Objects.equals(autor, other.autor) && Objects.equals(data, other.data)
+				&& Objects.equals(genero, other.genero) && Objects.equals(id, other.id)
+				&& Objects.equals(livro, other.livro) && Objects.equals(pessoa, other.pessoa);
+	}
+	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
@@ -40,7 +66,8 @@ public class LivrosLidos {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-	
+    
+    
 	public Long getId() {
 		return id;
 	}
@@ -73,56 +100,31 @@ public class LivrosLidos {
 		this.genero = genero;
 	}
 
-	public int getAno() {
-		return ano;
+	public String getPessoa() {
+		return pessoa;
 	}
 
-	public void setAno(int ano) {
-		this.ano = ano;
+	public void setPessoa(String pessoa) {
+		this.pessoa = pessoa;
 	}
 
-	public int getAvaliacao() {
-		return avaliacao;
+	public String getData() {
+		return data;
 	}
 
-	public void setAvaliacao(int avaliacao) {
-		this.avaliacao = avaliacao;
+	public void setData(String data) {
+		this.data = data;
 	}
-
+	
 	private String livro;
 	
-	@Override
-	public String toString() {
-		return "LivrosLidos [id=" + id + ", livro=" + livro + ", autor=" + autor + ", genero="
-				+ genero + ", ano=" + ano + ", avaliacao=" + avaliacao + "]";
-	}
-
 	private String autor;
 	
-	@Override
-	public int hashCode() {
-		return Objects.hash(ano, autor, avaliacao, genero, id, livro);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		LivrosLidos other = (LivrosLidos) obj;
-		return ano == other.ano && Objects.equals(autor, other.autor) && Objects.equals(avaliacao, other.avaliacao)
-				&& Objects.equals(genero, other.genero) && Objects.equals(id, other.id)
-				&& Objects.equals(livro, other.livro);
-	}
-
 	private String genero;
 	
-	private int ano;
+	private String pessoa;
 	
-	private int avaliacao;
+	private String data;
 	
 	
 }

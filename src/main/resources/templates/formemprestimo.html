@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title> Cadastro de empréstimos </title>
+<link rel="stylesheet" th:href="@{css/style.css}">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css}">
+<link rel="icon" th:href="@{img/icone-astronauta.png}">
+</head>
+<body>
+	
+	
+	<header>
+    <input type="checkbox" id="check">
+    <label for="check">
+      <i class="fas fa-bars fa-2x menu"></i>
+    </label>
+     <nav>
+        <ul>
+            <li id="logo"> <a th:href="@{/}"> <img th:src=@{img/logo-livronauta.png} class="logo"> </a>  </li>
+                        <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
+            
+             <li><i class="fas fa-home"></i><a th:href="@{/}"> Home </a> </li>
+            <li><i class="fas fa-book-reader"></i><a th:href="@{/livros-lidos}"> Livros lidos  </a> </li>
+			<li> <i class="fas fa-book"></i> <a th:href="@{/proximas-leituras}"> Próximas leituras </a> </li>
+			<li><i class="far fa-bookmark"></i> <a th:href="@{/lista-desejos}"> Lista de desejos  </a> </li>
+			<li> <i class="fas fa-book-open"></i> <a th:href="@{/emprestados}"> Emprestados </a> </li>
+			<li> <i class="fas fa-meteor"></i> <a th:href="@{/conquistas}"> Conquistas </a> </li>
+			<li> <i class="fas fa-bullhorn"></i> <a th:href="@{/guia}"> Guia das Galáxias </a> </li>
+			<br>
+			<li> <i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}"> Sair </a> </li>
+			
+
+        </ul>
+        </nav>
+  </header>
+	
+	<section id="banner">
+        <div class="banner">
+            <div class="imagem-banner">
+                <img th:src=@{img/icone-cadastrar-emprestimo.png} class="imagem-astronauta">
+            </div>
+            <div class="texto">
+                <p> Cadastre os livros <br> que você deseja comprar </p>
+                <div class="botao">
+                    <a href="#" class="cadastro">  Cadastre aqui  </a> 
+                </div>
+            </div>
+        </div>
+    </section>
+	
+	
+	 <section id="tabela">
+        <h1> Liste seus livros emprestados </h1>
+        <div class="tabela">
+            <table>
+                <tr>
+                    <th> Livro </th>
+                    <th> Autor </th>
+                    <th> Gênero </th>
+                    <th> Pessoa </th>
+                    <th> Data </th>
+                    <th> Editar </th>
+                    <th> Excluir </th>
+                </tr>
+
+               
+  
+     
+            </table>
+        </div>
+    </section>
+    
+    
+    
+       <div id="modal" class="modal-container">
+        <div class="modalpopup">
+            <div class="topo-form">
+                <h1> Liste seus livros emprestados </h1>
+                 <a th:href="@{/emprestados}" class="fechar"> X </a>
+            </div>
+           <div class="formulario">
+                    <form action="/salvar-emprestados"  method="post">
+                        <input type="text" name="livro"  placeholder="Nome do Livro" required>
+                        <input type="text" name="autor"  placeholder=" Autor" required>
+                        <input type="text" name="genero" placeholder="Gênero" required>
+                        <input type="text" name="pessoa"  placeholder="Para quem foi emprestado" required>
+                        <label for="data">Data do Empréstimo:</label>
+        				<input type="text" id="data" name="data" placeholder="Data do Empréstimo" required>
+                        
+                           
+                        <div class="btn">
+                            <button type="submit" class="salvar">
+                              Salvar 
+                            </button>
+                            
+                            
+                           <a th:href="@{/emprestados}" class="cancelar"> Cancelar </a> 
+                        </div>
+                       
+                    </form>
+                </div>
+        </div>
+    </div>
+    
+  
+
+    <footer>
+        <img th:src=@{img/logo-livronauta.png} class="logo-rodape">
+    </footer>
+
+	
+	
+	
+
+
+</body>
+</html>

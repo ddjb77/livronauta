@@ -12,20 +12,26 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+@Entity
+@Table(name="proximas_leituras")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Entity
-@Table(name="livros_lidos")
-public class LivrosLidos {
-
+public class ProximasLeituras {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
@@ -40,15 +46,6 @@ public class LivrosLidos {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getLivro() {
 		return livro;
 	}
@@ -73,35 +70,15 @@ public class LivrosLidos {
 		this.genero = genero;
 	}
 
-	public int getAno() {
-		return ano;
-	}
-
-	public void setAno(int ano) {
-		this.ano = ano;
-	}
-
-	public int getAvaliacao() {
-		return avaliacao;
-	}
-
-	public void setAvaliacao(int avaliacao) {
-		this.avaliacao = avaliacao;
-	}
-
 	private String livro;
 	
-	@Override
-	public String toString() {
-		return "LivrosLidos [id=" + id + ", livro=" + livro + ", autor=" + autor + ", genero="
-				+ genero + ", ano=" + ano + ", avaliacao=" + avaliacao + "]";
-	}
-
 	private String autor;
 	
+	private String genero;
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(ano, autor, avaliacao, genero, id, livro);
+		return Objects.hash(autor, genero, id, livro);
 	}
 
 	@Override
@@ -112,17 +89,14 @@ public class LivrosLidos {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LivrosLidos other = (LivrosLidos) obj;
-		return ano == other.ano && Objects.equals(autor, other.autor) && Objects.equals(avaliacao, other.avaliacao)
-				&& Objects.equals(genero, other.genero) && Objects.equals(id, other.id)
-				&& Objects.equals(livro, other.livro);
+		ProximasLeituras other = (ProximasLeituras) obj;
+		return Objects.equals(autor, other.autor) && Objects.equals(genero, other.genero)
+				&& Objects.equals(id, other.id) && Objects.equals(livro, other.livro);
 	}
 
-	private String genero;
-	
-	private int ano;
-	
-	private int avaliacao;
-	
+	@Override
+	public String toString() {
+		return "ProximasLeituras [id=" + id + ", livro=" + livro + ", autor=" + autor + ", genero=" + genero + "]";
+	}
 	
 }

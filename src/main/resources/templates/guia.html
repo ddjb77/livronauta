@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title> Guia das Galáxias  </title>
+<link rel="stylesheet" th:href="@{css/style.css}">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css}">
+<link rel="icon" th:href="@{img/icone-astronauta.png}">
+
+
+</head>
+<body>
+	
+	
+<header>
+    <input type="checkbox" id="check">
+    <label for="check">
+      <i class="fas fa-bars fa-2x menu"></i>
+    </label>
+    	<div class="barra">
+              <div class="item-geral">
+                <div class="item">
+                    <span id="nivel">Nível 1 </span>
+                </div>
+                <div class="img-item">
+                    <img src="img/nv1.png">
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="img/expbars.png"> 
+                </div>
+                <div class="item">
+                   <span id="exp"> 0 / 100</span>
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="img/star-i.png"> 
+                </div>
+                <div class="item">
+                   <span id="estrelas"> 0 </span>
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="img/livro-de-capa-preta-fechado.png" width="20px" > 
+                </div>
+                <div class="item">
+                   <span id="lidos"> 0 </span>
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <span> <a href="#"> <img src="img/news-b2.png"> </a></span>
+                </div>
+            </div>
+        </div>
+        
+      <nav>
+        <ul>
+            <li id="logo"> <a th:href="@{/}"> <img th:src=@{img/logo-livronauta.png} class="logo"> </a>  </li>
+            
+             <li><i class="fas fa-home"></i><a th:href="@{/}"> Home </a> </li>
+            <li><i class="fas fa-book-reader"></i><a th:href="@{/livros-lidos}"> Livros lidos  </a> </li>
+			<li> <i class="fas fa-book"></i> <a th:href="@{/proximas-leituras}"> Próximas leituras </a> </li>
+			<li><i class="far fa-bookmark"></i> <a th:href="@{/lista-desejos}"> Lista de desejos  </a> </li>
+			<li> <i class="fas fa-book-open"></i> <a th:href="@{/emprestados}"> Emprestados </a> </li>
+			<li> <i class="fas fa-meteor"></i> <a th:href="@{/conquistas}"> Conquistas </a> </li>
+			<li> <i class="fas fa-bullhorn"></i> <a th:href="@{/guia}"> Guia das Galáxias </a> </li>
+			<br>
+			<li> <i class="fas fa-sign-out-alt"></i> <a th:href="@{/inicio}"> Sair </a> </li>
+			
+
+        </ul>
+        </nav>
+  </header>
+	
+   <section id="intro-guia">
+            <h1> Escolha um capítulo do guia </h1>
+        <div class="escolha-guia">
+            <div class="anuncio">
+                <a th:href="@{/anuncios}">
+                    <div class="img-anuncio">
+                        <img th:src="@{img/astronauta-anuncio.png}" alt="Anúncios" >
+                    </div>
+                    <div class="texto-guia">
+                        <h2> Anúncios  </h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="forum">
+             <a th:href="@{/forum}">
+                <div class="img-forum">
+                    <img th:src="@{img/mesa-2.png}" alt="Fórum">
+                </div>
+                <div class="texto-guia">
+                    <h2> Fórum </h2>
+                </div>
+            </div>
+            </a>
+        </div>
+    </section>
+
+
+    <div id="modal-guia" class="modal-container-guia">
+        <div class="modalpopup">
+            <div class="topo-form">
+                <h1> Bem vindo ao Guia das Galáxias  </h1>
+            </div>
+            <div class="guia">
+                <img src="img/bem-vindo-guia.png" width="45%" class="mudar-img">
+                <h1 class="mudar-txt">   Bem vindo ao Guia das Galáxias  </h1>
+                <div class="pular-intro">
+                    <a href="#" class="btn-guia" onclick="pular()"> Pular Introdução </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+       
+   
+
+    <footer>
+        <img src="img/logo-livronauta.png" class="logo-rodape">
+    </footer>
+
+    <script th:src="@{js/script-guia.js}"></script>
+    
+</body>
+</html>

@@ -21,6 +21,8 @@ import com.livronauta.login_cadastro.config.CustomUserDetails;
 import com.livronauta.login_cadastro.models.InfoUsuario;
 import com.livronauta.login_cadastro.models.Usuario;
 import com.livronauta.login_cadastro.repository.InfoUsuarioRepository;
+import com.livronauta.login_cadastro.repository.ListaDesejosRepository;
+import com.livronauta.login_cadastro.repository.LivrosLidosRepository;
 import com.livronauta.login_cadastro.repository.UsuarioRepository;
 import com.livronauta.login_cadastro.service.UsuarioService;
 
@@ -40,25 +42,63 @@ public class UsuarioController {
 
 	@Autowired
 	private InfoUsuarioRepository infoUsuarioRepository;
-
-	@GetMapping("/login")
+	
+	
+	@Autowired
+	private LivrosLidosRepository livrosLidosRepository;
+	
+	@Autowired
+	private ListaDesejosRepository listaDesejosRepository;
+	
+	@GetMapping("/login-page")
 	public String getLoginPage() {
 		return "login_page";
 	}
+	
+	
+	
+	
+	@PostMapping("/login")
+	public String login(Authentication authentication, Model model) {
+	    if (authentication != null && authentication.isAuthenticated()) {
+	        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+	        Usuario usuario = userDetails.getUsuario();
 
+	        // Verificar se o usuário tem dados no sistema
+	        InfoUsuario infoUsuario = infoUsuarioRepository.findByUsuario(usuario);
+
+	        if (infoUsuario != null) {
+	            model.addAttribute("cadastrado", true);
+	        } else {
+	            model.addAttribute("cadastrado", false);
+	        }
+	        
+	        return "redirect:/user/";
+	    }
+
+	    
+	    return "login_page";
+	}
+
+	
+	
+	
+	
 	@GetMapping("/confirmacao-email")
 	public String geConfirmacaoPage() {
 		return "confirmacao-email";
 	}
 
 	@GetMapping("/register")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public String getRegisterPage(Model model) {
 		model.addAttribute("registerRequest", new Usuario());
 		return "register";
 	}
-
+	
 
 	@GetMapping("/user/{id}")
+	@Transactional
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public String userPage(Authentication authentication, @PathVariable Long id, Model model1) {
 		if (id != null) {
@@ -68,29 +108,49 @@ public class UsuarioController {
 				Usuario usuario = optionalUsuario.get();
 				// código para obter informações específicas do usuário, utilizando o objeto
 				// "usuario"
+				InfoUsuario infoUsuario = infoUsuarioRepository.findByUsuario(usuario);
+				 if (infoUsuario != null) {
+		                usuario.setInfoUsuario(infoUsuario);
+		                usuarioRepository.save(usuario);
+		            }
+	            /*usuario.setInfoUsuario(infoUsuario);
+	            usuarioRepository.save(usuario);*/
+				 //String script = "<script>updateImage('" + infoUsuario.getGenero() + "');</script>";
 				List<Usuario> usuarios = usuarioService.findAllUsuarios();
 				model1.addAttribute("usuarios", usuarios);
 				model1.addAttribute("user", usuario);
 				model1.addAttribute("userLogin", usuario.getLogin());
 			    model1.addAttribute("userNome", usuario.getNome());
+			    
+			    
+			    
+			    
+			    if (infoUsuario != null) {
+			        int quantidadeLivrosLidos = livrosLidosRepository.contarLivrosLidos(usuario);
+			        int quantidadeLista = listaDesejosRepository.contarListaDesejos(usuario);
+			        model1.addAttribute("livrosLidos", quantidadeLivrosLidos);
+			        model1.addAttribute("listaDesejos", quantidadeLista);
+			    model1.addAttribute("userLivroAtual", infoUsuario.getLivroAtual());
+			    model1.addAttribute("userNumeroPaginas", infoUsuario.getNumeroPaginas());
+			    model1.addAttribute("userGenero", infoUsuario.getGenero());
 		        model1.addAttribute("userCpf", usuario.getInfoUsuario().getCpf());
 		        model1.addAttribute("userTel", usuario.getInfoUsuario().getTelefone());
-		        model1.addAttribute("userLivroAtual", usuario.getInfoUsuario().getLivroAtual());
-		        model1.addAttribute("userNumeroPaginas", usuario.getInfoUsuario().getNumeroPaginas());
-		        model1.addAttribute("userGenero", usuario.getInfoUsuario().getGenero());
-
+		        
+		        //model1.addAttribute("script", script);
+			    }
+			    
+			    
 
 				model1.addAttribute("id", usuario.getId());
 				
 				return "user";
 			} else {
 				return "error";
-			}
-		}
+			}}
+			
 		return "error";
-	}
-	
-	
+
+		}
 
 	@GetMapping("/admin")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -112,20 +172,21 @@ public class UsuarioController {
 		// System.out.println("register request:" + usuario);
 		Usuario registeredUser = usuarioService.registrarUsuario(usuario.getNome(), usuario.getLogin(),
 				usuario.getEmail(), usuario.getPassword(), usuario.getUsername());
-		return registeredUser == null ? "error" : "redirect:/login";
+		return registeredUser == null ? "error" : "redirect:/login-page";
 	}
 	
 	@PostMapping("/save-info")
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public String salvarInformacoes(Model model,
+									
 	                                @RequestParam(name = "nome", required = true) String nome,
 	                                @RequestParam(name = "cpf", required = true) String cpf,
 	                                @RequestParam(name = "telefone", required = true) String telefone,
 	                                @RequestParam(name = "livroAtual", required = true) String livroAtual,
 	                                @RequestParam(name = "numeroPagina", required = true) int numeroPaginas,
-	                                @RequestParam(name = "genero", required = false) String genero,
-	                                @RequestParam(name = "livroLido", required = false) String livroLido,
+	                                @RequestParam(name = "genero", required = true) String genero,
+	                                @RequestParam(name = "livroLido", required = true) String livroLido,
 
 
 	                                Authentication authentication) {
@@ -140,20 +201,25 @@ public class UsuarioController {
 	        infoUsuario.setUsuario(usuarioExistente);
 	        usuarioExistente.setInfoUsuario(infoUsuario);
 	    }
-
+	    
+	   
 	    infoUsuario.setNome(nome);
 	    infoUsuario.setCpf(cpf);
 	    infoUsuario.setTelefone(telefone);
 	    infoUsuario.setLivroAtual(livroAtual);
+	    infoUsuario.setLivroLido(livroLido);
 	    infoUsuario.setGenero(genero);
 	    infoUsuario.setNumeroPaginas(numeroPaginas);
-
+	    
+	    
+	    
+	    infoUsuario.setId(usuarioExistente.getId());
 	    infoUsuarioRepository.save(infoUsuario); // Salva as informações do infoUsuario na tabela info_usuario
 
 	    model.addAttribute("userNome", infoUsuario.getNome());
 	    model.addAttribute("userTel", infoUsuario.getTelefone());
 	    model.addAttribute("userCpf", infoUsuario.getCpf());
-	    model.addAttribute("userCpf", infoUsuario.getNumeroPaginas());
+	    model.addAttribute("userNumeroPaginas", infoUsuario.getNumeroPaginas());
 
 	    return "redirect:/user/" + usuarioExistente.getId();
 	}
