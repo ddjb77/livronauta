@@ -96,6 +96,8 @@ public class UsuarioController {
 		return "register";
 	}
 	
+	
+	
 
 	@GetMapping("/user/{id}")
 	@Transactional
@@ -131,6 +133,7 @@ public class UsuarioController {
 			        model1.addAttribute("listaDesejos", quantidadeLista);
 			    model1.addAttribute("userLivroAtual", infoUsuario.getLivroAtual());
 			    model1.addAttribute("userNumeroPaginas", infoUsuario.getNumeroPaginas());
+			    model1.addAttribute("userPaginasTotais", infoUsuario.getPaginasTotais());
 			    model1.addAttribute("userGenero", infoUsuario.getGenero());
 		        model1.addAttribute("userCpf", usuario.getInfoUsuario().getCpf());
 		        model1.addAttribute("userTel", usuario.getInfoUsuario().getTelefone());
@@ -185,7 +188,7 @@ public class UsuarioController {
 	                                @RequestParam(name = "livroAtual", required = true) String livroAtual,
 	                                @RequestParam(name = "numeroPagina", required = true) int numeroPaginas,
 	                                @RequestParam(name = "genero", required = true) String genero,
-	                                @RequestParam(name = "livroLido", required = true) String livroLido,
+	                                @RequestParam(name = "paginasTotais", required = true) int paginasTotais,
 
 
 	                                Authentication authentication) {
@@ -206,7 +209,7 @@ public class UsuarioController {
 	    infoUsuario.setCpf(cpf);
 	    infoUsuario.setTelefone(telefone);
 	    infoUsuario.setLivroAtual(livroAtual);
-	    infoUsuario.setLivroLido(livroLido);
+	    infoUsuario.setPaginasTotais(paginasTotais);
 	    infoUsuario.setGenero(genero);
 	    infoUsuario.setNumeroPaginas(numeroPaginas);
 	    

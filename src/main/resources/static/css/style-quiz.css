@@ -1,0 +1,753 @@
+@font-face {
+    font-family: Logo;
+    src: url(../fonte/FreeSansBold.otf);
+}
+
+/** GERAL **/
+
+html {
+    scroll-behavior: smooth;
+  }
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #e3e3e3;
+}
+
+h1 {
+    font-family: 'Logo';
+}
+
+a {
+    text-decoration: none;
+}
+
+
+
+/*** BANNER ***/
+
+#banner {
+    background-color: #0a0233;
+    width: 100%;
+    
+}
+
+.banner {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    margin: 0 auto;
+    width: 80%;
+}
+
+#banner  p {
+    color: #fff;
+}
+
+.imagem-banner {
+    padding: 0 50px;
+     margin: 15px 10px;
+}
+
+.imagem-astronauta{
+    width: 80%;
+    
+}
+
+.texto {
+   font-family: 'Logo';
+   font-size: 2.1rem;
+   margin: 5% 0;
+  
+}
+
+
+/***  OPÇÕES ***/
+
+#escolha {
+    font-size: 1.8rem;
+    text-align: center;
+    background-color: #e3e3e3;
+    padding: 20px;
+}
+
+.escolha {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    width: 85%;
+    margin: 0 auto;
+}
+
+.lidos, .proximos, .lista, .emprestimo {
+    margin: 2px auto;
+    width: 25%;
+}
+
+.lidos p, .proximos p, .lista p, .emprestimo p {
+    font-weight: bolder;
+    font-size: 1.1rem;
+    width: 90%;
+    margin: 20px auto;
+}
+
+.icone {
+    width: 80%;
+    border-radius: 12px;
+    box-shadow: 7px 7px 7px #2d2d2e;
+}
+
+
+.lidos:hover, .proximos:hover, .lista:hover, .emprestimo:hover {
+    transition-delay: 3s;
+    
+}
+
+.escolha  p {
+    font-size: 0.6em;
+}
+
+
+
+/***** CONFIGURAÇÕES GERAIS DE TODAS AS  PÁGINAS ******/
+
+/* BOTÃO DO FORMULÁRIO  E LOGIN **/
+
+.cadastro, .entrar, .login, .cadastrar {
+    color: #0a0233;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    text-align: center;
+    background-color: #fff;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    margin: 0 auto;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+
+.cadastro:hover, .entrar:hover, .login:hover, .cadastrar:hover {
+    color: #fff;
+    border: 1px solid #fff;
+    background-color: transparent;
+}
+
+.buttons {
+   display:flex;
+   justify-content: space-between;
+}
+
+
+
+
+/* TABELA */
+
+#tabela {
+    text-align: center;
+    padding: 50px;
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 70%;
+    border-spacing: 2px;
+   
+}
+
+th, td {
+    padding: 15px;
+    width: 20%;
+}
+
+
+th {
+    background-color: #ecebeb;
+    color: #000;
+}
+
+td {
+    background-color: #f3f2f2;
+    color: #000;
+    border-top: 2px solid #e6e3e3;
+}
+
+
+/**** DATA TABLE *****/
+
+table.dataTable select {
+    border-radius: 20px;
+    background-color: #c54545;
+}
+
+
+/***** POPUP ******/
+
+
+#modal {
+    display: none;
+}
+
+#modal-sucesso {
+    display: none;
+}
+
+.modal-container{
+    width: 100vw;
+    height: 100vw;
+    position: fixed;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    animation: entrada 0.5s;
+}
+
+
+.topo-form {
+    background-color: #0a0233;
+    width: 95%;
+    height: 65px;
+    top: 0;
+    left: 0;
+    color: #fff;
+    position: absolute;
+    padding: 0 20px;
+    font-size: 0.8rem;
+}
+
+
+input[type=checkbox] {
+    cursor: pointer;
+    width: 3%;
+    left: 0;
+    height: 16px;
+    margin:  10px 0 ;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    
+  }
+
+  .leitura-atual {
+      margin: 20px -10px;
+      padding: 0 18px;
+  }
+
+
+
+@keyframes entrada {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -60px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.modalpopup {
+    background-color: #e3e3e3;
+    background-size: 100%;
+    width: 650px;
+    min-width: 100px;
+    padding: 80px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.fechar {
+    font-family:cursive;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    color: #fff;
+    background-color: #0a0233;
+    border: none;
+    cursor: pointer;
+}
+
+
+.sucesso {
+    text-align: center;
+    font-size: 0.8rem;
+    margin: 20px 0;
+}
+
+
+/*** FORMULÁRIO ***/
+
+form {
+    width: 100%;
+}
+
+input, select {
+    padding: 10px;
+    width: 94%;
+    margin: 10px;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1rem;
+}
+
+.lado-a-lado {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+select {
+    font-size: 1rem;
+    color: #7a7976;
+    flex: 2;
+    width: auto;
+}
+
+input[type="number"]{
+    flex: 2;
+
+}
+
+input::placeholder {
+    font-size: 1rem;
+}
+
+
+
+form > p {
+    color: #807b7b;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.btn {
+    text-align: center;
+    margin: 40px auto;
+    
+}
+
+textarea {
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.salvar {
+    background-color: #0b7a66;
+    padding: 15px;
+    color: #fff;
+    margin: 0 20px;
+    border-radius: 5px;
+}
+
+.cancelar {
+    background-color: #c54545;
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+}
+
+
+.ok {
+    background-color: #0b7a66;
+    padding: 15px 30px;
+    color: #fff;
+    margin:  40px 0;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.btn-ok {
+    margin: 30px 0;
+}
+
+/**** ESTRELAS ****/
+
+.avaliacao, input[type=radio]{
+    display: block;
+}
+
+.avaliacao > p {
+    margin: 0 10px;
+}
+
+.rating {
+    width: 80%;
+    font-size: 30px;
+    padding: 0;
+}
+
+.rating input {
+float: right;
+display: block;
+opacity: 0;
+left: 0;
+width: 10%;
+padding: 0;
+}
+
+.rating input,
+.rating label {
+    padding: -30px;
+    color: #aaa;
+    text-decoration: none;
+    -webkit-transition: color .4s;
+    -moz-transition: color .4s;
+    -o-transition: color .4s;
+    transition: color .4s;
+}
+
+.rating label:hover ~ label,
+.rating input:focus ~ label,
+.rating label:hover,
+.rating input[type=radio]:hover,
+.rating input[type=radio]:hover ~ a,
+.rating input[type=radio]:focus,
+.rating input[type=radio]:focus ~ a		{
+    color: orange;
+    cursor: pointer;
+}
+.rating2 {
+    direction:rtl;
+}
+.rating2 a {
+    padding: 0;
+}
+
+
+/**** ERRO ****/
+
+#erro, #inicio {
+    background-color: #0a0233;
+}
+
+.erro {
+    text-align: center;
+    margin: 0 auto;
+    margin: 50px 0;
+}
+
+.erro > h1 {
+    color: #fff;
+    font-size: 2.3rem;
+    padding: 30px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+.imagem-erro {
+    width: 25%;
+}
+
+.botao-erro{
+    margin: 10px 0;
+}
+
+.btn-erro {
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.btn-erro:hover{
+    background-color: #fff;
+    color: #0a0233;
+}
+
+
+
+
+/**** INICIO ****/
+
+nav {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: #0a0233;
+    z-index: 9999;
+    height: 46px;
+}
+
+.botoes {
+    display: inline;
+    margin:  20px;
+    float: right;
+}
+
+
+
+.login, .cadastrar {
+    line-height: normal;
+    padding: 7px 17px;
+    font-weight: 400;
+    font-size: 1rem;
+    margin: 5px;
+}
+
+.logo-inicio {
+    float: left;
+    width: 20%;
+}
+
+.diminuir-logo {
+    width: 55%;
+    margin: 15px;
+}
+
+.inicio {
+    margin: 0 auto;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.seta {
+    margin: 0 auto;
+}
+
+.setas {
+    opacity: 0.7;
+}
+
+#msg-final {
+    padding: 80px 0;
+}
+
+.img-final {
+    text-align: center;
+}
+
+.btn-final {
+    padding: 10px 80px;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.final {
+    width: 50%;
+    font-size: 1.2rem;
+    margin: -30px auto;
+}
+
+
+/**** MENSAGEM TELA DE CADASTRO *****/
+
+.msg {
+    text-align: center;
+}
+
+#mensagem {
+    color: rgb(224, 197, 138);
+    margin: 10px;
+}
+
+#conheca {
+  text-align: center;
+  margin: 50px;
+}
+
+
+.titulo {
+    text-align: center;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 60px 0 10px 0;
+}
+
+
+
+.contexto {
+    width: 80%;
+    color: #fff;
+    display: flex;
+    margin: 20px auto;
+}
+
+
+.imagem-conheca {
+    flex: 1;
+    animation: entrada .80s forwards;
+}
+
+.texto {
+    font-size: 1.5rem;
+    margin: 60px;
+    text-align: left;
+}
+
+
+#intro {
+    width: 100%;
+}
+
+
+
+/**** LOGIN ****/
+
+.img-login {
+    text-align: center;
+    margin-bottom: -200px;
+    margin-top: 50px;
+    position: relative;
+}
+
+.imagem-login {
+    max-width: 100%;
+    
+} 
+
+.imagem-cadastro {
+    max-width: 35%;
+}
+
+#login {
+    margin: 150px auto;
+    padding: 50px;
+    background-color: #0a0233;
+    width: 30%;
+    border-radius: 20px;
+}
+
+.formulario h1 {
+    color: #fff;
+    text-align: center;
+    font-size: 1.5rem;
+}
+.signed {
+    text-align: center;
+    text-decoration: none;
+    color:#fff;
+}
+
+.signed span a {
+    
+    color:rgb(196, 194, 194);
+    text-decoration: underline;
+
+}
+
+
+
+
+
+/*quiz css*/
+
+#bem-vindo-quiz {
+    text-align: center;
+}
+
+.comecar {
+    margin: 20px 0;
+}
+
+#quizsection {
+    width: 100%;
+}
+
+#modal-sair {
+    display: none;
+}
+
+
+.quiz-container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+
+
+}
+
+.resposta-campos {
+    width:50%;
+    text-align: center;
+    margin: 0 auto;
+    
+}
+
+.div-quiz{
+    text-align: center;
+    padding:20px;
+}
+#pergunta {
+    text-align: center;
+    color: #0a0233;
+}
+
+.titulo {
+    text-align: center;
+    color: #0a0233;
+}
+
+.campo-r {
+    
+    border-radius: 10px;
+    margin:15px;
+    list-style-type: none;
+    padding:1rem;
+    background-color: #0a0233;
+    border: 2px solid #0a0233;
+    color:white;
+    vertical-align:baseline;
+    cursor: pointer;
+    transition: ease-out 0.2;
+    text-align: left;
+    display: flex;
+
+}
+
+
+.campo-r:hover {
+    background-color: #e3e3e3;
+    border: 2px solid #0a0233;
+    color: #000;
+}
+
+input[type=radio]{
+    width: 10%;
+    position: inherit;
+}
+
+.txt-quiz {
+    margin: 8px 0;
+}
+
+
+#enviar, .reload{
+    color: #0a0233;
+    padding: 20px;
+    border: none;
+    cursor: pointer;
+    border-radius:10px;
+    font-weight: bold;
+    text-align:center;
+    width:8rem;
+    border: 2px solid #0a0233;
+    text-transform: uppercase;
+    
+}
+
+#enviar:hover {
+    color: #ffffff;
+    background-color: #0a0233 ;
+}
+
+
+.btn-quiz {
+    margin: 0 30px;
+    font-size: 1.1rem;
+    padding: 15px 30px;
+}

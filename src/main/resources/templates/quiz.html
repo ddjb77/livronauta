@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title> Quiz Literário </title>
+<link rel="stylesheet" th:href="@{css/style-quiz.css}">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css}">
+<link rel="icon" th:href="@{img/icone-astronauta.png}">
+
+
+</head>
+
+
+<body>
+
+<div id="modal-user" class="modal-container">
+        <div class="modalpopup">
+            <div class="topo-form">
+                <h1>  Bem vindo ao quiz  </h1>
+            </div>
+            <div id="bem-vindo-quiz">
+              <h1> Parabéns por ter finalizado a leitura</h1>
+  
+              <img th:src="@{img/quiz/icone-quiz.png}">
+  
+              <h2> Vamos testar seus conhecimentos  </h2>
+              <div class="btn-ok">
+                <a href="#" class="ok" onclick="comecar()"> Começar </a>
+               
+              </div>
+
+              <a href="#" onclick="pularQuiz()"> Pular quiz </a>
+              
+            </div>
+          </div>
+        </div>
+
+        <!-- MODAL PULAR QUIZ -->
+
+        <div id="modal-sair" class="modal-container">
+            <div class="modalpopup">
+                <div class="topo-form">
+                    <h1>  Sair do quiz   </h1>
+                </div>
+                <div id="bem-vindo-quiz">
+                  <h1> Você tem certeza que deseja sair?</h1>
+                  <h2> Se você deixar de fazer o quiz, não ganhará XPs  </h2>
+                  <div class="btn">
+                    <a href="#" class="ok" onclick="voltarQuiz()"> Voltar  </a>
+                    <a href="#" class="cancelar btn-quiz" > Sair </a>
+                   
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+    
+
+
+
+
+
+    <section id="quizsection">
+
+    <div class="quiz-container">
+        <div class="div-quiz" id="quiz">
+            <div id="imagem"> </div>
+            <div class="textos">
+                <h2 class="titulo"> Quiz "O caso dos dez negrinhos"</h2>
+                <h3 id="pergunta">Pergunta</h3>
+            </div>
+            <ul class="resposta-campos">
+                <li class="campo-r">
+                    <input type="radio" name="resposta" id="a" class="resposta">
+                    <label for="a" id="texto_a" class="txt-quiz">Resposta A</label>
+                </li>
+                <li class="campo-r">
+                    <input type="radio" name="resposta" id="b" class="resposta">
+                    <label for="b" id="texto_b" class="txt-quiz">Resposta B</label>
+                </li>
+                <li class="campo-r">
+                    <input type="radio" name="resposta" id="c" class="resposta">
+                    <label for="c" id="texto_c" class="txt-quiz">Resposta C</label>
+                </li>
+                <li class="campo-r">
+                    <input type="radio" name="resposta" id="d" class="resposta">
+                    <label for="d" id="texto_d" class="txt-quiz">Resposta D</label>
+                </li>
+                
+            </ul>
+            <button type="submit" id="enviar">Enviar</button>
+        </div>
+    </div>
+   
+</section>
+
+
+   <script th:src="@{js/script-quiz.js}"></script>
+</body>
+
+</html>

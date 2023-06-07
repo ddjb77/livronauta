@@ -57,11 +57,11 @@ public class InfoUsuario {
 	public void setLivroAtual(String livroAtual) {
 		this.livroAtual = livroAtual;
 	}
-	public String getLivroLido() {
-		return livroLido;
+	public int getPaginasTotais() {
+		return paginasTotais;
 	}
-	public void setLivroLido(String livroLido) {
-		this.livroLido = livroLido;
+	public void setPaginasTotais(int paginasTotais) {
+		this.paginasTotais = paginasTotais;
 	}
 	public int getNumeroPaginas() {
 		return numeroPaginas;
@@ -81,19 +81,19 @@ public class InfoUsuario {
 	@Column(name = "telefone")
     private String telefone;
     private String livroAtual;
-    private String livroLido;
+    private int paginasTotais;
     private String genero;
     private int numeroPaginas;
 
 	@Override
 	public String toString() {
 		return "InfoUsuario [id=" + id + ", usuario=" + usuario + ", nome=" + nome + ", cpf=" + cpf + ", telefone="
-				+ telefone + ", livroAtual=" + livroAtual + ", livroLido=" + livroLido + ", genero=" + genero
+				+ telefone + ", livroAtual=" + livroAtual + ", paginasTotais=" + paginasTotais + ", genero=" + genero
 				+ ", numeroPaginas=" + numeroPaginas + "]";
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(nome, cpf, genero, id, livroAtual, livroLido, numeroPaginas, telefone, usuario);
+		return Objects.hash(nome, cpf, genero, id, livroAtual, paginasTotais, numeroPaginas, telefone, usuario);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -105,7 +105,7 @@ public class InfoUsuario {
 			return false;
 		InfoUsuario other = (InfoUsuario) obj;
 		return Objects.equals(nome, other.nome) && Objects.equals (cpf, other.cpf) && Objects.equals(genero, other.genero) && Objects.equals(id, other.id)
-				&& Objects.equals(livroAtual, other.livroAtual) && Objects.equals(livroLido, other.livroLido)
+				&& Objects.equals(livroAtual, other.livroAtual) && Objects.equals(paginasTotais, other.paginasTotais)
 				&& numeroPaginas == other.numeroPaginas && Objects.equals(telefone, other.telefone)
 				&& Objects.equals(usuario, other.usuario);
 	}
