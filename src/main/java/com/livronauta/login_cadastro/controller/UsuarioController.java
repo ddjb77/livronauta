@@ -106,8 +106,7 @@ public class UsuarioController {
 
 			if (optionalUsuario.isPresent()) {
 				Usuario usuario = optionalUsuario.get();
-				// código para obter informações específicas do usuário, utilizando o objeto
-				// "usuario"
+				// código para obter informações específicas do usuário, utilizando o objeto "usuario"
 				InfoUsuario infoUsuario = infoUsuarioRepository.findByUsuario(usuario);
 				 if (infoUsuario != null) {
 		                usuario.setInfoUsuario(infoUsuario);
@@ -222,23 +221,10 @@ public class UsuarioController {
 	    model.addAttribute("userNumeroPaginas", infoUsuario.getNumeroPaginas());
 
 	    return "redirect:/user/" + usuarioExistente.getId();
-	}
+	}}
 
 
 
 
 
-	@PostMapping("/excluir/user/{id}")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<String> removerUsuario(@PathVariable Long id) {
-		java.util.Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
-
-		if (usuarioOptional.isPresent()) {
-			Usuario usuario = usuarioOptional.get();
-			usuarioRepository.delete(usuario);
-			return ResponseEntity.ok("Usuário removido com sucesso.");
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-	}
-}
+	

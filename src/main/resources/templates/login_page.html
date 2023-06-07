@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <script src="/js/script.js"></script>
-    <script src="/js/validacao.js"></script>
+
     <title> Login </title>
 </head>
 
@@ -19,13 +18,13 @@
         <div class="formulario">
             <h1> Login </h1>
             <form method="post" action="/login" th:object="${usuario}">
-                <input type="text" id="usuario" name="username" placeholder="login" class="nome" required>
+                <input type="text" id="usuario" name="username" placeholder="login" class="nome" required onfocus="email()">
 
-                <input type="password" id="senha" name="password" min="6" placeholder="Senha" class="senha"  onkeypress="senha()"
+                <input type="password" id="inputSenha" name="password" min="6" placeholder="Senha" class="senha"  onkeypress="senha()"
                     required>
 
 				<div class="btn">
-                    <input type="submit" class="entrar" value="Entrar" onclick="verificar()" id="btn-login">
+                    <input type="submit" class="entrar" value="Entrar" onfocus="entrar()" id="btn-login">
                 </div>
                 
                 <div class="signed">
@@ -50,7 +49,8 @@
     <footer class="rodape">
         <img src="img/logo-livronauta.png" alt="logo do site no rodapé " class="logo-rodape">
     </footer>
-  
+     <script th:src="@{/js/script.js}"></script>
+    <script th:src="@{/js/validacao.js}"></script>
 </body>
 
 </html>

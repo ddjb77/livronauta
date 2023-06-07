@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.livronauta.login_cadastro.config.CustomUserDetails;
 import com.livronauta.login_cadastro.models.LivrosLidos;
 import com.livronauta.login_cadastro.models.Usuario;
+import com.livronauta.login_cadastro.repository.ListaDesejosRepository;
 import com.livronauta.login_cadastro.repository.LivrosLidosRepository;
 import com.livronauta.login_cadastro.service.LivrosLidosService;
 
@@ -27,12 +28,14 @@ public class LivrosLidosController {
 	private final LivrosLidosService livrosLidosService;
 	
     private final LivrosLidosRepository livrosLidosRepository;
-
+    
+    private final ListaDesejosRepository listaDesejosRepository;
 
     @Autowired
-    public LivrosLidosController(LivrosLidosService livrosLidosService, LivrosLidosRepository livrosLidosRepository) {
+    public LivrosLidosController(LivrosLidosService livrosLidosService, LivrosLidosRepository livrosLidosRepository, ListaDesejosRepository listaDesejosRepository) {
         this.livrosLidosService = livrosLidosService;
         this.livrosLidosRepository = livrosLidosRepository;
+        this.listaDesejosRepository = listaDesejosRepository;
     }
 	
     @GetMapping("/livros-lidos")
@@ -45,8 +48,16 @@ public class LivrosLidosController {
             // Recuperar a lista de livros lidos do repositório para o usuário autenticado
             List<LivrosLidos> livrosLidos = livrosLidosRepository.findByUsuario(usuario);
 
-            // Adicionar a lista ao modelo
-            model.addAttribute("livrosLidos", livrosLidos);
+            int quantidadeLivrosLidos = livrosLidosRepository.contarLivrosLidos(usuario);
+            int quantidadeLista = listaDesejosRepository.contarListaDesejos(usuario);
+            
+            // mostra a quantidade de livros lidos e de items na lista de desejo na página
+
+            model.addAttribute("livrosLidos", quantidadeLivrosLidos);
+            model.addAttribute("listaDesejos", quantidadeLista);
+            
+            //adiciona os livros lidos à pagina
+            model.addAttribute("qtlivrosLidos", livrosLidos);
             model.addAttribute("userLogin", usuario.getLogin());
             
 

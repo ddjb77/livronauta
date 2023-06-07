@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.livronauta.login_cadastro.config.CustomUserDetails;
 import com.livronauta.login_cadastro.models.ProximasLeituras;
 import com.livronauta.login_cadastro.models.Usuario;
+import com.livronauta.login_cadastro.repository.ListaDesejosRepository;
+import com.livronauta.login_cadastro.repository.LivrosLidosRepository;
 import com.livronauta.login_cadastro.repository.ProximasLeiturasRepository;
 import com.livronauta.login_cadastro.service.ProximasLeiturasService;
 
@@ -22,14 +24,20 @@ import com.livronauta.login_cadastro.service.ProximasLeiturasService;
 public class ProximasLeiturasController {
 
 	private final ProximasLeiturasRepository proximasLeiturasRepository;
+	
+	private final ListaDesejosRepository listaDesejosRepository;
+	
+	private final LivrosLidosRepository livrosLidosRepository;
 
 	private ProximasLeiturasService proximasLeiturasService;
 
 	@Autowired
 	public ProximasLeiturasController(ProximasLeiturasService proximasLeiturasService,
-			ProximasLeiturasRepository proximasLeiturasRepository) {
+			ProximasLeiturasRepository proximasLeiturasRepository, ListaDesejosRepository listaDesejosRepository, LivrosLidosRepository livrosLidosRepository) {
 		this.setProximasLeiturasService(proximasLeiturasService);
 		this.proximasLeiturasRepository = proximasLeiturasRepository;
+		this.listaDesejosRepository = listaDesejosRepository;
+		this.livrosLidosRepository = livrosLidosRepository;
 	}
 
 	@GetMapping("/proximas-leituras")
@@ -43,6 +51,14 @@ public class ProximasLeiturasController {
 			List<ProximasLeituras> proximasLeituras = proximasLeiturasRepository.findByUsuario(usuario);
 
 			// Adicionar a lista ao modelo
+			
+			int quantidadeLivrosLidos = livrosLidosRepository.contarLivrosLidos(usuario);
+            int quantidadeLista = listaDesejosRepository.contarListaDesejos(usuario);
+            
+            // mostra a quantidade de livros lidos e de items na lista de desejo na página
+
+            model.addAttribute("livrosLidos", quantidadeLivrosLidos);
+            model.addAttribute("listaDesejos", quantidadeLista);
 			model.addAttribute("proximasLeituras", proximasLeituras);
 			model.addAttribute("userLogin", usuario.getLogin());
 

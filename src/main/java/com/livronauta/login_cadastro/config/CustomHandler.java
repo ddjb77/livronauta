@@ -30,10 +30,14 @@ public class CustomHandler implements AuthenticationSuccessHandler{
         Usuario usuario = usuarioRepository.findByLogin(userDetails.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
      
-        request.setAttribute("userId", usuario.getId()); // adiciona o ID do usuário ao objeto HttpServletRequest
+        request.setAttribute("userId", usuario.getId()); 
+        // adiciona o ID do usuário ao objeto HttpServletRequest
         RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+        //se o usuario autenticado tiver o papel de administrador ele redirecionada para a rota admin
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             redirectStrategy.sendRedirect(request, response, "/admin/");
+            
+            //caso contrário redirecionada para a rota user
         } else {
             String targetUrl = "/user/" + usuario.getId();
             request.setAttribute("userId", usuario.getId());

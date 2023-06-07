@@ -22,6 +22,7 @@ body{
 	margin: 0;
 	font-family: sans-serif;
 	background-color: #e3e3e3;
+	height:100vh;
 }
 
 header {
@@ -35,6 +36,52 @@ header {
     
 }
 
+#modalExcluir {
+	display:flex;
+	justify-content:center;
+	margin:3%;
+	
+	
+	
+}
+
+#modalConfirmacao {
+	width:25%;
+	height:auto;
+  	-webkit-box-shadow: 10px 10px 37px -6px rgba(0,0,0,0.28);
+	-moz-box-shadow: 10px 10px 37px -6px rgba(0,0,0,0.28);
+	box-shadow: 10px 10px 37px -6px rgba(0,0,0,0.28);
+	border-radius:10px;
+    position: fixed;
+    background-color:#e3e3e3;
+    
+    
+    top: 0;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    animation: entrada 0.5s;
+    
+    
+}
+
+
+.close {
+	padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color:#737373}
+
+.modal-content {
+	color:#000;
+	font-size:20px;
+	margin:5%;
+	text-align:center;
+	
+}
 #img-header{
    width: 50px;
    margin: 0 auto;
@@ -53,19 +100,19 @@ header {
    outline: none;
   border-radius: 20px;
   overflow: hidden;
-  
-  
+}
+  .yellow-star {
+  	color:#eee639
+  }
   
  
-}
+
 .range::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 30px;
   height: 30px;
-  
-  background-image: url("/img/coracao.png");
-  background-size: contain;
-  background-repeat:no-repeat;
+  border-radius:20px;
+  background-color:#01021a;
   cursor: ew-resize;
 
   
@@ -597,6 +644,8 @@ footer {
     background-color: #000;
     text-align: center;
     bottom: 0;
+    height:auto;
+    position:fixed;
 }
 
 .logo-rodape {

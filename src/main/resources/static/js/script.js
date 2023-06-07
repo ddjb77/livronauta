@@ -1,3 +1,27 @@
+function senha() {
+  var img = document.querySelector(".imagem-login");
+  img.style.backgroundAttachment = "fixed";
+  inputSenha = document.querySelector("input[type='password']").value;
+
+    img.setAttribute('src','img/botao-senha.png');
+
+}
+
+function email() {
+    var img = document.querySelector(".imagem-login");
+    img.setAttribute('src','img/botao-entrar.png');
+    img.style.backgroundAttachment  = "fixed"
+  }
+
+
+
+
+function entrar() {
+    var img = document.querySelector(".imagem-login");
+    img.setAttribute('src','img/botao-paz.png');
+    img.style.backgroundAttachment  = "fixed"
+}
+
 function form() {
     let modal = document.querySelector("#modal");
     modal.style.display = "block"
@@ -43,25 +67,5 @@ function sucesso() {
 }
 
 
-function email() {
-    var img = document.querySelector(".imagem-login");
-    img.setAttribute('src','img/botao-entrar.png');
-    img.style.backgroundAttachment  = "fixed"
-  }
 
-
-function senha() {
-  var img = document.querySelector(".imagem-login");
-  img.style.backgroundAttachment = "fixed"
-  inputSenha = document.querySelector("input[type='password']").value;
-
-    img.setAttribute('src','img/botao-senha.png');
-
-}
-
-function entrar() {
-    var img = document.querySelector(".imagem-login");
-    img.setAttribute('src','img/botao-paz.png');
-    img.style.backgroundAttachment  = "fixed"
-}
 

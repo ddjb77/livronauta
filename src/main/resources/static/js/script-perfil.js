@@ -78,15 +78,25 @@
   });
 
 
+
+
+function bemvindoInicial() {
+  document.querySelector('#modal-user').style.display = "block";
+  document.querySelector('#modal').style.display = "none";
+
+
 window.onload = function bemvindo() {
   document.querySelector('#modal-user').style.display = "block";
   document.querySelector('#modal').style.display = "none";
+}
+
 
   setTimeout(() => { 
     document.querySelector('#modal-user').remove();
     document.querySelector('#modal').style.display = "block";
   }, 10000);
 }
+
 
 
 function leituraAtual() {
@@ -119,7 +129,7 @@ function fazerQuiz() {
 
 function fechar() {
   document.querySelector("#modal").remove();
-  document.querySelector('#modal-conquista').style.display = 'block'
+  
 }
 
 

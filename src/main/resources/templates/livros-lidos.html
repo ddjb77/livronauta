@@ -40,22 +40,23 @@
 
             <div class="item-geral">
                 <div class="img-item">
-                    <img src="img/star-i.png"> 
+                    <img src="/img/star-i.png"> 
                 </div>
                 <div class="item">
-                   <span id="estrelas"> 0 </span>
+                   <span id="estrelas" th:text="${listaDesejos}"> 0 </span>
                 </div>
             </div>
 
             <div class="item-geral">
                 <div class="img-item">
-                    <img src="img/livro-de-capa-preta-fechado.png" width="20px" > 
+                    <img src="/img/livro-de-capa-preta-fechado.png" width="20px" > 
                 </div>
                 <div class="item">
-                   <span id="lidos"> 0 </span>
+                   <span id="lidos" th:text="${livrosLidos}"> 0 </span>
                 </div>
             </div>
-
+   
+            
             <div class="item-geral">
                 <div class="img-item">
                     <span> <a href="#"> <img src="img/news-b2.png"> </a></span>
@@ -108,19 +109,23 @@
             <th> Autor </th>
             <th> Gênero </th>
             <th> Ano lido </th>
-            <th> Sua Opinião </th>
+            <th> Avaliação </th>
             <th> Editar </th>
             <th> Excluir </th>
         </tr>
     </thead>
     <tbody>
-        <tr th:each="livro : ${livrosLidos}">
+        <tr th:each="livro : ${qtlivrosLidos}">
             <td th:text="${livro.livro}"></td>
             <td th:text="${livro.autor}"></td>
             <td th:text="${livro.genero}"></td>
             <td th:text="${livro.ano}"></td>
-            <td th:text="${livro.avaliacao}"></td>
-            <td>
+			<td>
+				<span th:each="i : ${#numbers.sequence(1, livro.avaliacao)}"> 
+				<i class="fas fa-star yellow-star"></i>
+				</span>
+			</td>
+			<td>
                 <a th:href="@{'updlidos/' + ${livro.id}}" title="Editar">
                     <i class="far fa-edit icone-tabela"></i>
                 </a>
