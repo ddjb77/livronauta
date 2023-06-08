@@ -18,12 +18,19 @@
     </label>
       <nav>
         <ul>
-             <li id="logo"> <a th:href="@{/}"> <img th:src=@{img/logo-livronauta.png} class="logo"> </a>  </li>
-             <li><i class="fas fa-home"></i><a th:href="@{/}"> Home </a> </li>
-            <li><i class="fas fa-book-reader"></i><a th:href="@{/lidos}"> Livros lidos  </a> </li>
+            <li id="logo"> <a th:href="@{/}"> <img th:src=@{/img/logo-livronauta.png} class="logo"> </a>  </li>
+                        <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
+            
+             <li><i class="fas fa-home"></i><a th:href="@{/user/profile}"> Home </a> </li>
+            <li><i class="fas fa-book-reader"></i><a th:href="@{/livros-lidos}"> Livros lidos  </a> </li>
 			<li> <i class="fas fa-book"></i> <a th:href="@{/proximas-leituras}"> Próximas leituras </a> </li>
 			<li><i class="far fa-bookmark"></i> <a th:href="@{/lista-desejos}"> Lista de desejos  </a> </li>
 			<li> <i class="fas fa-book-open"></i> <a th:href="@{/emprestados}"> Emprestados </a> </li>
+			<li> <i class="fas fa-meteor"></i> <a th:href="@{/conquistas}"> Conquistas </a> </li>
+			<li> <i class="fas fa-bullhorn"></i> <a th:href="@{/guia-page}"> Guia das Galáxias </a> </li>
+			<br>
+			<li> <i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}"> Sair </a> </li>
+			
 
         </ul>
         </nav>
@@ -86,8 +93,29 @@
                 <div class="formulario">
 				<form action="/save-prox-leitura" method="post">
 					<input type="text" name="livro" placeholder="Nome do Livro"required> 
-					<input type="text" name="autor"placeholder="Autor" required> 
-					<input type="text" name="genero" placeholder="Gênero" required>
+					<input type="text" name="autor"placeholder="Autor" required>
+					
+            			
+            				<div class="opcoes">
+						<select id="generos" name="genero" required>
+							<option value="">Gênero</option>
+							<option value="aventura">Aventura</option>
+							<option value="autoajuda">Auto Ajuda</option>
+							<option value="biografia">Biografia</option>
+							<option value="conto">Conto</option>
+							<option value="didatico">Didático/Educacional</option>
+							<option value="drama">Drama</option>
+							<option value="ficcao">Ficção</option>
+							<option value="fantasia">Fantasia</option>
+							<option value="poema">Poema / Poesia</option>
+							<option value="policial">Policial</option>
+							<option value="romance">Romance</option>
+							<option value="suspense">Suspense</option>
+							<option value="terror">Terror</option>
+							<option value="outros">Outros</option>
+						</select>
+					</div>
+            				
 
 
 					<div class="btn">

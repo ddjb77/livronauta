@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+        	.antMatchers("/index").permitAll()
         	.antMatchers("/confirmacao-email").permitAll()
         	.antMatchers("/excluir/{id}").hasRole("ADMIN")
             .antMatchers("/login",  "/js/**", "/css/**", "/img/**").permitAll() //permite o acesso a todos 

@@ -1,12 +1,13 @@
 package com.livronauta.login_cadastro.controller;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -58,6 +59,7 @@ public class UsuarioController {
 	
 	
 	
+	
 	@PostMapping("/login")
 	public String login(Authentication authentication, Model model) {
 	    if (authentication != null && authentication.isAuthenticated()) {
@@ -73,16 +75,14 @@ public class UsuarioController {
 	            model.addAttribute("cadastrado", false);
 	        }
 	        
-	        return "redirect:/user/";
+	        return "redirect:/user/profile";
 	    }
 
 	    
 	    return "login_page";
 	}
 
-	
-	
-	
+
 	
 	@GetMapping("/confirmacao-email")
 	public String geConfirmacaoPage() {
@@ -96,9 +96,56 @@ public class UsuarioController {
 		return "register";
 	}
 	
+	//teste para rota principalde usuario
 	
-	
+	@GetMapping("/user/profile")
+	@Transactional
+	@PreAuthorize("hasRole('ROLE_USER')")
+	public String userPage(Authentication authentication, Model model) {
+	    if (authentication != null && authentication.isAuthenticated()) {
+	        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+	        Usuario usuario = userDetails.getUsuario();
 
+	        // Recuperar os dados do usuário da sessão (ou você pode usar o ID diretamente)
+	        // Usuario usuario = usuarioRepository.findById(id).orElse(null);
+
+	        if (usuario != null) {
+	            // Verificar se o usuário tem dados no sistema
+	            InfoUsuario infoUsuario = infoUsuarioRepository.findByUsuario(usuario);
+
+	            if (infoUsuario != null) {
+	                usuario.setInfoUsuario(infoUsuario);
+	                usuarioRepository.save(usuario);
+
+	                int quantidadeLivrosLidos = livrosLidosRepository.contarLivrosLidos(usuario);
+	                int quantidadeLista = listaDesejosRepository.contarListaDesejos(usuario);
+
+	                model.addAttribute("livrosLidos", quantidadeLivrosLidos);
+	                model.addAttribute("listaDesejos", quantidadeLista);
+	                model.addAttribute("userLivroAtual", infoUsuario.getLivroAtual());
+	                model.addAttribute("userNumeroPaginas", infoUsuario.getNumeroPaginas());
+	                model.addAttribute("userPaginasTotais", infoUsuario.getPaginasTotais());
+	                model.addAttribute("userGenero", infoUsuario.getGenero());
+	                model.addAttribute("userCpf", usuario.getInfoUsuario().getCpf());
+	                model.addAttribute("userTel", usuario.getInfoUsuario().getTelefone());
+	            }
+
+	            List<Usuario> usuarios = usuarioService.findAllUsuarios();
+	            model.addAttribute("usuarios", usuarios);
+	            model.addAttribute("user", usuario);
+	            model.addAttribute("userLogin", usuario.getLogin());
+	            model.addAttribute("userNome", usuario.getNome());
+
+	            return "user";
+	        }
+	    }
+
+	    return "error";
+	}
+
+
+
+/*
 	@GetMapping("/user/{id}")
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_USER')")
@@ -114,9 +161,8 @@ public class UsuarioController {
 		                usuario.setInfoUsuario(infoUsuario);
 		                usuarioRepository.save(usuario);
 		            }
-	            /*usuario.setInfoUsuario(infoUsuario);
-	            usuarioRepository.save(usuario);*/
-				 //String script = "<script>updateImage('" + infoUsuario.getGenero() + "');</script>";
+	            usuario.setInfoUsuario(infoUsuario);
+	            usuarioRepository.save(usuario);
 				List<Usuario> usuarios = usuarioService.findAllUsuarios();
 				model1.addAttribute("usuarios", usuarios);
 				model1.addAttribute("user", usuario);
@@ -138,10 +184,7 @@ public class UsuarioController {
 		        model1.addAttribute("userCpf", usuario.getInfoUsuario().getCpf());
 		        model1.addAttribute("userTel", usuario.getInfoUsuario().getTelefone());
 		        
-		        //model1.addAttribute("script", script);
 			    }
-			    
-			    
 
 				model1.addAttribute("id", usuario.getId());
 				
@@ -152,7 +195,7 @@ public class UsuarioController {
 			
 		return "error";
 
-		}
+		}*/
 
 	@GetMapping("/admin")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -223,7 +266,7 @@ public class UsuarioController {
 	    model.addAttribute("userCpf", infoUsuario.getCpf());
 	    model.addAttribute("userNumeroPaginas", infoUsuario.getNumeroPaginas());
 
-	    return "redirect:/user/" + usuarioExistente.getId();
+	    return "redirect:/user/profile";
 	}}
 
 

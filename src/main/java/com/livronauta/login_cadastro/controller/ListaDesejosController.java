@@ -2,14 +2,18 @@ package com.livronauta.login_cadastro.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -119,7 +123,23 @@ public class ListaDesejosController {
 	    return "error";
 	}
 	
-	
+	@DeleteMapping("/excluir/lista/{id}")
+	@PreAuthorize("hasRole('ROLE_USER')")
+	public ResponseEntity<String> excluirLista(@PathVariable Long id, Authentication authentication) 
+	{
+		Optional<ListaDesejos> listaDesejosOptional = listaDesejosRepository.findById(id);
+		if (authentication != null && authentication.isAuthenticated()) {
+	        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+	        Usuario usuario = userDetails.getUsuario();
+		if (listaDesejosOptional.isPresent()) {
+			listaDesejosRepository.deleteById(id);
+			return ResponseEntity.ok("Livro excluído da lista");
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+		return null;
+	}
 }	
 
 

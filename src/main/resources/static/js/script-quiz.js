@@ -236,7 +236,7 @@ enviar.addEventListener('click', () => {
                 
                 }
             
-            }
+            }			
             
         }
 )

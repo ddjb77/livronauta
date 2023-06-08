@@ -65,7 +65,7 @@
             <li id="logo"> <a th:href="@{/}"> <img th:src=@{/img/logo-livronauta.png} class="logo"> </a>  </li>
                         <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
             
-             <li><i class="fas fa-home"></i><a th:href="@{/}"> Home </a> </li>
+             <li><i class="fas fa-home"></i><a th:href="@{/user/profile}"> Home </a> </li>
             <li><i class="fas fa-book-reader"></i><a th:href="@{/livros-lidos}"> Livros lidos  </a> </li>
 			<li> <i class="fas fa-book"></i> <a th:href="@{/proximas-leituras}"> Próximas leituras </a> </li>
 			<li><i class="far fa-bookmark"></i> <a th:href="@{/lista-desejos}"> Lista de desejos  </a> </li>
@@ -88,9 +88,10 @@
             </div>
             <div id="texto">
  				<h1> Olá, <span th:text="${userNome}"></span>!</h1>
- 				<br> Você está lendo: <span th:text="${userLivroAtual}"></span> 
+ 				<br> Você está lendo: <span th:text="${userLivroAtual}"></span>
  				<br> Gênero: <span th:text="${userGenero}"></span>
  				<br> Páginas: <span th:text="${userNumeroPaginas}" id="numeroPaginas"></span>/<span th:text="${userPaginasTotais}" id="paginasTotais"></span>
+ 				<span><a th:href="@{/editar-perfil}" title="Editar"><i class="far fa-edit icone-tabela-pagina"></i> </a></span>
  				<br> Porcentagem lida: <span id="porcentagem">0</span>%
  				<div>
  				<progress id="progresso" value="0" max="100"></progress>
@@ -378,7 +379,7 @@
     </script>
     <script th:src="@{/js/script.js}"></script>
 	<script th:src="@{/js/script-robo.js}"></script>
-	<!--   <script th:src="@{/js/script-leitura.js}"></script>-->
+	<script th:src="@{/js/script-leitura.js}"></script>
     <script th:src="@{/js/script-perfil.js}"></script>
   	<script th:src="@{/js/validacao.js}"></script>
    <!--<script src="/js/script-guia.js"></script> -->

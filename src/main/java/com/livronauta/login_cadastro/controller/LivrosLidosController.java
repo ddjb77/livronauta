@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -141,6 +142,19 @@ public class LivrosLidosController {
 
 
 	    return "error";
+	}
+	
+	@DeleteMapping("/excluir/livros/{id}")
+	@PreAuthorize("hasRole('ROLE_USER')")
+	public ResponseEntity<String> removerLivroLido(@PathVariable Long id) {
+		Optional<LivrosLidos> livrosLidosOptional = livrosLidosRepository.findById(id);
+
+		if (livrosLidosOptional.isPresent()) {
+			livrosLidosRepository.deleteById(id);
+			return ResponseEntity.ok("Livro excluído");
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 }
 

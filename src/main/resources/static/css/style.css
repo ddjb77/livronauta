@@ -93,14 +93,20 @@ header {
 	text-align:center;
 	width:auto;	
 }
+
+
+
 .range {
   -webkit-appearance: none;
   outline: none;
   overflow: hidden;
    outline: none;
-  border-radius: 20px;
+  border-radius: 5px;
   overflow: hidden;
+  
 }
+
+
   .yellow-star {
   	color:#eee639
   }
@@ -111,11 +117,9 @@ header {
   -webkit-appearance: none;
   width: 30px;
   height: 30px;
-  border-radius:20px;
+  border-radius:5px;
   background-color:#01021a;
-  cursor: ew-resize;
-
-  
+ 
   
 }
 #rangeValue{
@@ -274,8 +278,9 @@ a {
     text-align: center;
     background-color: #e3e3e3;
     padding: 20px;
-     width: 60%;
-     margin: 0 auto;
+    width: 60%;
+    height:80%;
+    margin: 0 auto;
 }
 
 .escolha {
@@ -392,6 +397,14 @@ td {
 	font-size: 1.2rem;
 }
 
+
+
+.icone-tabela-pagina{
+	color:#ffffff;
+	font-size:1rem;
+	padding:5px;
+	
+}
 
 /***** POPUP ******/
 

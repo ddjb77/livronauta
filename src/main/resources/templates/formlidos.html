@@ -17,21 +17,20 @@
     <label for="check">
       <i class="fas fa-bars fa-2x menu"></i>
     </label>
-    <nav>
+     <nav>
         <ul>
-                    <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
-        
-            <li id="logo"> <a href="{/}"> <img src="/img/logo-livronauta.png" class="logo"> </a>  </li>
+            <li id="logo"> <a th:href="@{/}"> <img th:src=@{/img/logo-livronauta.png} class="logo"> </a>  </li>
+                        <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
             
-             <li><i class="fas fa-home"></i><a href="{/}"> Home </a> </li>
-            <li><i class="fas fa-book-reader"></i><a href="{/livros-lidos}"> Livros lidos  </a> </li>
-			<li> <i class="fas fa-book"></i> <a href="{/proximas-leituras}"> Próximas leituras </a> </li>
-			<li><i class="far fa-bookmark"></i> <a href="{/lista-desejos}"> Lista de desejos  </a> </li>
-			<li> <i class="fas fa-book-open"></i> <a href="{/emprestados}"> Emprestados </a> </li>
-			<li> <i class="fas fa-meteor"></i> <a href="{/conquistas}"> Conquistas </a> </li>
-			<li> <i class="fas fa-bullhorn"></i> <a href="{/guia}"> Guia das Galáxias </a> </li>
+             <li><i class="fas fa-home"></i><a th:href="@{/user/profile}"> Home </a> </li>
+            <li><i class="fas fa-book-reader"></i><a th:href="@{/livros-lidos}"> Livros lidos  </a> </li>
+			<li> <i class="fas fa-book"></i> <a th:href="@{/proximas-leituras}"> Próximas leituras </a> </li>
+			<li><i class="far fa-bookmark"></i> <a th:href="@{/lista-desejos}"> Lista de desejos  </a> </li>
+			<li> <i class="fas fa-book-open"></i> <a th:href="@{/emprestados}"> Emprestados </a> </li>
+			<li> <i class="fas fa-meteor"></i> <a th:href="@{/conquistas}"> Conquistas </a> </li>
+			<li> <i class="fas fa-bullhorn"></i> <a th:href="@{/guia-page}"> Guia das Galáxias </a> </li>
 			<br>
-			<li> <i class="fas fa-sign-out-alt"></i> <a href="/logout"> Sair </a> </li>
+			<li> <i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}"> Sair </a> </li>
 			
 
         </ul>
@@ -83,18 +82,41 @@
 				<form action="/save-livro-lido" method="post">
 					<input type="text" name="livro" placeholder="Nome do Livro"
 						required> <input type="text" name="autor"
-						placeholder="Autor" required> <input type="text"
-						name="genero" placeholder="Gênero" required> <input
-						type="number" name="ano" placeholder="Ano que foi lido" required> 
-				<!--	 <input type="text" name="avaliacao" placeholder="Sua Opinião"
-						required>-->
-					<div class="avaliacao">
-						<label for="avaliacao">Avaliação: <span id="rangeValue">0</span></label> 
-						<Input class="range" type="range" name="avaliacao" value="0"
-							min="0" max="5" onChange="rangeSlide(this.value)"
-							onmousemove="rangeSlide(this.value)"></Input>
+						placeholder="Autor" required>
+					<div class="opcoes">
+						<select id="generos" name="genero" required>
+							<option value="">Gênero</option>
+							<option value="aventura">Aventura</option>
+							<option value="autoajuda">Auto Ajuda</option>
+							<option value="biografia">Biografia</option>
+							<option value="conto">Conto</option>
+							<option value="didatico">Didático/Educacional</option>
+							<option value="drama">Drama</option>
+							<option value="ficcao">Ficção</option>
+							<option value="fantasia">Fantasia</option>
+							<option value="poema">Poema / Poesia</option>
+							<option value="policial">Policial</option>
+							<option value="romance">Romance</option>
+							<option value="suspense">Suspense</option>
+							<option value="terror">Terror</option>
+							<option value="outros">Outros</option>
+						</select>
 					</div>
-
+					<input type="number" name="ano" placeholder="Ano que foi lido"
+						required>
+					<!--	 <input type="text" name="avaliacao" placeholder="Sua Opinião"
+						required>
+					<label for="avaliacao">Avaliação: <span id="rangeValue">0</span></label>-->
+					<select id="range" name="avaliacao"
+						onChange="rangeSelect(this.value)" required>
+						<option value="" >Avaliação</option>
+						<option value="1">★</option>
+						<option value="2">★ ★</option>
+						<option value="3">★ ★ ★</option>
+						<option value="4">★ ★ ★ ★</option>
+						<option value="5">★ ★ ★ ★ ★</option>
+					</select>
+					<span id="rangeValue">0</span>
 
 					<div class="btn">
 						<button type="submit" class="salvar">Salvar</button>
@@ -116,9 +138,10 @@
     </footer>
 
 <script type="text/javascript">
-        function rangeSlide(value) {
-            document.getElementById('rangeValue').innerHTML = value;
-        }
+function rangeSelect(value) {
+    var rangeValueElement = document.getElementById("rangeValue");
+    rangeValueElement.textContent = value;
+  }
     </script>
 </body>
 </html>
