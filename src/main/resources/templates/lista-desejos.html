@@ -96,6 +96,8 @@
             </div>
         </div>
     </section>
+    
+    
     <div id="modalExcluir">
 			<div id="modalConfirmacao" class="modal" style="display: none;">
 				<div class="modal-content">
@@ -109,21 +111,53 @@
 		</div>
 	</div>
     
-    
-      <!-- <div id="modal" class="modal-container">
-         <div class="modalperfil">
-             <div class="topo-form">
-                 <h1>  Bem vindo ao livronauta  </h1>
-             </div>
-             <div id="verificar-email">
-               <h1> Verifique seu email</h1>
-               <img src="img/admin.png">
-               <h3> Enviamos uma verificação para seu email! Não deixe de verificar também sua caixa de span </h3>
-             </div>
-           </div>
-      </div> 
-	 -->
-	
+	   <div id="modal" class="modal-container" style="display:none;">
+        <div class="modalpopup">
+            <div class="topo-form">
+                <h1> Edite sua lista de desejos </h1>
+                 <a th:href="@{/lista-desejos}" class="fechar"> X </a>
+            </div>
+           <div class="formulario">
+                    <form action="/editar/lista/{id}">
+                        <input type="text" name="livro" placeholder="Nome do Livro" required>
+                        <input type="text" name="autor" placeholder=" Autor" required>
+                       <div class="opcoes">
+						<select id="generos" name="genero" required>
+							<option value="">Gênero</option>
+							<option value="aventura">Aventura</option>
+							<option value="autoajuda">Auto Ajuda</option>
+							<option value="biografia">Biografia</option>
+							<option value="conto">Conto</option>
+							<option value="didatico">Didático/Educacional</option>
+							<option value="drama">Drama</option>
+							<option value="ficcao">Ficção</option>
+							<option value="fantasia">Fantasia</option>
+							<option value="poema">Poema / Poesia</option>
+							<option value="policial">Policial</option>
+							<option value="romance">Romance</option>
+							<option value="suspense">Suspense</option>
+							<option value="terror">Terror</option>
+							<option value="outros">Outros</option>
+						</select>
+					</div>
+                        <input type="text" name="site" placeholder="Link do site / Nome da livraria" required>
+                        <input type="number" name="preco" value="" step="any" placeholder="Preço" required>
+                        
+                           
+                        <div class="btn">
+                            <button type="button" onclick="editarLista()" id="salvarEdicao" class="salvar">
+                              Salvar 
+                            </button>
+                            
+                            
+                           <a th:href="@{/lista-desejos}" class="cancelar"> Cancelar </a> 
+                        </div>
+                       
+                    </form>
+                </div>
+        </div>
+    </div>
+		
 	 <section id="tabela">
         <h1> Lista de  Desejo </h1>
         <div class="tabela">
@@ -148,13 +182,11 @@
                     <td th:text="${list.site}"></td> 
                     <td th:text="${list.preco}"> </td>
                 
-                    
-                    <td> 
-                    
-                    	<a th:href="@{'updlista/' + ${list.id}}" title="Editar">
-                   		 	<i class="far fa-edit icone-tabela"></i> 
-                   		</a>
-                    </td>
+                  <td><button type="button" class="btn-acoes" title="Editar"
+								onclick="exibirModalEdicaoLista(this)">
+								<input type="hidden" th:name="${'id'}" th:value="${list.id}" />
+								<i class="far fa-edit icone-tabela"></i>
+							</button></td>
 
 
 					<td>

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.livronauta.login_cadastro.config.CustomUserDetails;
@@ -140,6 +142,31 @@ public class ListaDesejosController {
 	}
 		return null;
 	}
+	
+	@PutMapping("/editar/lista/{id}")
+	@PreAuthorize("hasRole('ROLE_USER')")
+	public ResponseEntity<String> editarLista(@PathVariable Long id, @RequestBody ListaDesejos listaDesejosEdit) {
+	    Optional<ListaDesejos> listaDesejosOptional = listaDesejosRepository.findById(id);
+
+	    if (listaDesejosOptional.isPresent()) {
+	    	ListaDesejos listaDesejos = listaDesejosOptional.get();
+
+	        // Atualizar os campos do livro lido com os valores do livroEditado
+	    	listaDesejos.setLivro(listaDesejosEdit.getLivro());
+	    	listaDesejos.setAutor(listaDesejosEdit.getAutor());
+	    	listaDesejos.setGenero(listaDesejosEdit.getGenero());
+	    	listaDesejos.setSite(listaDesejosEdit.getSite());
+	    	listaDesejos.setPreco(listaDesejosEdit.getPreco());
+	    	
+
+	    	listaDesejosRepository.save(listaDesejos);
+
+	        return ResponseEntity.ok("Lista de desejos atualizada");
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
+	}
+	
 }	
 
 

@@ -107,6 +107,53 @@
 			</div>
 		</div>
 	</div>
+	 <div id="modal" class="modal-container" style="display:none;">
+	   <div class="modalpopup">
+            <div class="topo-form">
+                <h1> Liste seus livros emprestados </h1>
+                 <a th:href="@{/emprestados}" class="fechar"> X </a>
+            </div>
+           <div class="formulario">
+                    <form action="/editar/emprestados/{id}">
+                        <input type="text" name="livro"  placeholder="Nome do Livro" required>
+                        <input type="text" name="autor"  placeholder=" Autor" required>
+                        <div class="opcoes">
+						<select id="generos" name="genero" required>
+							<option value="">Gênero</option>
+							<option value="aventura">Aventura</option>
+							<option value="autoajuda">Auto Ajuda</option>
+							<option value="biografia">Biografia</option>
+							<option value="conto">Conto</option>
+							<option value="didatico">Didático/Educacional</option>
+							<option value="drama">Drama</option>
+							<option value="ficcao">Ficção</option>
+							<option value="fantasia">Fantasia</option>
+							<option value="poema">Poema / Poesia</option>
+							<option value="policial">Policial</option>
+							<option value="romance">Romance</option>
+							<option value="suspense">Suspense</option>
+							<option value="terror">Terror</option>
+							<option value="outros">Outros</option>
+						</select>
+					</div>
+                        <input type="text" name="pessoa"  placeholder="Para quem foi emprestado" required>
+                        <label for="data">Data do Empréstimo:</label>
+        				<input type="text" id="data" name="data" placeholder="Data do Empréstimo" required>
+                        
+                           
+                        <div class="btn">
+                            <button type="button" onclick="editarEmprest()" id="salvarEdicao" class="salvar">
+                              Salvar 
+                            </button>
+                            
+                            
+                           <a th:href="@{/emprestados}" class="cancelar"> Cancelar </a> 
+                        </div>
+                       
+                    </form>
+                </div>
+        </div>
+    </div>
     <section id="tabela">
         <h1> Livros emprestados </h1>
         <div class="tabela">
@@ -133,12 +180,13 @@
                     <td th:text="${emprest.data}"> </td>
                 
                     
-                    <td> 
-                    
-                    	<a th:href="@{'updemp/' + ${emprest.id}}" title="Editar">
-                   		 	<i class="far fa-edit icone-tabela"></i> 
-                   		</a>
-                    </td>
+                  <td>
+							<button type="button" class="btn-acoes" title="Excluir"
+								onclick="exibirModalEdicaoEmprest(this)">
+								<input type="hidden" th:name="${'id'}" th:value="${emprest.id}" />
+								<i class="fas fa-trash-alt" style="color: #0a0233"></i>
+							</button>
+							</td>    
 
 
 					<td>

@@ -10,4 +10,11 @@ public class GuiaController {
 	public String getGuiaPage() {
 		return "guia";
 	}
+	
+	
+	@GetMapping("/forum-page")
+	public String getForumPage() {
+		return "forum";
+	}
+
 }

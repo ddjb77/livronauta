@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title> Fórum Livronauta </title>
+<link rel="stylesheet" th:href="@{css/forum.css}">
+<link rel="stylesheet" th:href="@{css/style.css}">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css}">
+<link rel="icon" th:href="@{img/icone-astronauta.png}">
+<script th:src=@{js/script.js}></script>
+<script th:src=@{js/validacao.js}></script>
+
+</head>
+
+<body>
+
+<header>
+    <input type="checkbox" id="check">
+    <label for="check">
+      <i class="fas fa-bars fa-2x menu"></i>
+    </label>
+    	<div class="barra">
+              <div class="item-geral">
+                <div class="item">
+                    <span id="nivel">Nível 1 </span>
+                </div>
+                <div class="img-item">
+                    <img src="img/nv1.png">
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="img/expbars.png"> 
+                </div>
+                <div class="item">
+                   <span id="exp"> 0 / 100</span>
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="img/star-i.png"> 
+                </div>
+                <div class="item">
+                   <span id="estrelas"> 0 </span>
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="img/livro-de-capa-preta-fechado.png" width="20px" > 
+                </div>
+                <div class="item">
+                   <span id="lidos"> 0 </span>
+                </div>
+            </div>
+
+            <div class="item-geral">
+                <div class="img-item">
+                    <span> <a href="#"> <img src="img/news-b2.png"> </a></span>
+                </div>
+            </div>
+        </div>
+        
+     <nav>
+			<ul>
+				<li id="logo"><a th:href="@{/}"> <img
+						th:src=@{/img/logo-livronauta.png} class="logo">
+				</a></li>
+				<li><h5>
+						<span th:text="${userLogin}" id="userlogin"
+							data-userlogin="${userlogin}"></span>
+					</h5></li>
+
+				<li><i class="fas fa-home"></i><a th:href="@{/user/profile}">
+						Home </a></li>
+				<li><i class="fas fa-book-reader"></i><a
+					th:href="@{/livros-lidos}"> Livros lidos </a></li>
+				<li><i class="fas fa-book"></i> <a
+					th:href="@{/proximas-leituras}"> Próximas leituras </a></li>
+				<li><i class="far fa-bookmark"></i> <a
+					th:href="@{/lista-desejos}"> Lista de desejos </a></li>
+				<li><i class="fas fa-book-open"></i> <a
+					th:href="@{/emprestados}"> Emprestados </a></li>
+				<li><i class="fas fa-meteor"></i> <a th:href="@{/conquistas}">
+						Conquistas </a></li>
+				<li><i class="fas fa-bullhorn"></i> <a th:href="@{/guia-page}">
+						Guia das Galáxias </a></li>
+				<br>
+				<li><i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}">
+						Sair </a></li>
+
+
+			</ul>
+		</nav>
+  </header>
+	
+  	
+  	
+	 <section id="banner">
+        <div class="banner">
+            <div class="imagem-banner">
+                <img th:src="@{img/astronauta-binoculo.png}" class="imagem-astronauta-binoculo">
+            </div>
+            <div class="texto">
+                <p> Encontre opiniões, procure por livros específicos, veja recomendações e avaliações. </p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="pesquisar">
+        <div id="conteudo-pesquisa">
+            <form id="form-pesquisa">
+              <input type="text" size="70" id="barra-pesquisa" placeholder="Pesquise por livro ou autor" />
+              <input type="submit" id="btn-pesquisa" value="Pesquisar livros">
+            </form>
+        </div>
+
+        <ul id="livros-pesquisa"></ul>
+
+    </section>
+
+  <footer class="rodape">
+        <img src="img/logo-livronauta.png" alt="logo do site no rodapé " class="logo-rodape">
+    </footer>
+    
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="js/pesquisar.js"></script>
+  
+    
+
+
+
+</body>
+</html>

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.livronauta.login_cadastro.config.CustomUserDetails;
@@ -76,31 +78,7 @@ public class LivrosLidosController {
 		return "formlidos";
 	}
 	
-	
-	
-	
-	@PostMapping("/apagar-lidos/{id}")
-	@Transactional
-	@PreAuthorize("hasRole('ROLE_USER')")
-	public String deletarLivroLido(@PathVariable("id") Long Id) {
-	    // Verificar se o livro lido existe no repositório
-	    Optional<LivrosLidos> livroLidoOptional = livrosLidosRepository.findById(Id);
-	    
-	    if (livroLidoOptional.isPresent()) {
-	        LivrosLidos livroLido = livroLidoOptional.get();
-	        
-	        // Deletar o livro lido do repositório
-	        livrosLidosRepository.delete(livroLido);
-	        
-	        return "redirect:/livros-lidos";
-	    }
-	    
-	    // Retornar uma mensagem de erro, redirecionar para uma página de erro, etc.
-	    return "error";
-	}
-	
-	
-	
+
 	@PostMapping("/save-livro-lido")
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_USER')")
@@ -145,6 +123,7 @@ public class LivrosLidosController {
 	}
 	
 	@DeleteMapping("/excluir/livros/{id}")
+	@Transactional
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public ResponseEntity<String> removerLivroLido(@PathVariable Long id) {
 		Optional<LivrosLidos> livrosLidosOptional = livrosLidosRepository.findById(id);
@@ -156,6 +135,34 @@ public class LivrosLidosController {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	
+	
+	
+	@PutMapping("/editar/livros-lidos/{id}")
+	@PreAuthorize("hasRole('ROLE_USER')")
+	public ResponseEntity<String> editarLivroLido(@PathVariable Long id, @RequestBody LivrosLidos livroEditado) {
+	    Optional<LivrosLidos> livroOptional = livrosLidosRepository.findById(id);
+
+	    if (livroOptional.isPresent()) {
+	        LivrosLidos livroLido = livroOptional.get();
+
+	        // Atualizar os campos do livro lido com os valores do livroEditado
+	        livroLido.setLivro(livroEditado.getLivro());
+	        livroLido.setAutor(livroEditado.getAutor());
+	        livroLido.setGenero(livroEditado.getGenero());
+	        livroLido.setAno(livroEditado.getAno());
+	        livroLido.setAvaliacao(livroEditado.getAvaliacao());
+
+	        livrosLidosRepository.save(livroLido);
+
+	        return ResponseEntity.ok("Livro atualizado com sucesso");
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
+	}
+
+	
 }
 
 

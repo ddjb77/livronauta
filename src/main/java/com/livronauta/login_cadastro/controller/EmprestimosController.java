@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.livronauta.login_cadastro.config.CustomUserDetails;
@@ -32,31 +34,24 @@ public class EmprestimosController {
 	private final EmprestimosRepository emprestimosRepository;
 
 	private EmprestimosService emprestimosService;
-	
-	
+
 	private final ProximasLeiturasRepository proximasLeiturasRepository;
-	
+
 	private final ListaDesejosRepository listaDesejosRepository;
-	
+
 	private final LivrosLidosRepository livrosLidosRepository;
 
 	@Autowired
-	public EmprestimosController(EmprestimosService emprestimosService,
-	                             EmprestimosRepository emprestimosRepository, 
-	                             ListaDesejosRepository listaDesejosRepository,
-	                             LivrosLidosRepository livrosLidosRepository,
-	                             ProximasLeiturasRepository proximasLeiturasRepository
-	                             ) {
-	    this.emprestimosService = emprestimosService;
-	    this.emprestimosRepository = emprestimosRepository;
-	    this.listaDesejosRepository = listaDesejosRepository;
-        this.livrosLidosRepository = livrosLidosRepository;
-        this.proximasLeiturasRepository = proximasLeiturasRepository;
+	public EmprestimosController(EmprestimosService emprestimosService, EmprestimosRepository emprestimosRepository,
+			ListaDesejosRepository listaDesejosRepository, LivrosLidosRepository livrosLidosRepository,
+			ProximasLeiturasRepository proximasLeiturasRepository) {
+		this.emprestimosService = emprestimosService;
+		this.emprestimosRepository = emprestimosRepository;
+		this.listaDesejosRepository = listaDesejosRepository;
+		this.livrosLidosRepository = livrosLidosRepository;
+		this.proximasLeiturasRepository = proximasLeiturasRepository;
 	}
 
-	
-	
-	
 	@GetMapping("/emprestados")
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public String getEmprestadossPage(Model model, Authentication authentication) {
@@ -66,15 +61,14 @@ public class EmprestimosController {
 
 			// Recuperar a lista de livros emprestados para o usuario logado
 			List<Emprestimos> emprestimos = emprestimosRepository.findByUsuario(usuario);
-			
-			
-			int quantidadeLivrosLidos = livrosLidosRepository.contarLivrosLidos(usuario);
-            int quantidadeLista = listaDesejosRepository.contarListaDesejos(usuario);
-            
-            // mostra a quantidade de livros lidos e de items na lista de desejo na página
 
-            model.addAttribute("livrosLidos", quantidadeLivrosLidos);
-            model.addAttribute("listaDesejos", quantidadeLista);
+			int quantidadeLivrosLidos = livrosLidosRepository.contarLivrosLidos(usuario);
+			int quantidadeLista = listaDesejosRepository.contarListaDesejos(usuario);
+
+			// mostra a quantidade de livros lidos e de items na lista de desejo na página
+
+			model.addAttribute("livrosLidos", quantidadeLivrosLidos);
+			model.addAttribute("listaDesejos", quantidadeLista);
 			model.addAttribute("userLogin", usuario.getLogin());
 			model.addAttribute("userLogin", usuario.getLogin());
 			// Adicionar a lista ao modelo
@@ -86,15 +80,14 @@ public class EmprestimosController {
 
 		return "error";
 	}
-	
-	
+
 	@GetMapping("/emprestimo")
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public String getFormEmprestimo() {
 		return "formemprestimo";
 	}
-	
-	
+
+	// CRIAR NOVO
 	@PostMapping("/salvar-emprestados")
 	@Transactional
 	@PreAuthorize("hasRole('ROLE_USER')")
@@ -117,7 +110,6 @@ public class EmprestimosController {
 			emprestimos.setPessoa(pessoa);
 			emprestimos.setData(data);
 
-
 			emprestimos.setUsuario(usuario);
 
 			// Salvar o livro emprestadoo no repositório
@@ -136,29 +128,51 @@ public class EmprestimosController {
 		return "error";
 	}
 
+	// ROTA PARA EXCLUSÃO//
 	@DeleteMapping("/excluir/emprestados/{id}")
 	@PreAuthorize("hasRole('ROLE_USER')")
-	public ResponseEntity<String> excluirEmprestados(@PathVariable Long id, Authentication authentication) 
-	{
+	public ResponseEntity<String> excluirEmprestados(@PathVariable Long id, Authentication authentication) {
 		Optional<Emprestimos> emprestimos = emprestimosRepository.findById(id);
 		if (authentication != null && authentication.isAuthenticated()) {
-	        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-	        Usuario usuario = userDetails.getUsuario();
-		if (emprestimos.isPresent()) {
-			emprestimosRepository.deleteById(id);
-			return ResponseEntity.ok("Empréstimo excluído da lista");
+			CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+			Usuario usuario = userDetails.getUsuario();
+			if (emprestimos.isPresent()) {
+				emprestimosRepository.deleteById(id);
+				return ResponseEntity.ok("Empréstimo excluído da lista");
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		}
+		return null;
+	}
+
+	// ROTA PARA ATUALIZAR//
+	@PutMapping("/editar/emprestados/{id}")
+	@PreAuthorize("hasRole('ROLE_USER')")
+	public ResponseEntity<String> editarLista(@PathVariable Long id, @RequestBody Emprestimos emprestimosEdit) {
+		Optional<Emprestimos> emprestimosOptional = emprestimosRepository.findById(id);
+
+		if (emprestimosOptional.isPresent()) {
+			Emprestimos emprestimos = emprestimosOptional.get();
+
+			// Atualizar os campos do livro lido com os valores do livroEditado
+			emprestimos.setLivro(emprestimosEdit.getLivro());
+			emprestimos.setAutor(emprestimosEdit.getAutor());
+			emprestimos.setGenero(emprestimosEdit.getGenero());
+			emprestimos.setPessoa(emprestimosEdit.getPessoa());
+			emprestimos.setData(emprestimosEdit.getData());
+
+			emprestimosRepository.save(emprestimos);
+
+			return ResponseEntity.ok("Lista de emprestados atualizada");
 		} else {
 			return ResponseEntity.notFound().build();
 		}
 	}
-		return null;
-	}
-	
-	
-	
+
 	private void setEmprestimosService(EmprestimosService emprestimosService2) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
