@@ -31,7 +31,7 @@ button {
 					<span id="nivel">Nível 1 </span>
 				</div>
 				<div class="img-item">
-					<img src="/img/nv1.png">
+					<img src="/img/nv1.png" onclick="abrirNivelCard()">
 				</div>
 			</div>
 
@@ -64,28 +64,46 @@ button {
 
 			<div class="item-geral">
 				<div class="img-item">
-					<span> <a href="#"> <img src="/img/news-b2.png">
+					<span> <a href="/anuncios"> <img src="/img/news-b2.png">
 					</a></span>
 				</div>
 			</div>
 		</div>
 
-		<nav>
-			<ul>
+		<div id="modal-nivel" class="modal-container" style="display: none;">
+			<div class="modalpopup">
+				<div class="topo-form">
+					<h1>Nível de leitura</h1>
+				</div>
+				
+					<div class="sucesso">
+						<img src="/img/niveis/card-mercurio.png"
+							alt="desenho-planeta-mercurio" class="icone-nv">
+						<div class="btn-ok">
+							<a id="okNivel" class="ok"> OK </a>
+						</div>
 
-				<li>
-					<div class="avatar-menu">
-						<img th:src="${userAvatar}" class="avatar-menu-img">
 					</div>
+				
+			</div>
+		</div>
 
-				</li>
+
+		<nav>
+         <ul>
+				
 				<li>
+				<div class="avatar-menu">
+					<img th:src="${userAvatar}" class="avatar-menu-img">
+				</div>
+				
+					</li>
+					<li>
 					<h5>
 						<span th:text="${userLogin}" id="userlogin"
 							data-userlogin="${userlogin}"></span>
-					</h5>
-				</li>
-
+					</h5></li>
+				
 				<li><i class="fas fa-home"></i><a th:href="@{/user/profile}">
 						Home </a></li>
 				<li><i class="fas fa-book-reader"></i><a
