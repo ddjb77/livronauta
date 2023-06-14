@@ -16,73 +16,110 @@
 	
 	
 <header>
-    <input type="checkbox" id="check">
-    <label for="check">
-      <i class="fas fa-bars fa-2x menu"></i>
-    </label>
-    	<div class="barra">
-              <div class="item-geral">
-                <div class="item">
-                    <span id="nivel">Nível 1 </span>
-                </div>
-                <div class="img-item">
-                    <img src="img/nv1.png">
-                </div>
-            </div>
+		<input type="checkbox" id="check"> <label for="check">
+			<i class="fas fa-bars fa-2x menu"></i>
+		</label>
+		<div class="barra">
+			<div class="item-geral">
+				<div class="item">
+					<span id="nivel">Nível 1 </span>
+				</div>
+				<div class="img-item">
+					<img src="/img/nv1.png" onclick="abrirNivelCard()">
+				</div>
+			</div>
 
-            <div class="item-geral">
-                <div class="img-item">
-                    <img src="img/expbars.png"> 
-                </div>
-                <div class="item">
-                   <span id="exp"> 0 / 100</span>
-                </div>
-            </div>
+			<div class="item-geral">
+				<div class="img-item">
+					<img src="/img/expbars.png">
+				</div>
+				<div class="item">
+					<span id="exp"> 0 / 100</span>
+				</div>
+			</div>
 
-           <div class="item-geral">
-                <div class="img-item">
-                    <img src="/img/star-i.png"> 
-                </div>
-                <div class="item">
-                   <span id="estrelas"> 0 </span>
-                </div>
-            </div>
+			<div class="item-geral">
+				<div class="img-item">
+					<img src="/img/star-i.png">
+				</div>
+				<div class="item">
+					<span id="estrelas" th:text="${listaDesejos}"> 0 </span>
+				</div>
+			</div>
 
-            <div class="item-geral">
-                <div class="img-item">
-                    <img src="img/livro-de-capa-preta-fechado.png" width="20px" > 
-                </div>
-                <div class="item">
-                   <span id="lidos"> 0 </span>
-                </div>
-            </div>
+			<div class="item-geral">
+				<div class="img-item">
+					<img src="/img/livro-de-capa-preta-fechado.png" width="20px">
+				</div>
+				<div class="item">
+					<span id="lidos" th:text="${livrosLidos}"> 0 </span>
+				</div>
+			</div>
 
-            <div class="item-geral">
-                <div class="img-item">
-                    <span> <a href="#"> <img src="img/news-b2.png"> </a></span>
-                </div>
-            </div>
-        </div>
-        
-      <nav>
-        <ul>
-            <li id="logo"> <a th:href="@{/}"> <img th:src=@{/img/logo-livronauta.png} class="logo"> </a>  </li>
-                        <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
-            
-             <li><i class="fas fa-home"></i><a th:href="@{/user/profile}"> Home </a> </li>
-            <li><i class="fas fa-book-reader"></i><a th:href="@{/livros-lidos}"> Livros lidos  </a> </li>
-			<li> <i class="fas fa-book"></i> <a th:href="@{/proximas-leituras}"> Próximas leituras </a> </li>
-			<li><i class="far fa-bookmark"></i> <a th:href="@{/lista-desejos}"> Lista de desejos  </a> </li>
-			<li> <i class="fas fa-book-open"></i> <a th:href="@{/emprestados}"> Emprestados </a> </li>
-			<li> <i class="fas fa-meteor"></i> <a th:href="@{/conquistas}"> Conquistas </a> </li>
-			<li> <i class="fas fa-bullhorn"></i> <a th:href="@{/guia-page}"> Guia das Galáxias </a> </li>
-			<br>
-			<li> <i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}"> Sair </a> </li>
-			
+			<div class="item-geral">
+				<div class="img-item">
+					<span> <a href="/anuncios"> <img src="/img/news-b2.png">
+					</a></span>
+				</div>
+			</div>
+		</div>
 
-        </ul>
-        </nav>
-  </header>
+		<div id="modal-nivel" class="modal-container" style="display: none;">
+			<div class="modalpopup">
+				<div class="topo-form">
+					<h1>Nível de leitura</h1>
+				</div>
+				
+					<div class="sucesso">
+						<img src="/img/niveis/card-mercurio.png"
+							alt="desenho-planeta-mercurio" class="icone-nv">
+						<div class="btn-ok">
+							<a id="okNivel" class="ok"> OK </a>
+						</div>
+
+					</div>
+				
+			</div>
+		</div>
+
+
+		<nav>
+         <ul>
+				
+				<li>
+				<div class="avatar-menu">
+					<img th:src="${userAvatar}" class="avatar-menu-img">
+				</div>
+				
+					</li>
+					<li>
+					<h5>
+						<span th:text="${userLogin}" id="userlogin"
+							data-userlogin="${userlogin}"></span>
+					</h5></li>
+				
+				<li><i class="fas fa-home"></i><a th:href="@{/user/profile}">
+						Home </a></li>
+				<li><i class="fas fa-book-reader"></i><a
+					th:href="@{/livros-lidos}"> Livros lidos </a></li>
+				<li><i class="fas fa-book"></i> <a
+					th:href="@{/proximas-leituras}"> Próximas leituras </a></li>
+				<li><i class="far fa-bookmark"></i> <a
+					th:href="@{/lista-desejos}"> Lista de desejos </a></li>
+				<li><i class="fas fa-book-open"></i> <a
+					th:href="@{/emprestados}"> Emprestados </a></li>
+				<li><i class="fas fa-meteor"></i> <a th:href="@{/conquistas}">
+						Conquistas </a></li>
+				<li><i class="fas fa-bullhorn"></i> <a th:href="@{/guia-page}">
+						Guia das Galáxias </a></li>
+				<br>
+				<li><i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}">
+						Sair </a></li>
+
+
+			</ul>
+		</nav>
+	</header>
 
 	
  <div id="modal-conquista" class="modal-container-cometa">
