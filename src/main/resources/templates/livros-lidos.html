@@ -25,14 +25,13 @@
 					<span id="nivel">Nível 1 </span>
 				</div>
 				<div class="img-item">
-					<img src="img/nv1.png" alt="imagem de icone de um planeta">
+					<img src="img/nv1.png" onclick="abrirNivelCard()">
 				</div>
 			</div>
 
 			<div class="item-geral">
 				<div class="img-item">
-					<img src="img/expbars.png"
-						alt="imagem de icone de barras de experiência">
+					<img src="img/expbars.png">
 				</div>
 				<div class="item">
 					<span id="exp"> 0 / 100</span>
@@ -41,7 +40,7 @@
 
 			<div class="item-geral">
 				<div class="img-item">
-					<img src="/img/star-i.png" alt="imagem de icone de uma estrela">
+					<img src="/img/star-i.png">
 				</div>
 				<div class="item">
 					<span id="estrelas" th:text="${listaDesejos}"> 0 </span>
@@ -50,33 +49,55 @@
 
 			<div class="item-geral">
 				<div class="img-item">
-					<img src="/img/livro-de-capa-preta-fechado.png" width="20px"
-						alt="imagem de icone de um livro fechado">
+					<img src="/img/livro-de-capa-preta-fechado.png" width="20px">
 				</div>
 				<div class="item">
 					<span id="lidos" th:text="${livrosLidos}"> 0 </span>
 				</div>
 			</div>
 
-
 			<div class="item-geral">
 				<div class="img-item">
-					<span> <a href="#"> <img src="img/news-b2.png">
+					<span> <a href="/confirmacao-email"> <img src="img/news-b2.png">
 					</a></span>
 				</div>
 			</div>
 		</div>
 
+		<div id="modal-nivel" class="modal-container" style="display: none;">
+			<div class="modalpopup">
+				<div class="topo-form">
+					<h1>Nível de leitura</h1>
+				</div>
+				
+					<div class="sucesso">
+						<img th:src=@{/img/niveis/card-mercurio.png}
+							alt="desenho-planeta-mercurio" class="icone-nv">
+						<div class="btn-ok">
+							<a th:href="@{/livros-lidos}" class="ok"> OK </a>
+						</div>
+
+					</div>
+				
+			</div>
+		</div>
+
+
 		<nav>
-			<ul>
-				<li id="logo"><a th:href="@{/}"> <img
-						th:src=@{/img/logo-livronauta.png} class="logo">
-				</a></li>
-				<li><h5>
+         <ul>
+				
+				<li>
+				<div class="avatar-menu">
+					<img th:src="${userAvatar}" class="avatar-menu-img">
+				</div>
+				
+					</li>
+					<li>
+					<h5>
 						<span th:text="${userLogin}" id="userlogin"
 							data-userlogin="${userlogin}"></span>
 					</h5></li>
-
+				
 				<li><i class="fas fa-home"></i><a th:href="@{/user/profile}">
 						Home </a></li>
 				<li><i class="fas fa-book-reader"></i><a
@@ -132,6 +153,21 @@
 			</div>
 		</div>
 	</div>
+	<div id="modal-sucesso" class="modal-container" style="display: none;">
+		<div class="modalpopup">
+			<div class="topo-form">
+				<h1>Sucesso!!!</h1>
+			</div>
+			<div class="sucesso">
+				<img th:src=@{img/icone-sucesso.png} alt="astronauta comemorando">
+				<h1>Dados salvos com sucesso !!</h1>
+				<div class="btn-ok">
+					<a th:href="@{/livros-lidos}" class="ok"> OK </a>
+				</div>
+
+			</div>
+		</div>
+	</div>
 
 	<div id="modal" class="modal-container" style="display: none;">
 		<div class="modalpopup">
@@ -143,7 +179,7 @@
 				<form action="/editar/livros-lidos/{id}">
 					<input type="text" name="livro" placeholder="Nome do Livro"
 						required> <input type="text" name="autor"
-						placeholder="Autor" required>
+						placeholder="Autor" required >
 					<div class="opcoes">
 						<select id="generos" name="genero" required>
 							<option value="">Gênero</option>
@@ -184,7 +220,6 @@
 						<a href="/livros-lidos" class="cancelar">Cancelar</a>
 					</div>
 				</form>
-
 			</div>
 		</div>
 	</div>
@@ -261,6 +296,7 @@
 
 	<script th:src="@{/js/metodos.js}"></script>
 	<script th:src="@{js/script-robo.js}"></script>
+	<script th:src="@{/js/niveis.js}"></script>
 	<script src="/datatable/jquery-3.5.1.min.js"></script>
 	<script src="/datatable/datatable.js"></script>
 	<script src="/datatable/popper.min.js"></script>

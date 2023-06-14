@@ -178,20 +178,6 @@ public class Usuario {
 		return "Usuario [id=" + id + ", nome=" + nome + ", login=" + login + ", email=" + email +" ,username =" + username +" ]";
 	}
 	
-	
-	//CÓDIGO ATUAL
-	
-	/*Usuario other = (Usuario) obj;
-	return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(login, other.login)
-			&& Objects.equals(nome, other.nome) && Objects.equals(password, other.password) && Objects.equals(username, other.username) && Objects.equals(cpf, other.cpf) && Objects.equals(telefone, other.telefone);
-} 
-
-@Override
-public String toString() {
-	return "Usuario [id=" + id + ", nome=" + nome + ", login=" + login + ", email=" + email +" ,username =" + username +" , cpf=" + cpf +", telefone =" + telefone + "]";
-}
-*/
-	//
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()

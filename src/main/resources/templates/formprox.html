@@ -16,24 +16,41 @@
     <label for="check">
       <i class="fas fa-bars fa-2x menu"></i>
     </label>
-      <nav>
-        <ul>
-            <li id="logo"> <a th:href="@{/}"> <img th:src=@{/img/logo-livronauta.png} class="logo"> </a>  </li>
-                        <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
-            
-             <li><i class="fas fa-home"></i><a th:href="@{/user/profile}"> Home </a> </li>
-            <li><i class="fas fa-book-reader"></i><a th:href="@{/livros-lidos}"> Livros lidos  </a> </li>
-			<li> <i class="fas fa-book"></i> <a th:href="@{/proximas-leituras}"> Próximas leituras </a> </li>
-			<li><i class="far fa-bookmark"></i> <a th:href="@{/lista-desejos}"> Lista de desejos  </a> </li>
-			<li> <i class="fas fa-book-open"></i> <a th:href="@{/emprestados}"> Emprestados </a> </li>
-			<li> <i class="fas fa-meteor"></i> <a th:href="@{/conquistas}"> Conquistas </a> </li>
-			<li> <i class="fas fa-bullhorn"></i> <a th:href="@{/guia-page}"> Guia das Galáxias </a> </li>
-			<br>
-			<li> <i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}"> Sair </a> </li>
-			
+       <nav>
+       <ul>
+				
+				<li>
+				<div class="avatar-menu">
+					<img th:src="${userAvatar}" class="avatar-menu-img">
+				</div>
+				
+					</li>
+					<li>
+					<h5>
+						<span th:text="${userLogin}" id="userlogin"
+							data-userlogin="${userlogin}"></span>
+					</h5></li>
+				
+				<li><i class="fas fa-home"></i><a th:href="@{/user/profile}">
+						Home </a></li>
+				<li><i class="fas fa-book-reader"></i><a
+					th:href="@{/livros-lidos}"> Livros lidos </a></li>
+				<li><i class="fas fa-book"></i> <a
+					th:href="@{/proximas-leituras}"> Próximas leituras </a></li>
+				<li><i class="far fa-bookmark"></i> <a
+					th:href="@{/lista-desejos}"> Lista de desejos </a></li>
+				<li><i class="fas fa-book-open"></i> <a
+					th:href="@{/emprestados}"> Emprestados </a></li>
+				<li><i class="fas fa-meteor"></i> <a th:href="@{/conquistas}">
+						Conquistas </a></li>
+				<li><i class="fas fa-bullhorn"></i> <a th:href="@{/guia-page}">
+						Guia das Galáxias </a></li>
+				<br>
+				<li><i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}">
+						Sair </a></li>
 
-        </ul>
-        </nav>
+			</ul>
+		</nav>
   </header>
 	
 	<section id="banner">
@@ -56,6 +73,7 @@
         <div class="tabela">
             <table>
                 <tr>
+                	<th>Ordem</th>
                     <th> Livro </th>
                     <th> Autor </th>
                     <th> Gênero </th>
@@ -65,9 +83,11 @@
 
                 <tr>
                     <tr th:each="prox : ${listar}">
+                    <td th:text="${prox.ordem}"> </td>
                     <td th:text="${prox.livro}"> </td>
                     <td th:text="${prox.autor}"></td>
                     <td th:text="${prox.genero}"></td>
+                    <td th:text="${prox.numeroPaginas}"></td>
 
                    <td> <i class="far fa-edit icone-tabela"></i> </td>
                    <td> <i class="fas fa-trash icone-tabela"></i> </td>
@@ -92,6 +112,7 @@
                 </div>
                 <div class="formulario">
 				<form action="/save-prox-leitura" method="post">
+					<input type="number" name="ordem" placeholder="Ordem de leitura" required>
 					<input type="text" name="livro" placeholder="Nome do Livro"required> 
 					<input type="text" name="autor"placeholder="Autor" required>
 					
@@ -115,6 +136,7 @@
 							<option value="outros">Outros</option>
 						</select>
 					</div>
+					<input type="number" name="numeroPaginas" placeholder="Número de Páginas" required>
             				
 
 

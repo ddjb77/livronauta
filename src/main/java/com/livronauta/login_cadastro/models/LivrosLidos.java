@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 
 @NoArgsConstructor
@@ -117,11 +118,11 @@ public class LivrosLidos {
 				&& Objects.equals(genero, other.genero) && Objects.equals(id, other.id)
 				&& Objects.equals(livro, other.livro);
 	}
-
+	@NonNull
 	private String genero;
-	
+	@NonNull
 	private int ano;
-	
+	@NonNull
 	private int avaliacao;
 	
 	

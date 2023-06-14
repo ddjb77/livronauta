@@ -74,6 +74,8 @@ public class EmprestimosController {
 			// Adicionar a lista ao modelo
 			model.addAttribute("emprestimos", emprestimos);
 			model.addAttribute("userLogin", usuario.getLogin());
+			model.addAttribute("userAvatar", usuario.getInfoUsuario().getCaminhoImagem());
+
 
 			return "emprestados";
 		}
@@ -95,7 +97,8 @@ public class EmprestimosController {
 			@RequestParam(name = "autor", required = true) String autor,
 			@RequestParam(name = "genero", required = true) String genero,
 			@RequestParam(name = "pessoa", required = true) String pessoa,
-			@RequestParam(name = "data", required = true) String data, Authentication authentication) {
+			@RequestParam(name = "data", required = true) String data,
+			@RequestParam(name = "dataDevol", required = true) String dataDevol, Authentication authentication) {
 
 		// Obter o usuário autenticado
 		if (authentication != null && authentication.isAuthenticated()) {
@@ -109,6 +112,7 @@ public class EmprestimosController {
 			emprestimos.setGenero(genero);
 			emprestimos.setPessoa(pessoa);
 			emprestimos.setData(data);
+			emprestimos.setDataDevol(dataDevol);
 
 			emprestimos.setUsuario(usuario);
 
@@ -120,6 +124,8 @@ public class EmprestimosController {
 			model.addAttribute("generoLivro", emprestimos.getGenero());
 			model.addAttribute("pessoa", emprestimos.getPessoa());
 			model.addAttribute("data", emprestimos.getData());
+			model.addAttribute("dataDevol", emprestimos.getDataDevol());
+
 			model.addAttribute("userLogin", usuario.getLogin());
 
 			return "redirect:/emprestados";
@@ -161,6 +167,7 @@ public class EmprestimosController {
 			emprestimos.setGenero(emprestimosEdit.getGenero());
 			emprestimos.setPessoa(emprestimosEdit.getPessoa());
 			emprestimos.setData(emprestimosEdit.getData());
+			emprestimos.setDataDevol(emprestimosEdit.getDataDevol());
 
 			emprestimosRepository.save(emprestimos);
 

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.livronauta.login_cadastro.config.CustomUserDetails;
+import com.livronauta.login_cadastro.models.Emprestimos;
 import com.livronauta.login_cadastro.models.InfoUsuario;
 import com.livronauta.login_cadastro.models.Usuario;
 import com.livronauta.login_cadastro.repository.InfoUsuarioRepository;
@@ -49,6 +50,8 @@ public class UsuarioController {
 
 	@Autowired
 	private ListaDesejosRepository listaDesejosRepository;
+	
+
 
 	@GetMapping("/login-page")
 	public String getLoginPage() {
@@ -76,9 +79,9 @@ public class UsuarioController {
 		return "login_page";
 	}
 
-	@GetMapping("/confirmacao-email")
-	public String geConfirmacaoPage() {
-		return "confirmacao-email";
+	@GetMapping("/anuncios")
+	public String getAnuncios() {
+		return "anuncios";
 	}
 
 	@GetMapping("/register")
@@ -105,6 +108,7 @@ public class UsuarioController {
 				InfoUsuario infoUsuario = infoUsuarioRepository.findByUsuario(usuario);
 
 				if (infoUsuario != null) {
+					model.addAttribute("infoUsuarioEditado", infoUsuario);
 					usuario.setInfoUsuario(infoUsuario);
 					usuarioRepository.save(usuario);
 
@@ -119,7 +123,12 @@ public class UsuarioController {
 					model.addAttribute("userGenero", infoUsuario.getGenero());
 					model.addAttribute("userCpf", usuario.getInfoUsuario().getCpf());
 					model.addAttribute("userTel", usuario.getInfoUsuario().getTelefone());
+					model.addAttribute("userAvatar", usuario.getInfoUsuario().getCaminhoImagem());
+					
+					
 				}
+				
+				
 
 				List<Usuario> usuarios = usuarioService.findAllUsuarios();
 				model.addAttribute("usuarios", usuarios);
@@ -134,51 +143,6 @@ public class UsuarioController {
 		return "error";
 	}
 
-	/*
-	 * @GetMapping("/user/{id}")
-	 * 
-	 * @Transactional
-	 * 
-	 * @PreAuthorize("hasRole('ROLE_USER')") public String userPage(Authentication
-	 * authentication, @PathVariable Long id, Model model1) { if (id != null) {
-	 * java.util.Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
-	 * 
-	 * if (optionalUsuario.isPresent()) { Usuario usuario = optionalUsuario.get();
-	 * // código para obter informações específicas do usuário, utilizando o objeto
-	 * "usuario" InfoUsuario infoUsuario =
-	 * infoUsuarioRepository.findByUsuario(usuario); if (infoUsuario != null) {
-	 * usuario.setInfoUsuario(infoUsuario); usuarioRepository.save(usuario); }
-	 * usuario.setInfoUsuario(infoUsuario); usuarioRepository.save(usuario);
-	 * List<Usuario> usuarios = usuarioService.findAllUsuarios();
-	 * model1.addAttribute("usuarios", usuarios); model1.addAttribute("user",
-	 * usuario); model1.addAttribute("userLogin", usuario.getLogin());
-	 * model1.addAttribute("userNome", usuario.getNome());
-	 * 
-	 * 
-	 * 
-	 * 
-	 * if (infoUsuario != null) { int quantidadeLivrosLidos =
-	 * livrosLidosRepository.contarLivrosLidos(usuario); int quantidadeLista =
-	 * listaDesejosRepository.contarListaDesejos(usuario);
-	 * model1.addAttribute("livrosLidos", quantidadeLivrosLidos);
-	 * model1.addAttribute("listaDesejos", quantidadeLista);
-	 * model1.addAttribute("userLivroAtual", infoUsuario.getLivroAtual());
-	 * model1.addAttribute("userNumeroPaginas", infoUsuario.getNumeroPaginas());
-	 * model1.addAttribute("userPaginasTotais", infoUsuario.getPaginasTotais());
-	 * model1.addAttribute("userGenero", infoUsuario.getGenero());
-	 * model1.addAttribute("userCpf", usuario.getInfoUsuario().getCpf());
-	 * model1.addAttribute("userTel", usuario.getInfoUsuario().getTelefone());
-	 * 
-	 * }
-	 * 
-	 * model1.addAttribute("id", usuario.getId());
-	 * 
-	 * return "user"; } else { return "error"; }}
-	 * 
-	 * return "error";
-	 * 
-	 * }
-	 */
 
 	@GetMapping("/admin")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -211,9 +175,10 @@ public class UsuarioController {
 			@RequestParam(name = "cpf", required = true) String cpf,
 			@RequestParam(name = "telefone", required = true) String telefone,
 			@RequestParam(name = "livroAtual", required = true) String livroAtual,
-			@RequestParam(name = "numeroPagina", required = true) int numeroPaginas,
+			@RequestParam(name = "numeroPaginas", required = true) int numeroPaginas,
 			@RequestParam(name = "genero", required = true) String genero,
 			@RequestParam(name = "paginasTotais", required = true) int paginasTotais,
+			@RequestParam(name="imagemSrc", required = true) String imagemSrc,
 
 			Authentication authentication) {
 
@@ -235,6 +200,7 @@ public class UsuarioController {
 		infoUsuario.setPaginasTotais(paginasTotais);
 		infoUsuario.setGenero(genero);
 		infoUsuario.setNumeroPaginas(numeroPaginas);
+		infoUsuario.setCaminhoImagem(imagemSrc);
 
 		infoUsuario.setId(usuarioExistente.getId());
 		infoUsuarioRepository.save(infoUsuario); // Salva as informações do infoUsuario na tabela info_usuario
@@ -242,45 +208,48 @@ public class UsuarioController {
 		model.addAttribute("userNome", infoUsuario.getNome());
 		model.addAttribute("userTel", infoUsuario.getTelefone());
 		model.addAttribute("userCpf", infoUsuario.getCpf());
+		model.addAttribute("userAvatar", infoUsuario.getCaminhoImagem());
 		model.addAttribute("userNumeroPaginas", infoUsuario.getNumeroPaginas());
 
 		return "redirect:/user/profile";
-	}
-	
-	
-	@PutMapping("/editar/perfil/{id}")
+	}}
+	/*
+	@PostMapping("/editar-perfil")
 	@PreAuthorize("hasRole('ROLE_USER')")
-	public ResponseEntity<String> editarInfoUsuario(@PathVariable Long id, @RequestBody InfoUsuario usuarioEditado) {
-	    Optional<InfoUsuario> usuarioOptional = infoUsuarioRepository.findById(id);
+	public ResponseEntity<String> editarPerfil(Authentication authentication, @RequestBody InfoUsuario infoUsuarioEditado) {
+	    CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+	    Usuario usuarioExistente = userDetails.getUsuario();
 
-	    if (usuarioOptional.isPresent()) {
-	    	InfoUsuario usuario = usuarioOptional.get();
+	    InfoUsuario infoUsuario = usuarioExistente.getInfoUsuario();
 
-	        // Atualizar os campos do livro lido com os valores do livroEditado
-	    	
-	    	
-	    	usuario.setNumeroPaginas(usuarioEditado.getNumeroPaginas());
-	    	usuario.setPaginasTotais(usuarioEditado.getPaginasTotais());
-	    	
-	        
+	    if (infoUsuario != null) {
+	        infoUsuario.setLivroAtual(infoUsuarioEditado.getLivroAtual());
+	        infoUsuario.setGenero(infoUsuarioEditado.getGenero());
+	        infoUsuario.setPaginasTotais(infoUsuarioEditado.getPaginasTotais());
+	        infoUsuario.setNumeroPaginas(infoUsuarioEditado.getNumeroPaginas());
 
-	    	infoUsuarioRepository.save(usuario);
+	        infoUsuarioRepository.save(infoUsuario);
 
-	        return ResponseEntity.ok("Livro atualizado com sucesso");
+	        return ResponseEntity.ok("Perfil atualizado com sucesso.");
 	    } else {
 	        return ResponseEntity.notFound().build();
 	    }
+	    
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
+	*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

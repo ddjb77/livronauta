@@ -47,7 +47,8 @@ public class LivrosLidosController {
         if (authentication != null && authentication.isAuthenticated()) {
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
             Usuario usuario = userDetails.getUsuario();
-
+            
+            
             // Recuperar a lista de livros lidos do repositório para o usuário autenticado
             List<LivrosLidos> livrosLidos = livrosLidosRepository.findByUsuario(usuario);
 
@@ -55,13 +56,15 @@ public class LivrosLidosController {
             int quantidadeLista = listaDesejosRepository.contarListaDesejos(usuario);
             
             // mostra a quantidade de livros lidos e de items na lista de desejo na página
-
+            
             model.addAttribute("livrosLidos", quantidadeLivrosLidos);
             model.addAttribute("listaDesejos", quantidadeLista);
             
             //adiciona os livros lidos à pagina
             model.addAttribute("qtlivrosLidos", livrosLidos);
             model.addAttribute("userLogin", usuario.getLogin());
+			model.addAttribute("userAvatar", usuario.getInfoUsuario().getCaminhoImagem());
+
             
 
             return "livros-lidos";
@@ -138,32 +141,32 @@ public class LivrosLidosController {
 	
 	
 	
-	
-	@PutMapping("/editar/livros-lidos/{id}")
-	@PreAuthorize("hasRole('ROLE_USER')")
-	public ResponseEntity<String> editarLivroLido(@PathVariable Long id, @RequestBody LivrosLidos livroEditado) {
-	    Optional<LivrosLidos> livroOptional = livrosLidosRepository.findById(id);
+@PutMapping("/editar/livros-lidos/{id}")
+@PreAuthorize("hasRole('ROLE_USER')")
+public ResponseEntity<String> editarLivroLido(@PathVariable Long id, @RequestBody LivrosLidos livroEditado) {
+    Optional<LivrosLidos> livroOptional = livrosLidosRepository.findById(id);
 
-	    if (livroOptional.isPresent()) {
-	        LivrosLidos livroLido = livroOptional.get();
+    if (livroOptional.isPresent()) {
+        LivrosLidos livroLido = livroOptional.get();
 
-	        // Atualizar os campos do livro lido com os valores do livroEditado
-	        livroLido.setLivro(livroEditado.getLivro());
-	        livroLido.setAutor(livroEditado.getAutor());
-	        livroLido.setGenero(livroEditado.getGenero());
-	        livroLido.setAno(livroEditado.getAno());
-	        livroLido.setAvaliacao(livroEditado.getAvaliacao());
+        // Atualizar os campos do livro lido com os valores do livroEditado
+        livroLido.setLivro(livroEditado.getLivro());
+        livroLido.setAutor(livroEditado.getAutor());
+        livroLido.setGenero(livroEditado.getGenero());
+        livroLido.setAno(livroEditado.getAno());
+        livroLido.setAvaliacao(livroEditado.getAvaliacao());
 
-	        livrosLidosRepository.save(livroLido);
+        livrosLidosRepository.save(livroLido);
 
-	        return ResponseEntity.ok("Livro atualizado com sucesso");
-	    } else {
-	        return ResponseEntity.notFound().build();
-	    }
-	}
-
-	
+        return ResponseEntity.ok("Livro atualizado com sucesso");
+    } else {
+        return ResponseEntity.notFound().build();
+    }
 }
+
+
+}
+	
 
 
 

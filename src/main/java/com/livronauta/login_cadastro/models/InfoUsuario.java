@@ -84,6 +84,9 @@ public class InfoUsuario {
     private int paginasTotais;
     private String genero;
     private int numeroPaginas;
+    
+    @Column(name = "caminho_imagem")
+    private String caminhoImagem;
 
 	@Override
 	public String toString() {
@@ -114,6 +117,12 @@ public class InfoUsuario {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public String getCaminhoImagem() {
+		return caminhoImagem;
+	}
+	public void setCaminhoImagem(String caminhoImagem) {
+		this.caminhoImagem = caminhoImagem;
 	}
 
     // getters e setters

@@ -63,11 +63,13 @@ public class ProximasLeiturasController {
             int quantidadeLista = listaDesejosRepository.contarListaDesejos(usuario);
             
             // mostra a quantidade de livros lidos e de items na lista de desejo na página
-
+            
             model.addAttribute("livrosLidos", quantidadeLivrosLidos);
             model.addAttribute("listaDesejos", quantidadeLista);
 			model.addAttribute("proximasLeituras", proximasLeituras);
 			model.addAttribute("userLogin", usuario.getLogin());
+			model.addAttribute("userAvatar", usuario.getInfoUsuario().getCaminhoImagem());
+
 
 			return "proximas-leituras";
 		}
@@ -80,7 +82,10 @@ public class ProximasLeiturasController {
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public String salvarLivroLido(Model model, @RequestParam(name = "livro", required = true) String livro,
 			@RequestParam(name = "autor", required = true) String autor,
-			@RequestParam(name = "genero", required = true) String genero, Authentication authentication) {
+			@RequestParam(name = "genero", required = true) String genero,
+			@RequestParam(name = "ordem", required = true) int ordem,
+			@RequestParam(name = "numeroPaginas", required = true) int numeroPaginas,
+			Authentication authentication) {
 
 		// Obter o usuário autenticado
 		if (authentication != null && authentication.isAuthenticated()) {
@@ -92,6 +97,8 @@ public class ProximasLeiturasController {
 			proximaLeitura.setLivro(livro);
 			proximaLeitura.setAutor(autor);
 			proximaLeitura.setGenero(genero);
+			proximaLeitura.setOrdem(ordem);
+			proximaLeitura.setNumeroPaginas(numeroPaginas);
 			proximaLeitura.setUsuario(usuario);
 
 			// Salvar o livro lido no repositório
@@ -100,6 +107,7 @@ public class ProximasLeiturasController {
 			model.addAttribute("nomelivro", proximaLeitura.getLivro());
 			model.addAttribute("autorLivro", proximaLeitura.getAutor());
 			model.addAttribute("generoLivro", proximaLeitura.getGenero());
+			model.addAttribute("ordemLivro", proximaLeitura.getOrdem());
 			model.addAttribute("userLogin", usuario.getLogin());
 
 			return "redirect:/proximas-leituras";
@@ -142,7 +150,8 @@ public class ProximasLeiturasController {
 	    	proximasLeituras.setLivro(proximasLeiturasEdit.getLivro());
 	    	proximasLeituras.setAutor(proximasLeiturasEdit.getAutor());
 	    	proximasLeituras.setGenero(proximasLeiturasEdit.getGenero());
-
+	    	proximasLeituras.setOrdem(proximasLeiturasEdit.getOrdem());
+	    	proximasLeituras.setNumeroPaginas(proximasLeiturasEdit.getNumeroPaginas());
 	    	proximasLeiturasRepository.save(proximasLeituras);
 
 	        return ResponseEntity.ok("Próximas leituras atualizada");

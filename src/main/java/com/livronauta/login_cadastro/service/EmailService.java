@@ -32,5 +32,26 @@ import org.springframework.stereotype.Service;
 	        helper.setText(texto, true);
 	        mailSender.send(message);
 	    }
+	    
+	    
+	    
+	   /* public void enviarEmailRecuperacaoSenha(String destinatario, String token) throws MessagingException {
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+	        helper.setFrom("adm.livronauta@gmail.com");
+	        helper.setTo(destinatario);
+	        helper.setSubject("Recuperação de Senha");
+
+	        String texto = "<html><body>"
+	                + "<p>Olá, você solicitou a recuperação de senha.</p>"
+	                + "<p>Para criar uma nova senha, clique no link abaixo:</p>"
+	                + "<p><a href=\"http://localhost:8080/resetar-senha?token=" + token + "\">Resetar Senha</a></p>"
+	                + "<p>Se você não solicitou a recuperação de senha, ignore este e-mail.</p>"
+	                + "</body></html>";
+
+	        helper.setText(texto, true);
+	        mailSender.send(message);
+	    }*/
 	}
 

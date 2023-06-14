@@ -38,12 +38,12 @@ const quizData = [
     },
 
     {
-        pergunta: "Qual era o sobrenome do casal de mordomos da casa?",
-        a: "Sr e Sra Smith",
-        b: "Sr e Sra Golding",
-        c: "Sr e Sra Rogers",
-        d: "Sr e Sra Hallt",
-        correct: "c",
+        pergunta: "Como o autor das mortes é descoberto?",
+        a: "Ele se entrega",
+        b: "Ninguém o descobre",
+        c: "A polícia cerca a ilha",
+        d: "Um dos personagens o pega em flagrante ",
+        correct: "b",
     },
 ]
 /* recebe os dados das perguntas e das alternativas */
@@ -75,6 +75,13 @@ function loadQuiz() {
     texto_c.innerText = currentQuizData.c
     texto_d.innerText = currentQuizData.d
 }
+
+
+function voltarAoPerfil() {
+   
+    window.location.href = "/userpage/profile";
+}
+
 
 function deselectAnswers() {
     respostas.forEach(resposta => resposta.checked = false)
@@ -123,6 +130,8 @@ enviar.addEventListener('click', () => {
                 btn.style.cursor = "pointer";
                 btn.innerHTML = "Voltar ao livronauta"
                 quiz.appendChild(btn);
+                btn.addEventListener('click', voltarAoPerfil);
+
             } else if 
                 (score == quizData.length - 1) {
                     quiz.style.margin = "30px"
@@ -144,6 +153,8 @@ enviar.addEventListener('click', () => {
                     btn.style.cursor = "pointer";
                     btn.innerHTML = "Voltar ao livronauta"
                     quiz.appendChild(btn);
+                    btn.addEventListener('click', voltarAoPerfil);
+
                 } else if 
                 (score == quizData.length - 2 ) {
                     quiz.style.margin = "30px"
@@ -165,6 +176,8 @@ enviar.addEventListener('click', () => {
                     btn.style.cursor = "pointer";
                     btn.innerHTML = "Voltar ao livronauta"
                     quiz.appendChild(btn);
+                     btn.addEventListener('click', voltarAoPerfil);
+
                 } else if 
                     (score == quizData.length - 3 ) {
                         quiz.style.margin = "30px"
@@ -186,6 +199,8 @@ enviar.addEventListener('click', () => {
                         btn.style.cursor = "pointer";
                         btn.innerHTML = "Voltar ao livronauta"
                         quiz.appendChild(btn);
+                        btn.addEventListener('click', voltarAoPerfil);
+
                 }  else if 
                    (score == quizData.length - 4 ) {
                     quiz.style.margin = "30px"
@@ -207,6 +222,8 @@ enviar.addEventListener('click', () => {
                     btn.style.cursor = "pointer";
                     btn.innerHTML = "Voltar ao livronauta"
                     quiz.appendChild(btn);
+                    btn.addEventListener('click', voltarAoPerfil);
+
             }
                 
                 
@@ -230,6 +247,7 @@ enviar.addEventListener('click', () => {
                         btn.style.cursor = "pointer";
                         btn.innerHTML = "Voltar ao livronauta"
                         quiz.appendChild(btn);
+                        btn.addEventListener('click', voltarAoPerfil);
 
                 }
 

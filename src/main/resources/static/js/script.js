@@ -18,6 +18,7 @@ function email() {
 
 
 
+
 function entrar() {
     var img = document.querySelector(".imagem-login");
     img.setAttribute('src','img/botao-paz.png');
@@ -42,6 +43,8 @@ const numeroPaginas = parseInt(document.getElementById('numeroPaginas').textCont
 const paginasTotais = parseInt(document.getElementById('paginasTotais').textContent);
 const progressBar = document.getElementById('progresso');
 const btnQuiz = document.getElementById('btnQuiz');
+const modalHumor = document.getElementById('modal-humor');
+const okHumor = document.getElementById('ok-humor');
 // Calcula a porcentagem lida
 const porcentagemLida = (numeroPaginas / paginasTotais) * 100;
 
@@ -52,6 +55,9 @@ progressBar.value = porcentagemLida;
 
 //habilitar botao quiz//
 if (porcentagemLida === 100) {
+	
+   //habilita o modal de humor sobre a leitura
+  modalHumor.style.display="block";
   btnQuiz.style.backgroundColor="#00a8ff";
   btnQuiz.style.color="#ffffff";
   btnQuiz.style.border= "none";
@@ -60,9 +66,15 @@ if (porcentagemLida === 100) {
   btnQuiz.style.cursor="pointer";
   btnQuiz.style.fontSize="14px";
   
+   okHumor.addEventListener("click", function() {
+    modalHumor.style.display = "none";
+  });
+  
+  
   
   //desabilitar botao quiz
 } else {
+  
   btnQuiz.disabled="true";
   btnQuiz.style.opacity="0.5";
   btnQuiz.style.backgroundColor="#00a8ff";

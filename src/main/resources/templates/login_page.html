@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    
 
     <title> Login </title>
 </head>
@@ -34,6 +35,14 @@
                     <span>
                         <a href="/register"> Cadastre-se </a>
                     </span>
+                      <div class="signed">
+                    <span>
+                        Esqueceu sua senha?
+                    </span>
+                    <span>
+                        <a href="/recuperacao-senha">Clique aqui</a>
+                    </span>
+                </div>
                 </div>
 				<div class="credenciaisIncorretas" th:if="${param.error}">
 				    <span>Usuário ou senha incorretos. Tente novamente.</span>

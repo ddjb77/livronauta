@@ -66,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .antMatchers("/login",  "/js/**", "/css/**", "/img/**").permitAll() //permite o acesso a todos 
             .antMatchers("/register").permitAll()//permite o acesso a todos 
             .antMatchers("/admin/**").hasRole("ADMIN")
+            .antMatchers("/editar-perfil/{id}").hasRole("USER")
             //permite o acesso a todos os usuários com o papel de administrador
             .antMatchers("/user/**").hasRole("USER")
             .antMatchers("/user/{id}").access("hasAnyRole('USER', 'ADMIN') and #id == authentication.principal.id")//permite o acesso a todos os usuários com o papel de usuário caso este esteja autentitacado
@@ -78,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .logout()
             .invalidateHttpSession(true) // invalida a sessão do usuário após o mesmo deslogar
             .logoutUrl("/logout")
-            .logoutSuccessUrl("/login-page")
+            .logoutSuccessUrl("/")
             .permitAll()
             .and()
             .csrf().disable(); // desabilita CSRF para facilitar o desenvolvimento

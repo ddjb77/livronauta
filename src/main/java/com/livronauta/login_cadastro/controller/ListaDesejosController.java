@@ -68,6 +68,8 @@ public class ListaDesejosController {
 			model.addAttribute("userLogin", usuario.getLogin());
 			model.addAttribute("qtlistaDesejos", listaDesejos);
 			model.addAttribute("userLogin", usuario.getLogin());
+			model.addAttribute("userAvatar", usuario.getInfoUsuario().getCaminhoImagem());
+
 
 			return "lista-desejos";
 		}
@@ -116,6 +118,8 @@ public class ListaDesejosController {
 	        model.addAttribute("siteLista", listaDesejos.getSite());
 	        model.addAttribute("precoLivro", listaDesejos.getSite());
             model.addAttribute("userLogin", usuario.getLogin());
+			model.addAttribute("userAvatar", usuario.getInfoUsuario().getCaminhoImagem());
+
 
 
 	        return "redirect:/lista-desejos";

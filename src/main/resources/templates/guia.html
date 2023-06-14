@@ -61,24 +61,42 @@
             </div>
         </div>
         
-        <nav>
-        <ul>
-            <li id="logo"> <a th:href="@{/}"> <img th:src=@{/img/logo-livronauta.png} class="logo"> </a>  </li>
-                        <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
-            
-             <li><i class="fas fa-home"></i><a th:href="@{/user/profile}"> Home </a> </li>
-            <li><i class="fas fa-book-reader"></i><a th:href="@{/livros-lidos}"> Livros lidos  </a> </li>
-			<li> <i class="fas fa-book"></i> <a th:href="@{/proximas-leituras}"> Próximas leituras </a> </li>
-			<li><i class="far fa-bookmark"></i> <a th:href="@{/lista-desejos}"> Lista de desejos  </a> </li>
-			<li> <i class="fas fa-book-open"></i> <a th:href="@{/emprestados}"> Emprestados </a> </li>
-			<li> <i class="fas fa-meteor"></i> <a th:href="@{/conquistas}"> Conquistas </a> </li>
-			<li> <i class="fas fa-bullhorn"></i> <a th:href="@{/guia-page}"> Guia das Galáxias </a> </li>
-			<br>
-			<li> <i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}"> Sair </a> </li>
-			
+ <nav>
+       <ul>
+				
+				<li>
+				<div class="avatar-menu">
+					<img th:src="${userAvatar}" class="avatar-menu-img">
+				</div>
+				
+					</li>
+					<li>
+					<h5>
+						<span th:text="${userLogin}" id="userlogin"
+							data-userlogin="${userlogin}"></span>
+					</h5></li>
+				
+				<li><i class="fas fa-home"></i><a th:href="@{/user/profile}">
+						Home </a></li>
+				<li><i class="fas fa-book-reader"></i><a
+					th:href="@{/livros-lidos}"> Livros lidos </a></li>
+				<li><i class="fas fa-book"></i> <a
+					th:href="@{/proximas-leituras}"> Próximas leituras </a></li>
+				<li><i class="far fa-bookmark"></i> <a
+					th:href="@{/lista-desejos}"> Lista de desejos </a></li>
+				<li><i class="fas fa-book-open"></i> <a
+					th:href="@{/emprestados}"> Emprestados </a></li>
+				<li><i class="fas fa-meteor"></i> <a th:href="@{/conquistas}">
+						Conquistas </a></li>
+				<li><i class="fas fa-bullhorn"></i> <a th:href="@{/guia-page}">
+						Guia das Galáxias </a></li>
+				<br>
+				<li><i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}">
+						Sair </a></li>
 
-        </ul>
-        </nav>
+
+			</ul>
+		</nav>
   </header>
 	
    <section id="intro-guia">

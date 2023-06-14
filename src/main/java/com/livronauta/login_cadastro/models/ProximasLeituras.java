@@ -75,10 +75,14 @@ public class ProximasLeituras {
 	private String autor;
 	
 	private String genero;
+	
+	private int ordem;
+	
+	private int numeroPaginas;
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(autor, genero, id, livro);
+		return Objects.hash(autor, genero, id, livro, numeroPaginas, ordem, usuario);
 	}
 
 	@Override
@@ -91,12 +95,31 @@ public class ProximasLeituras {
 			return false;
 		ProximasLeituras other = (ProximasLeituras) obj;
 		return Objects.equals(autor, other.autor) && Objects.equals(genero, other.genero)
-				&& Objects.equals(id, other.id) && Objects.equals(livro, other.livro);
+				&& Objects.equals(id, other.id) && Objects.equals(livro, other.livro)
+				&& numeroPaginas == other.numeroPaginas && ordem == other.ordem
+				&& Objects.equals(usuario, other.usuario);
 	}
 
 	@Override
 	public String toString() {
-		return "ProximasLeituras [id=" + id + ", livro=" + livro + ", autor=" + autor + ", genero=" + genero + "]";
+		return "ProximasLeituras [id=" + id + ", usuario=" + usuario + ", livro=" + livro + ", autor=" + autor
+				+ ", genero=" + genero + ", ordem=" + ordem + ", numeroPaginas=" + numeroPaginas + "]";
+	}
+
+	public int getOrdem() {
+		return ordem;
+	}
+
+	public void setOrdem(int ordem) {
+		this.ordem = ordem;
+	}
+
+	public int getNumeroPaginas() {
+		return numeroPaginas;
+	}
+
+	public void setNumeroPaginas(int numeroPaginas) {
+		this.numeroPaginas = numeroPaginas;
 	}
 	
 }

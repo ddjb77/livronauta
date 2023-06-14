@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title> Quiz Literário </title>
-<link rel="stylesheet" th:href="@{css/style-quiz.css}">
+<link rel="stylesheet" th:href="@{/css/style-quiz.css}">
 <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css}">
 <link rel="icon" th:href="@{img/icone-astronauta.png}">
 
@@ -48,7 +48,7 @@
                   <h2> Se você deixar de fazer o quiz, não ganhará XPs  </h2>
                   <div class="btn">
                     <a href="#" class="ok" onclick="voltarQuiz()"> Voltar  </a>
-                    <a href="@{/user/profile}" class="cancelar btn-quiz" > Sair </a>
+                    <a th:href="@{/user/profile}" class="cancelar btn-quiz" > Sair </a>
                    
                   </div>
                   
@@ -58,16 +58,13 @@
     
 
 
-
-
-
     <section id="quizsection">
 
     <div class="quiz-container">
         <div class="div-quiz" id="quiz">
             <div id="imagem"> </div>
             <div class="textos">
-                <h2 class="titulo"> Quiz "O caso dos dez negrinhos"</h2>
+                <h2 class="titulo"> Quiz "E não sobrou nenhum (O caso dos dez negrinhos) - Agatha Christie"</h2>
                 <h3 id="pergunta">Pergunta</h3>
             </div>
             <ul class="resposta-campos">
@@ -96,7 +93,7 @@
 </section>
 
 
-   <script th:src="@{js/script-quiz.js}"></script>
+   <script th:src="@{/js/script-quiz.js}"></script>
 </body>
 
 </html>

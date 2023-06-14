@@ -16,4 +16,6 @@ public interface InfoUsuarioRepository extends JpaRepository<InfoUsuario, Long> 
 	
 	
 	
+	
+	
 }

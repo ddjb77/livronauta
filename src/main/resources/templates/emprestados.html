@@ -5,6 +5,7 @@
 <title> Livros emprestados </title>
 <link rel="stylesheet" th:href="@{css/style.css}">
 <link rel="stylesheet" th:href="@{css/data.table.css}">
+
 <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css}">
 <link rel="icon" th:href="@{img/icone-astronauta.png}">
 
@@ -23,7 +24,7 @@
                     <span id="nivel">Nível 1 </span>
                 </div>
                 <div class="img-item">
-                    <img src="img/nv1.png">
+                    <img src="img/nv1.png" th:href="@{/}">
                 </div>
             </div>
 
@@ -62,22 +63,41 @@
         </div>
         
        <nav>
-        <ul>
-            <li id="logo"> <a th:href="@{/}"> <img th:src=@{/img/logo-livronauta.png} class="logo"> </a>  </li>
-                        <li><h5><span th:text="${userLogin}" id="userlogin" data-userlogin="${userlogin}"></span></h5></li>
-            
-             <li><i class="fas fa-home"></i><a th:href="@{/user/profile}"> Home </a> </li>
-            <li><i class="fas fa-book-reader"></i><a th:href="@{/livros-lidos}"> Livros lidos  </a> </li>
-			<li> <i class="fas fa-book"></i> <a th:href="@{/proximas-leituras}"> Próximas leituras </a> </li>
-			<li><i class="far fa-bookmark"></i> <a th:href="@{/lista-desejos}"> Lista de desejos  </a> </li>
-			<li> <i class="fas fa-book-open"></i> <a th:href="@{/emprestados}"> Emprestados </a> </li>
-			<li> <i class="fas fa-meteor"></i> <a th:href="@{/conquistas}"> Conquistas </a> </li>
-			<li> <i class="fas fa-bullhorn"></i> <a th:href="@{/guia-page}"> Guia das Galáxias </a> </li>
-			<br>
-			<li> <i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}"> Sair </a> </li>
-			
+       <ul>
+				
+				<li>
+				<div class="avatar-menu">
+					<img th:src="${userAvatar}" class="avatar-menu-img">
+				</div>
+				
+					</li>
+					<li>
+					<h5>
+						<span th:text="${userLogin}" id="userlogin"
+							data-userlogin="${userlogin}"></span>
+					</h5></li>
+				
+				<li><i class="fas fa-home"></i><a th:href="@{/user/profile}">
+						Home </a></li>
+				<li><i class="fas fa-book-reader"></i><a
+					th:href="@{/livros-lidos}"> Livros lidos </a></li>
+				<li><i class="fas fa-book"></i> <a
+					th:href="@{/proximas-leituras}"> Próximas leituras </a></li>
+				<li><i class="far fa-bookmark"></i> <a
+					th:href="@{/lista-desejos}"> Lista de desejos </a></li>
+				<li><i class="fas fa-book-open"></i> <a
+					th:href="@{/emprestados}"> Emprestados </a></li>
+				<li><i class="fas fa-meteor"></i> <a th:href="@{/conquistas}">
+						Conquistas </a></li>
+				<li><i class="fas fa-bullhorn"></i> <a th:href="@{/guia-page}">
+						Guia das Galáxias </a></li>
+				<br>
+				<li><i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}">
+						Sair </a></li>
 
-        </ul>
+
+			</ul>
+		</nav>
         </nav>
   </header>
 	
@@ -107,10 +127,27 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	 <div id="modal-sucesso" class="modal-container" style="display:none;">
+        <div class="modalpopup">
+            <div class="topo-form">
+                <h1> Sucesso!!! </h1>
+            </div>
+            <div class="sucesso">
+               <img th:src=@{img/icone-sucesso.png} alt="astronauta comemorando">
+                <h1> Dados salvos com sucesso !!</h1>
+                <div class="btn-ok">
+                    <a th:href="@{/emprestados}" class="ok"> OK </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 	 <div id="modal" class="modal-container" style="display:none;">
 	   <div class="modalpopup">
             <div class="topo-form">
-                <h1> Liste seus livros emprestados </h1>
+                <h1> Edite seus livros emprestados </h1>
                  <a th:href="@{/emprestados}" class="fechar"> X </a>
             </div>
            <div class="formulario">
@@ -137,10 +174,10 @@
 						</select>
 					</div>
                         <input type="text" name="pessoa"  placeholder="Para quem foi emprestado" required>
-                        <label for="data">Data do Empréstimo:</label>
-        				<input type="text" id="data" name="data" placeholder="Data do Empréstimo" required>
-                        
-                           
+						<input type="date" name="data" class="date-mask" placeholder="Data de Empréstimo">
+						<input type="date" name="dataDevol" class="date-mask" placeholder="Data de Devolução">
+						
+        				                           
                         <div class="btn">
                             <button type="button" onclick="editarEmprest()" id="salvarEdicao" class="salvar">
                               Salvar 
@@ -165,6 +202,7 @@
                     <th> Gênero </th>
                     <th> Para quem emprestou </th>
                     <th> Dia do Empréstimo </th>
+                    <th> Data de Devolução </th>
                     <th> Editar </th>
                     <th> Excluir </th>
                 </tr>
@@ -178,6 +216,7 @@
                     <td th:text="${emprest.genero}"> </td>
                     <td th:text="${emprest.pessoa}"> </td>
                     <td th:text="${emprest.data}"> </td>
+                     <td th:text="${emprest.dataDevol}"> </td>
                 
                     
                   <td>
@@ -240,6 +279,7 @@
     
     
 	
+
 
 
 

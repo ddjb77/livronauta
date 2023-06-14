@@ -63,16 +63,21 @@
             </div>
         </div>
         
-     <nav>
-			<ul>
-				<li id="logo"><a th:href="@{/}"> <img
-						th:src=@{/img/logo-livronauta.png} class="logo">
-				</a></li>
-				<li><h5>
+  <nav>
+         <ul>
+				
+				<li>
+				<div class="avatar-menu">
+					<img th:src="${userAvatar}" class="avatar-menu-img">
+				</div>
+				
+					</li>
+					<li>
+					<h5>
 						<span th:text="${userLogin}" id="userlogin"
 							data-userlogin="${userlogin}"></span>
 					</h5></li>
-
+				
 				<li><i class="fas fa-home"></i><a th:href="@{/user/profile}">
 						Home </a></li>
 				<li><i class="fas fa-book-reader"></i><a

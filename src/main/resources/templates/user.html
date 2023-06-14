@@ -5,14 +5,23 @@
 <meta charset="UTF-8">
 <title>Página inicial</title>
 <link rel="stylesheet" th:href="@{/css/criar-perfil.css}">
-<link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/style-conquistas.css/">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/style-conquistas.css/}">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
 <link rel="icon" th:href="@{/img/icone-astronauta.png}">
+<style>
+.selecionado {
+	border: 5px solid #0a0233; /* Defina a cor da borda desejada */
+}
+
+button {
+	cursor: pointer;
+}
+</style>
 </head>
 <body onload="novaFrase()">
-	<header>
+		<header>
 		<input type="checkbox" id="check"> <label for="check">
 			<i class="fas fa-bars fa-2x menu"></i>
 		</label>
@@ -22,13 +31,13 @@
 					<span id="nivel">Nível 1 </span>
 				</div>
 				<div class="img-item">
-					<img src="/img/nv1.png">
+					<img src="img/nv1.png" onclick="abrirNivelCard()">
 				</div>
 			</div>
 
 			<div class="item-geral">
 				<div class="img-item">
-					<img src="/img/expbars.png">
+					<img src="img/expbars.png">
 				</div>
 				<div class="item">
 					<span id="exp"> 0 / 100</span>
@@ -55,22 +64,46 @@
 
 			<div class="item-geral">
 				<div class="img-item">
-					<span> <a href="#"> <img src="/img/news-b2.png">
+					<span> <a href="/confirmacao-email"> <img src="img/news-b2.png">
 					</a></span>
 				</div>
 			</div>
 		</div>
 
+		<div id="modal-nivel" class="modal-container" style="display: none;">
+			<div class="modalpopup">
+				<div class="topo-form">
+					<h1>Nível de leitura</h1>
+				</div>
+				
+					<div class="sucesso">
+						<img th:src=@{/img/niveis/card-mercurio.png}
+							alt="desenho-planeta-mercurio" class="icone-nv">
+						<div class="btn-ok">
+							<a th:href="@{/livros-lidos}" class="ok"> OK </a>
+						</div>
+
+					</div>
+				
+			</div>
+		</div>
+
+
 		<nav>
-			<ul>
-				<li id="logo"><a th:href="@{/}"> <img
-						th:src=@{/img/logo-livronauta.png} class="logo">
-				</a></li>
-				<li><h5>
+         <ul>
+				
+				<li>
+				<div class="avatar-menu">
+					<img th:src="${userAvatar}" class="avatar-menu-img">
+				</div>
+				
+					</li>
+					<li>
+					<h5>
 						<span th:text="${userLogin}" id="userlogin"
 							data-userlogin="${userlogin}"></span>
 					</h5></li>
-
+				
 				<li><i class="fas fa-home"></i><a th:href="@{/user/profile}">
 						Home </a></li>
 				<li><i class="fas fa-book-reader"></i><a
@@ -93,7 +126,42 @@
 			</ul>
 		</nav>
 	</header>
+	<div id="modal-humor" class="modal-container" style="display: none;">
+		<div class="modalpopup">
+			<div class="topo-form">
+				<h1>Leitura Finalizada</h1>
+			</div>
+			<div class="sucesso">
+				<h1>Qual foi a sua reação ao ler o livro?</h1>
+				<div class="img-humor">
+					<button id="botao1" onclick="selecionarBotao('botao1')">
+						<img src="/img/astronauta-humor/apaixonado.png" alt="Apaixonei">
+					</button>
+					<button id="botao2" onclick="selecionarBotao('botao2')">
+						<img src="/img/astronauta-humor/sofrendo.png" alt="Sofri muito">
+					</button>
+					<button id="botao3" onclick="selecionarBotao('botao3')">
+						<img src="/img/astronauta-humor/neutro.png" alt="Nada demais">
+					</button>
+					<button id="botao4" onclick="selecionarBotao('botao4')">
+						<img src="/img/astronauta-humor/encantado.png" alt="Me encantei">
+					</button>
+					<button id="botao5" onclick="selecionarBotao('botao5')">
+						<img src="/img/astronauta-humor/divertido.png"
+							alt="Muito divertido">
+					</button>
+					<button id="botao6" onclick="selecionarBotao('botao6')">
+						<img src="/img/astronauta-humor/surpreso.png"
+							alt="Fiquei muito surpresa">
+					</button>
+				</div>
+				<div class="btn-ok">
+					<a id="ok-humor" class="ok"> OK </a>
+				</div>
 
+			</div>
+		</div>
+	</div>
 	<!-- ---- BANNER  ------>
 	<section id="banner">
 		<div class="banner">
@@ -107,14 +175,14 @@
 				<br> Você está lendo: <span th:text="${userLivroAtual}"></span>
 				<br> Gênero: <span th:text="${userGenero}"></span> <br>
 				Páginas: <span th:text="${userNumeroPaginas}" id="numeroPaginas"></span>/<span
-					th:text="${userPaginasTotais}" id="paginasTotais"></span> 
+					th:text="${userPaginasTotais}" id="paginasTotais"></span>
 					
-					<span><button type="button" title="Editar">
-					<i class="far fa-edit icone-tabela-pagina"></i> </button></span>
 					
-					<!--  <span><button type="button" onclick="exibirModalEdicao(this)" title="Editar">
-					<i class="far fa-edit icone-tabela-pagina"></i> </button></span>--> <br>
-				Porcentagem lida: <span id="porcentagem">0</span>%
+				<a th:href="@{/pagina-perfil}" title="Editar">
+				  <i class="far fa-edit icone-tabela-pagina"></i>
+				</a>
+	
+						<br> Porcentagem lida: <span id="porcentagem">0</span>%
 				<div>
 					<progress id="progresso" value="0" max="100"></progress>
 				</div>
@@ -125,27 +193,8 @@
 
 		</div>
 	</section>
-	<!--  
-	<div id="modal-editar" class="modal-container" style="display: none;">
-		<div class="modalpopup">
-			<div class="topo-form">
-				<h1>Editar</h1>
-				<a href="/user" class="fechar"> X </a>
-			</div>
-			<div class="formulario">
-				<form>
-									
-									<label for="pagina" class="label"> Em qual página você está?</label> 
-									<input type="number" id="pagina" name="numeroPagina"placeholder="Página"> 
-									<label for="genero" class="label"> Quantas páginas o seu livro tem?</label> 
-									<input type="number" id="qtpaginas" name="paginasTotais" placeholder="Quantidade de Páginas">
-				</form>
-					<button class="salvar" type="button" id="salvarEdicao" onclick="editarPerfil()">Salvar</button>
-			</div>
-		</div>
-	</div>
--->
-
+	
+	
 
 	<section id="escolha">
 		<h1>Escolha o que deseja fazer</h1>
@@ -201,26 +250,27 @@
 
 
 	<!-- ---------  MODAL BEM VINDO -------------- -->
-	<div id="modal-user" class="modal-container" th:if="${cadastrado}">
-		<div class="modalperfil">
-			<div class="topo-form">
-				<h1>Bem vindo ao livronauta</h1>
-			</div>
-			<div id="bem-vindo-user">
-				<h2>
-					Bem vindo(a) <span th:text="${userLogin}" id="userlogin"
-						data-userlogin="${userlogin}"></span>\o/
-				</h2>
-				<img src="/img/icone-configurar.png"> <a href="#" class="ok"
-					onclick="fecharUser()"> Começar </a>
-			</div>
-		</div>
-	</div>
+
 
 	<!-- ---------  MODAL FORMULARIO  -------------- -->
 
 	<div id="modal" class="modal-container"
 		th:if="${user.infoUsuario == null}">
+		<div id="modal-user" class="modal-container">
+			<div class="modalperfil">
+				<div class="topo-form">
+					<h1>Bem vindo ao livronauta</h1>
+				</div>
+				<div id="bem-vindo-user">
+					<h2>
+						Bem vindo(a) <span th:text="${userLogin}" id="userlogin"
+							data-userlogin="${userlogin}"></span>\o/
+					</h2>
+					<img src="/img/icone-configurar.png"> <a href="#" class="ok"
+						onclick="fecharUser()"> Começar </a>
+				</div>
+			</div>
+		</div>
 		<div class="modalperfil">
 			<div class="topo-form">
 				<h1>Vamos configurar seu perfil</h1>
@@ -253,7 +303,7 @@
 					</div>
 
 					<div class="step">
-						<p>Conferir</p>
+						<p>Avatar</p>
 						<div class="bullet">
 							<span> 4</span>
 						</div>
@@ -282,12 +332,15 @@
 							<div class="title titulo-perfil">Leitura Atual</div>
 							<div class="leitura-atual">
 								<div id="livro-atual">
-									<label for="genero" class="label"> Qual livro você está lendo agora ?</label> 
-									<input type="text" id="livro" name="livroAtual"placeholder="Nome do livro"> 
+									<label for="livro" class="label"> Qual livro você está lendo agora ?</label> 
+									<input type="text" id="livro" name="livroAtual" placeholder="Nome do livro">
+									
 									<label for="pagina" class="label"> Em qual página você está?</label> 
-									<input type="number" id="pagina" name="numeroPagina"placeholder="Página"> 
-									<label for="genero" class="label"> Quantas páginas o seu livro tem?</label> 
-									<input type="number" id="qtpaginas" name="paginasTotais" placeholder="Nome do livro">
+									<input type="number" id="pagina" min="0" name="numeroPaginas" placeholder="Página"/> 
+									
+									<label for="qtpaginas" class="label"> Quantas páginas o seu livro tem?</label> 
+									<input type="number" id="qtpaginas" name="paginasTotais" placeholder="Nome do livro"/>
+									
 								</div>
 							</div>
 							<div class="field btns">
@@ -329,30 +382,20 @@
 						</div>
 
 						<div class="page">
-							<div class="title">Detalhes do perfil</div>
-							<table id="dtBasicExample" cellspacing="0">
-								<thead>
-									<tr>
-										<th>Nome</th>
-										<th>CPF</th>
-										<th>Telefone</th>
-										<th>Numero Páginas</th>
+							<div class="title">Selecione seu Avatar</div>
+							<div class="img-humor">
 
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td th:text="${userNome}"></td>
-										<td th:text="${userCpf}"></td>
-										<td th:text="${userTel}"></td>
-										<td th:text="${userNumeroPaginas}"></td>
+								<select id="imagemSelect" name="imagemSrc">
+									<option value="/img/avatar-urso.png">Avatar Urso</option>
+									<option value="/img/avatar-gato.png">Avatar Gato</option>
+									<option value="/img/avatar-coelho.png">Avatar Coelho</option>
+									<option value="/img/avatar-cachorro.png">Avatar
+										Cachorro</option>
+								</select> <img id="imagemSelecionada" src="" alt="Imagem Selecionada">
 
 
 
-									</tr>
-								</tbody>
-							</table>
-
+							</div>
 							<div class="field btns">
 								<button class="prev-3 prev" type="button">Anterior</button>
 								<button class="submit" type="submit">Confirmar</button>
@@ -366,14 +409,16 @@
 		</div>
 	</div>
 
+	
 
+	
 
 	<script>
       
       function updateImage(genero) {
           var imagePath = "/img/genero-livros/";
 
-          // Verifique a opção selecionada e defina o caminho da imagem correspondente
+
           switch (genero) {
             case "aventura":
               imagePath += "icone-livros-aventura.png";
@@ -430,19 +475,39 @@
         updateImage(userGenero);
     </script>
 	<script>
-
+	function selecionarBotao(botaoId) {
+        // Remove a classe 'selecionado' de todos os botões
+        var botoes = document.getElementsByTagName('button');
+        for (var i = 0; i < botoes.length; i++) {
+          botoes[i].classList.remove('selecionado');
+        }
+    
+        // Adiciona a classe 'selecionado' ao botão clicado
+        var botaoClicado = document.getElementById(botaoId);
+        botaoClicado.classList.add('selecionado');
+      }
    
+		var imagemSelect = document.getElementById("imagemSelect");
+		var imagemSelecionada = document.getElementById("imagemSelecionada");
+	
+		imagemSelect.addEventListener("change", function() {
+		  var selectedOption = imagemSelect.options[imagemSelect.selectedIndex];
+		  var selectedImageSrc = selectedOption.value;
+		  imagemSelecionada.src = selectedImageSrc;
+		});
+
     
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- <script th:src="@{/js/metodos.js}"></script> -->
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script th:src="@{/js/perfil-metodo.js}"></script>
 	<script th:src="@{/js/script.js}"></script>
 	<script th:src="@{/js/script-robo.js}"></script>
 	<script th:src="@{/js/script-leitura.js}"></script>
 	<script th:src="@{/js/script-perfil.js}"></script>
 	<script th:src="@{/js/validacao.js}"></script>
 	<!--<script src="/js/script-guia.js"></script> -->
-
+	
 
 </body>
 </html>

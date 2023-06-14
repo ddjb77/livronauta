@@ -1,3 +1,5 @@
+
+
 var frases = [
     'Hmm, hoje o dia está ótimo para ler',
     'E ai? Já está apaixonado por algum personagem literário?',

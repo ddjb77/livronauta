@@ -31,6 +31,7 @@ function excluirUsuario(id) {
             console.log(response);
             var modal = document.getElementById("modalConfirmacao");
             modal.style.display = "none";
+            location.reload("/admin");
         },
         error: function(xhr, status, error) {
             // Lógica para manipular o erro de requisição
@@ -40,7 +41,7 @@ function excluirUsuario(id) {
         }
     });
     
-    location.reload("/admin");
+    
 }
 
 function exibirModalConfirmacaoLivro(button) {
@@ -111,6 +112,8 @@ function excluirLista(id) {
             console.log(response);
             var modal = document.getElementById("modalConfirmacao");
             modal.style.display = "none";
+            location.reload("/lista-desejos");
+
         },
         error: function(xhr, status, error) {
             // Lógica para manipular o erro de requisição
@@ -120,8 +123,7 @@ function excluirLista(id) {
             
         }
     });
-    location.reload("/lista-desejos");
-
+    
 }
 
 
@@ -163,7 +165,7 @@ function excluirEmprestado(id) {
             
         }
     });
-    location.reload("/emprestados");
+   
 
 }
 
@@ -198,6 +200,7 @@ function excluirProximas(id) {
             console.log(response);
             var modal = document.getElementById("modalConfirmacao");
             modal.style.display = "none";
+             location.reload("/proximas-leituras");
         },
         error: function(xhr, status, error) {
             // Lógica para manipular o erro de requisição
@@ -207,7 +210,7 @@ function excluirProximas(id) {
             
         }
     });
-    location.reload("/proximas-leituras");
+   
 
 }
 
@@ -223,17 +226,51 @@ function exibirModalEdicao(button) {
     var modal = document.getElementById("modal");
     modal.style.display = "block";
     var salvarEdicao = document.getElementById("salvarEdicao");
-    salvarEdicao.onclick = function() {
-        editarLivroLido(id);
-    };
+    
+    
+   salvarEdicao.onclick = function() {
+    if (validarCampos()) {
+        editarLivroLido(id, getLivroEditado());
+    } else {
+		var inputsInvalidos = document.querySelectorAll('input:invalid');
+        var selectsInvalidos = document.querySelectorAll('select:invalid');
+        
+        for (var i = 0; i < inputsInvalidos.length; i++) {
+            inputsInvalidos[i].style.borderColor = "#ff0000";
+        }
+        
+        for (var s = 0; s < selectsInvalidos.length; s++) {
+            selectsInvalidos[s].style.borderColor = "#ff0000";
+        }
+		
+    }
+};
+
+
+function validarCampos() {
+    var livroInput = document.querySelector('input[name="livro"]');
+    var autorInput = document.querySelector('input[name="autor"]');
+    var generoSelect = document.querySelector('select[name="genero"]');
+    var anoInput = document.querySelector('input[name="ano"]');
+    var avaliacaoSelect = document.querySelector('select[name="avaliacao"]');
+
+    if (
+        livroInput.value === "" ||
+        autorInput.value === "" ||
+        generoSelect.value === "" ||
+        anoInput.value === "" ||
+        avaliacaoSelect.value === ""
+    ) {
+        return false;
+    }
+
+    return true;
 }
 
 
-function editarLivroLido(id, livroEditado) {
-    console.log("Editando livro:", id);
-    
-    //RECEBE OS DADOS DO FORMULÁRIO
-    var livroEditado = {
+function getLivroEditado(){
+	
+	var livroEditado = {
         livro: document.querySelector('input[name="livro"]').value,
         autor: document.querySelector('input[name="autor"]').value,
         genero: document.querySelector('select[name="genero"]').value,
@@ -242,6 +279,14 @@ function editarLivroLido(id, livroEditado) {
 
         
     };
+    
+    return livroEditado
+}
+
+function editarLivroLido(id, livroEditado) {
+    console.log("Editando livro:", id);
+ 
+    
     //RECEBE A ROTA VIA SPRINGBOOT
     $.ajax({
         url: "/editar/livros-lidos/" + id,
@@ -253,7 +298,8 @@ function editarLivroLido(id, livroEditado) {
             console.log(response);
             var modal = document.getElementById("modal");
             modal.style.display = "none";
-            location.reload("/livros-lidos");
+            var modalSucesso = document.getElementById("modal-sucesso");
+            modalSucesso.style.display = "block";
     
         },
         error: function(xhr, status, error) {
@@ -267,7 +313,7 @@ function editarLivroLido(id, livroEditado) {
         
     }) ;
  
-}
+}}
 
 
 
@@ -281,22 +327,68 @@ function exibirModalEdicaoProx(button) {
     var modalProx = document.getElementById("modal");
     modalProx.style.display = "block";
     var salvarEdicao = document.getElementById("salvarEdicao");
-    salvarEdicao.onclick = function() {
-        editarProximas(id);
-    };
+  	salvarEdicao.onclick = function() {
+    if (validarProx()) {
+        editarProximas(id, getProximasLeituras());
+    } else {
+		var inputsInvalidos = document.querySelectorAll('input:invalid');
+        var selectsInvalidos = document.querySelectorAll('select:invalid');
+        
+        for (var i = 0; i < inputsInvalidos.length; i++) {
+            inputsInvalidos[i].style.borderColor = "#ff0000";
+        }
+        
+        for (var s = 0; s < selectsInvalidos.length; s++) {
+            selectsInvalidos[s].style.borderColor = "#ff0000";
+        }
+		
+    }
+};
+
+
+function validarProx() {
+	var ordemInput = document.querySelector('input[name="ordem"]');
+    var livroInput = document.querySelector('input[name="livro"]');
+    var autorInput = document.querySelector('input[name="autor"]');
+    var generoSelect = document.querySelector('select[name="genero"]');
+    var numeroPagInput = document.querySelector('input[name="numeroPaginas"]');
+
+    if (
+		ordemInput.value === "" ||
+        livroInput.value === "" ||
+        autorInput.value === "" ||
+        generoSelect.value === ""||
+        numeroPagInput.value === ""
+
+    ) {
+        return false;
+    }
+
+    return true;
 }
 
 
-function editarProximas(id, proximasLeiturasEdit) {
+function getProximasLeituras(){
+	
+	var proximasLeiturasEdit = {
+		ordem: document.querySelector('input[name="ordem"]').value,
+        livro: document.querySelector('input[name="livro"]').value,
+        autor: document.querySelector('input[name="autor"]').value,
+        genero: document.querySelector('select[name="genero"]').value,
+        numeroPaginas : document.querySelector('input[name="numeroPaginas"]').value
+     
+        
+    };
+    
+    return proximasLeiturasEdit
+}
+
+
+function editarProximas(id, proximasLeiturasEdit){
     console.log("Editando próximas leituras:", id);
     
     //RECEBE OS DADOS DO FORMULÁRIO
-    var proximasLeiturasEdit = {
-        livro: document.querySelector('input[name="livro"]').value,
-        autor: document.querySelector('input[name="autor"]').value,
-        genero: document.querySelector('select[name="genero"]').value,      
-    };
-    
+
     
     //RECEBE A ROTA VIA SPRINGBOOT
     $.ajax({
@@ -309,7 +401,9 @@ function editarProximas(id, proximasLeiturasEdit) {
             console.log(response);
             var modalProx = document.getElementById("modal");
             modalProx.style.display = "none";
-            location.reload("/proximas-leituras")
+            var modalSucesso = document.getElementById("modal-sucesso");
+            modalSucesso.style.display = "block";
+            
         },
         error: function(xhr, status, error) {
             // Lógica para manipular o erro de requisição
@@ -320,34 +414,88 @@ function editarProximas(id, proximasLeiturasEdit) {
         }
         
         
-    }) ;
+    })}
  
-}
+};
+
+
+
+
+
+
+
+
+
+
 
 // EDITAR LISTA DE DESEJOS
 
 function exibirModalEdicaoLista(button) {
-    var id = button.querySelector('input[name="id"]').value;
-    var modalLista = document.getElementById("modal");
-    modalLista.style.display = "block";
-    var salvarEdicao = document.getElementById("salvarEdicao");
-    salvarEdicao.onclick = function() {
-        editarLista(id);
-    };
-}
+	var id = button.querySelector('input[name="id"]').value;
+	var modalLista = document.getElementById("modal");
+	modalLista.style.display = "block";
+	var salvarEdicao = document.getElementById("salvarEdicao");
+	salvarEdicao.onclick = function() {
+		if (validarLista()) {
+			editarLista(id, getLista());
+		} else {
+			var inputsInvalidos = document.querySelectorAll('input:invalid');
+			var selectsInvalidos = document.querySelectorAll('select:invalid');
+
+			for (var i = 0; i < inputsInvalidos.length; i++) {
+				inputsInvalidos[i].style.borderColor = "#ff0000";
+			}
+
+			for (var s = 0; s < selectsInvalidos.length; s++) {
+				selectsInvalidos[s].style.borderColor = "#ff0000";
+			}
+
+		}
+	}
+};
+
+	
+	
 
 
-function editarLista(id, listaDesejosEdit) {
-    console.log("Editando lista:", id);
-    
-    //RECEBE OS DADOS DO FORMULÁRIO
-    var listaDesejosEdit = {
+function validarLista() {
+    var livroInput = document.querySelector('input[name="livro"]');
+    var autorInput = document.querySelector('input[name="autor"]');
+    var generoSelect = document.querySelector('select[name="genero"]');
+
+    if (
+        livroInput.value === "" ||
+        autorInput.value === "" ||
+        generoSelect.value === ""
+
+    ) {
+        return false;
+    }
+
+    return true;
+};
+
+
+function getLista(){
+	
+	 var listaDesejosEdit = {
         livro: document.querySelector('input[name="livro"]').value,
         autor: document.querySelector('input[name="autor"]').value,
         genero: document.querySelector('select[name="genero"]').value,
         site: document.querySelector('input[name="site"]').value, 
         preco: document.querySelector('input[name="preco"]').value,    
     };
+    
+    return listaDesejosEdit
+};
+
+
+
+function editarLista(id, listaDesejosEdit) {
+    console.log("Editando lista:", id);
+    
+    //RECEBE OS DADOS DO FORMULÁRIO
+   
     
     
     //RECEBE A ROTA VIA SPRINGBOOT
@@ -361,7 +509,8 @@ function editarLista(id, listaDesejosEdit) {
             console.log(response);
             var modalLista = document.getElementById("modal");
             modalLista.style.display = "none";
-            location.reload("/lista-desejos")
+            var modalSucesso = document.getElementById("modal-sucesso");
+            modalSucesso.style.display = "block";
         },
         error: function(xhr, status, error) {
             // Lógica para manipular o erro de requisição
@@ -372,35 +521,83 @@ function editarLista(id, listaDesejosEdit) {
         }
         
         
-    }) ;
+    })} ;
  
-}
 
 
-//EDITAR EMPRESTADOS
+
+
+//EDITAR EMPRESTADOS//
 
 function exibirModalEdicaoEmprest(button) {
     var id = button.querySelector('input[name="id"]').value;
     var modalEmprest = document.getElementById("modal");
     modalEmprest.style.display = "block";
-    var salvarEdicao = document.getElementById("salvarEdicao");
-    salvarEdicao.onclick = function() {
-        editarEmprest(id);
+	var salvarEdicao = document.getElementById("salvarEdicao");
+	salvarEdicao.onclick = function() {
+		if (validarEmprest()) {
+			editarEmprest(id, getEmprestados());
+		} else {
+			var inputsInvalidos = document.querySelectorAll('input:invalid');
+			var selectsInvalidos = document.querySelectorAll('select:invalid');
+
+			for (var i = 0; i < inputsInvalidos.length; i++) {
+				inputsInvalidos[i].style.borderColor = "#ff0000";
+			}
+
+			for (var s = 0; s < selectsInvalidos.length; s++) {
+				selectsInvalidos[s].style.borderColor = "#ff0000";
+			}
+
+		}
+	}
+};
+
+function validarEmprest() {
+	var livroInput = document.querySelector('input[name="livro"]');
+	var autorInput = document.querySelector('input[name="autor"]');
+	var generoSelect = document.querySelector('select[name="genero"]');
+	var pessoaInput = document.querySelector('input[name="pessoa"]');
+	var dataInput = document.querySelector('input[name="data"]');
+	var dataDevolInput = document.querySelector('input[name="dataDevol"]');
+
+	if (
+		livroInput.value === "" ||
+		autorInput.value === "" ||
+		generoSelect.value === "" ||
+		pessoaInput.value === "" ||
+		dataInput.value === "" ||
+		dataDevolInput.value === ""
+
+    ) {
+		return false;
+	}
+
+	return true;
+};
+
+
+
+function getEmprestados(){
+	 var emprestimosEdit = {
+        livro: document.querySelector('input[name="livro"]').value,
+        autor: document.querySelector('input[name="autor"]').value,
+        genero: document.querySelector('select[name="genero"]').value,
+        pessoa: document.querySelector('input[name="pessoa"]').value, 
+        data: document.querySelector('input[name="data"]').value,
+        dataDevol: document.querySelector('input[name="dataDevol"]').value,  
     };
-}
+    
+    return emprestimosEdit
+};
+
 
 
 function editarEmprest(id, emprestimosEdit) {
     console.log("Editando emprestados:", id);
     
     //RECEBE OS DADOS DO FORMULÁRIO
-    var emprestimosEdit = {
-        livro: document.querySelector('input[name="livro"]').value,
-        autor: document.querySelector('input[name="autor"]').value,
-        genero: document.querySelector('select[name="genero"]').value,
-        pessoa: document.querySelector('input[name="pessoa"]').value, 
-        data: document.querySelector('input[name="data"]').value,    
-    };
+   
     
     
     //RECEBE A ROTA VIA SPRINGBOOT
@@ -414,6 +611,9 @@ function editarEmprest(id, emprestimosEdit) {
             console.log(response);
             var modalEmprest = document.getElementById("modal");
             modalEmprest.style.display = "none";
+            var modalSucesso = document.getElementById("modal-sucesso");
+            modalSucesso.style.display = "block";
+          
             location.reload("/emprestados")
         },
         error: function(xhr, status, error) {
@@ -427,56 +627,5 @@ function editarEmprest(id, emprestimosEdit) {
     }) ;
  
 }
-
-
-
-/*
-//EDIÇÃO DE PÁGINA PERFIL//
-function exibirModalEdicao(id) {
-  var modalEditar = document.getElementById("modal-editar");
-	modalEditar.style.display = "block";
-    
-	var salvarEdicao = document.getElementById("salvarEdicao");
-	salvarEdicao.onclick = function() {
-		editarPerfil(id);
-	};
-}
-
-
-   function editarPerfil(id) {    
-	var numeroPagina = document.querySelector('input[name="numeroPagina"]').value;
-	var paginasTotais = document.querySelector('input[name="paginasTotais"]').value;
-    
-	var usuarioEditado = {
-		numeroPagina: numeroPagina,
-		paginasTotais: paginasTotais
-	};
-    
-	//RECEBE A ROTA VIA SPRINGBOOT
-	$.ajax({
-		url: "/editar/perfil/" + id,
-		type: "PUT",
-		data: JSON.stringify(usuarioEditado),
-		contentType: "application/json",
-		success: function(response) {
-			console.log(response);
-			var modalEditar = document.getElementById("modal-editar");
-			modalEditar.style.display = "none";
-			location.reload("/user/profile");
-		    
-		},
-		error: function(xhr, status, error) {
-			// Lógica para manipular o erro de requisição
-			console.log(xhr.responseText);
-			var modalEditar = document.getElementById("modal-editar");
-			modalEditar.style.display = "none";
-		    
-		}
-	    
-	    
-	}) ;
-   
-
-}*/
 
 

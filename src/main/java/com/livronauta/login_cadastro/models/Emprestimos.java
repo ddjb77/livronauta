@@ -29,13 +29,13 @@ public class Emprestimos {
 	
 	@Override
 	public String toString() {
-		return "Emprestimos [id=" + id + ", livro=" + livro + ", autor=" + autor + ", genero=" + genero + ", pessoa="
-				+ pessoa + ", data=" + data + "]";
+		return "Emprestimos [id=" + id + ", usuario=" + usuario + ", livro=" + livro + ", autor=" + autor + ", genero="
+				+ genero + ", pessoa=" + pessoa + ", data=" + data + ", dataDevol=" + dataDevol + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(autor, data, genero, id, livro, pessoa);
+		return Objects.hash(autor, data, dataDevol, genero, id, livro, pessoa, usuario);
 	}
 
 	@Override
@@ -48,8 +48,9 @@ public class Emprestimos {
 			return false;
 		Emprestimos other = (Emprestimos) obj;
 		return Objects.equals(autor, other.autor) && Objects.equals(data, other.data)
-				&& Objects.equals(genero, other.genero) && Objects.equals(id, other.id)
-				&& Objects.equals(livro, other.livro) && Objects.equals(pessoa, other.pessoa);
+				&& Objects.equals(dataDevol, other.dataDevol) && Objects.equals(genero, other.genero)
+				&& Objects.equals(id, other.id) && Objects.equals(livro, other.livro)
+				&& Objects.equals(pessoa, other.pessoa) && Objects.equals(usuario, other.usuario);
 	}
 	
 	
@@ -125,6 +126,16 @@ public class Emprestimos {
 	private String pessoa;
 	
 	private String data;
+	
+	private String dataDevol;
+
+	public String getDataDevol() {
+		return dataDevol;
+	}
+
+	public void setDataDevol(String dataDevol) {
+		this.dataDevol = dataDevol;
+	}
 	
 	
 }
