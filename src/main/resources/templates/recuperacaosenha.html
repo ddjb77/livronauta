@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Recuperação de Senha</title>
+    <script src="js/script.js"></script>
+    <script src="js/validacao.js"></script>
+</head>
+<style>
+	.mensagem {
+		color:#ffffff;
+		text-align:center;
+	}
+
+</style>
+<body>
+    <div class="img-login">
+        <img src="img/botao-entrar.png" class="imagem-login">
+    </div>
+    <section id="login">
+        <div class="formulario">
+            <h1>Recuperação de Senha</h1>
+            <form method="post" action="/recuperarsenha" th:object="${usuario}">
+    	
+                <input type="email" name="email" required class="email" placeholder="Email">
+        		<input type="password"  id="novaSenha" name="novaSenha" required class="senha" placeholder="Senha">
+        		<input type="password" id="confirmaSenha" min="6" class="senha" name="confirmarSenha" required placeholder="Repita a Senha">
+        		<input type="submit" class="entrar" onclick="verificar()" value="Alterar Senha">
+            </form>
+            <div>
+            	<p th:text="${mensagem}" th:if="${mensagem}" class="mensagem"></p>
+            	
+            </div>
+        </div>
+    </section>
+     
+    <footer class="rodape">
+        <img src="/img/logo-livronauta.png" alt="logo do site no rodapé" class="logo-rodape">
+    </footer>
+ 
+</body>
+</html>

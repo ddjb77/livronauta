@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Recuperação de Senha</title>
+</head>
+
+<body>
+<section>
+    <div id="modal-sucesso" class="modal-container">
+        <div class="modalpopup">
+            <div class="topo-form">
+                <h1> Sucesso!!! </h1>
+            </div>
+            <div class="sucesso">
+               <img th:src=@{img/icone-sucesso.png} alt="astronauta comemorando">
+                <h1> Senha alterada com sucesso!</h1>
+                <div class="btn-ok">
+                    <a th:href="@{/login-page}" class="ok"> Entrar </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    </section>
+     
+    <footer class="rodape">
+        <img src="img/logo-livronauta.png" alt="logo do site no rodapé" class="logo-rodape">
+    </footer>
+    <script th:src="@{/js/script.js}"></script>
+    <script th:src="@{/js/validacao.js}"></script>
+</body>
+</html>
