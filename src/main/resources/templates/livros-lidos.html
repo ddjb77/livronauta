@@ -10,7 +10,7 @@
 <link rel="icon" th:href="@{img/icone-astronauta.png}">
 
 </head>
-<body>
+<body onload="novaFrase()">
 	
 	
  <header>
@@ -262,7 +262,8 @@
 			<div class="balao">
 				<div id="frases"></div>
 			</div>
-			<img id="robo-img" src="/img/robo.gif" class="img-robo">
+			<img id="robo-img" th:src=@{img/robo.gif} class="img-robo"
+				onclick=novaFrase()>
 			<div id="fechar">X</div>
 		</div>
 	</section>
