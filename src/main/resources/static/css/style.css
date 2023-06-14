@@ -630,6 +630,7 @@ textarea {
 
 .btn-ok {
     margin: 30px 0;
+    cursor:pointer;
 }
 
 /**** ERRO ****/
