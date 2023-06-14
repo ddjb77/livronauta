@@ -79,9 +79,42 @@ public class UsuarioController {
 		return "login_page";
 	}
 
-	@GetMapping("/anuncios")
+		@GetMapping("/anuncios")
 	public String getAnuncios() {
 		return "anuncios";
+	}
+	
+	
+	@GetMapping("/sucesso")
+	public String getSucesso() {
+		return "sucesso";
+	}
+	
+	
+	@GetMapping("/recuperacaosenha")
+	public String getRecuperacaoSenha() {
+		return "recuperacaosenha";
+	}
+	
+	
+	@PostMapping("/recuperarsenha")
+	public String resetarSenha(@RequestParam(name = "email") String email, 
+	                           @RequestParam(name = "novaSenha") String novaSenha,
+	                           @RequestParam(name = "confirmarSenha") String confirmarSenha, Model modelSenha) {
+	    if (usuarioService.alterarSenha(email, novaSenha, confirmarSenha)) {
+	        if (!novaSenha.equals(confirmarSenha)) {
+	            modelSenha.addAttribute("mensagem", "As senhas não correspondem.");
+	        } else {
+	            // Senha alterada com sucesso, redirecionar para página de sucesso
+	            return "redirect:/sucesso";
+	        }
+	    } else {
+	        // Erro ao alterar senha, redirecionar para página de erro
+	    	modelSenha.addAttribute("mensagem", "Erro ao alterar a senha.");
+	    }
+	    
+	    
+	    return "recuperacaosenha";
 	}
 
 	@GetMapping("/register")
