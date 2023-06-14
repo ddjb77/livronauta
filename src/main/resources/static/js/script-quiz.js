@@ -79,7 +79,7 @@ function loadQuiz() {
 
 function voltarAoPerfil() {
    
-    window.location.href = "/userpage/profile";
+   window.location.href = "/user/profile";
 }
 
 
