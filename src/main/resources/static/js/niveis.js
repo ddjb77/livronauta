@@ -1,5 +1,5 @@
 function abrirNivelCard(){
-	var modalNivel = document.querySelector("#modal-nivel");
+	var modalNivel = document.getElementById("modal-nivel");
 	 modalNivel.style.display = "block";
 	 
 	    var okNivel = document.getElementById("okNivel");
@@ -7,6 +7,6 @@ function abrirNivelCard(){
 }
 
 function fecharModalnv() {
-    var modalNivel = document.querySelector("#modal-nivel");
+    var modalNivel = document.getElementById("modal-nivel");
     modalNivel.style.display = "none";
 }
