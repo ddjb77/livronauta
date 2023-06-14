@@ -85,6 +85,17 @@ public class UsuarioService implements UserDetailsService {
     
     }
     
+	
+ public boolean alterarSenha(String email, String novaSenha, String confirmarSenha) {
+        Optional<Usuario> optionalUsuario = usuarioRepository.findByEmail(email);
+        if (optionalUsuario.isPresent() && novaSenha.equals(confirmarSenha)) {
+            Usuario usuario = optionalUsuario.get();
+            usuario.setPassword(passwordEncoder.encode(novaSenha)); // senha é armazenada criptografada
+            usuarioRepository.save(usuario);
+            return true;
+        }
+        return false;
+    }
     
     public List<Usuario> findAllUsuarios() {
 		return usuarioRepository.findAll();
