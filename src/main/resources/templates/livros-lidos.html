@@ -1,90 +1,69 @@
 <!DOCTYPE html>
-<html xmlns:th="https:www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org/">
 <head>
 <meta charset="UTF-8">
-<title>Livros Lidos</title>
-<link rel="stylesheet" href="/css/criar-perfil.css">
-<link rel="stylesheet" th:href=@{css/style.css}>
-<link rel="stylesheet" href="/css/style-conquistas.css/">
-<link rel="stylesheet" href="/css/data.table.css">
-<link rel="stylesheet"
-	href="https:/cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
-<link rel="icon" href="/img/icone-astronauta.png">
+<title> Livros emprestados </title>
+<link rel="stylesheet" th:href="@{css/style.css}">
+<link rel="stylesheet" th:href="@{css/data.table.css}">
+
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css}">
+<link rel="icon" th:href="@{img/icone-astronauta.png}">
 
 </head>
-<body onload="novaFrase()">
+<body>
+	
+	
+ <header>
+    <input type="checkbox" id="check">
+    <label for="check">
+      <i class="fas fa-bars fa-2x menu"></i>
+    </label>
+    	<div class="barra">
+              <div class="item-geral">
+                <div class="item">
+                    <span id="nivel">Nível 1 </span>
+                </div>
+                <div class="img-item">
+                    <img src="img/nv1.png" th:href="@{/}">
+                </div>
+            </div>
 
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="img/expbars.png"> 
+                </div>
+                <div class="item">
+                   <span id="exp"> 0 / 100</span>
+                </div>
+            </div>
 
-	<header>
-		<input type="checkbox" id="check"> <label for="check">
-			<i class="fas fa-bars fa-2x menu"></i>
-		</label>
-		<div class="barra">
-			<div class="item-geral">
-				<div class="item">
-					<span id="nivel">Nível 1 </span>
-				</div>
-				<div class="img-item">
-					<img src="img/nv1.png" onclick="abrirNivelCard()">
-				</div>
-			</div>
+           <div class="item-geral">
+                <div class="img-item">
+                    <img src="/img/star-i.png"> 
+                </div>
+                <div class="item">
+                   <span id="estrelas" th:text="${listaDesejos}"> 0 </span>
+                </div>
+            </div>
 
-			<div class="item-geral">
-				<div class="img-item">
-					<img src="img/expbars.png">
-				</div>
-				<div class="item">
-					<span id="exp"> 0 / 100</span>
-				</div>
-			</div>
+            <div class="item-geral">
+                <div class="img-item">
+                    <img src="/img/livro-de-capa-preta-fechado.png" width="20px" > 
+                </div>
+                <div class="item">
+                   <span id="lidos" th:text="${livrosLidos}"> 0 </span>
+                </div>
+            </div>
 
-			<div class="item-geral">
-				<div class="img-item">
-					<img src="/img/star-i.png">
-				</div>
-				<div class="item">
-					<span id="estrelas" th:text="${listaDesejos}"> 0 </span>
-				</div>
-			</div>
-
-			<div class="item-geral">
-				<div class="img-item">
-					<img src="/img/livro-de-capa-preta-fechado.png" width="20px">
-				</div>
-				<div class="item">
-					<span id="lidos" th:text="${livrosLidos}"> 0 </span>
-				</div>
-			</div>
-
-			<div class="item-geral">
-				<div class="img-item">
-					<span> <a href="/confirmacao-email"> <img src="img/news-b2.png">
-					</a></span>
-				</div>
-			</div>
-		</div>
-
-		<div id="modal-nivel" class="modal-container" style="display: none;">
-			<div class="modalpopup">
-				<div class="topo-form">
-					<h1>Nível de leitura</h1>
-				</div>
-				
-					<div class="sucesso">
-						<img th:src=@{/img/niveis/card-mercurio.png}
-							alt="desenho-planeta-mercurio" class="icone-nv">
-						<div class="btn-ok">
-							<a th:href="@{/livros-lidos}" class="ok"> OK </a>
-						</div>
-
-					</div>
-				
-			</div>
-		</div>
-
-
-		<nav>
-         <ul>
+            <div class="item-geral">
+                <div class="img-item">
+                    <span> <a href="/anuncios"> <img src="img/news-b2.png"> </a></span>
+                </div>
+            </div>
+        </div>
+        
+       <nav>
+       <ul>
 				
 				<li>
 				<div class="avatar-menu">
@@ -119,8 +98,8 @@
 
 			</ul>
 		</nav>
-	</header>
-
+        </nav>
+  </header>
 	<section id="banner">
 		<div class="banner">
 			<div class="imagem-banner">
