@@ -30,6 +30,9 @@
         		<input type="password" id="confirmaSenha" min="6" class="senha" name="confirmarSenha" required placeholder="Repita a Senha">
         		<input type="submit" class="entrar" onclick="verificar()" value="Alterar Senha">
             </form>
+	     <div class="entrar">
+                    <a th:href="@{/}"> Voltar para o inicio </a>
+                </div>
             <div>
             	<p th:text="${mensagem}" th:if="${mensagem}" class="mensagem"></p>
             	
