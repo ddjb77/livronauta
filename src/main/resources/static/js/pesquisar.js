@@ -112,7 +112,8 @@ $("#form-pesquisa").submit(function(e) {
       $(document).on('click', '.ok-sinopse', function(e) {
         e.preventDefault();
         $(this).closest('.modal-container').remove();
-      });
+        pausarLeitura();
+      }); 
 
       $(document).on('click', '.ler-voz', function(e) {
         e.preventDefault();
@@ -124,7 +125,20 @@ $("#form-pesquisa").submit(function(e) {
   });
 });
 
+var utterance;
+var leituraAtiva = true;
+
 function lerTextoEmVozAlta(texto) {
-  var utterance = new SpeechSynthesisUtterance(texto);
+  utterance = new SpeechSynthesisUtterance(texto);
   speechSynthesis.speak(utterance);
+}
+
+function pausarLeitura() {
+  if (leituraAtiva) {
+    speechSynthesis.pause();
+    leituraAtiva = false;
+  } else {
+    speechSynthesis.resume();
+    leituraAtiva = true;
+  }
 }
