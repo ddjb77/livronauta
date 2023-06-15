@@ -113,7 +113,7 @@ $("#form-pesquisa").submit(function(e) {
         e.preventDefault();
         $(this).closest('.modal-container').remove();
         pausarLeitura();
-      }); 
+      });
 
       $(document).on('click', '.ler-voz', function(e) {
         e.preventDefault();
