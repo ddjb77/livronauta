@@ -97,11 +97,8 @@ $("#form-pesquisa").submit(function(e) {
           description +
           '</p>' +
           '<div class="btn-ok">' +
-          '<a href="#" class="ok-sinopse" title="Terminei de ler a sinopse" alt="Terminei de ler a sinopse" >' +
-          'OK' +
-          '</a>' +
-          '<a href="#" class="ler-voz" title="Ler em voz alta" alt="Ler em voz alta">' +
-          'Ler em Voz Alta' +
+          '<a href="#" class="ok-sinopse" title="Ler/Pausar" alt="Ler/Pausar">' +
+          'Ler/Pausar' +
           '</a>' +
           '</div>';
 
@@ -111,22 +108,16 @@ $("#form-pesquisa").submit(function(e) {
 
       $(document).on('click', '.ok-sinopse', function(e) {
         e.preventDefault();
-        $(this).closest('.modal-container').remove();
-        pausarLeitura();
-      });
-
-      $(document).on('click', '.ler-voz', function(e) {
-        e.preventDefault();
         var texto = $(this).closest('.sucesso').find('p').text();
-        lerTextoEmVozAlta(texto);
-        $(this).addClass('ler-voz-disabled').off('click');
+        alternarLeitura(texto);
+        $(this).text(leituraAtiva ? 'Pausar' : 'Retomar');
       });
     },
   });
 });
 
 var utterance;
-var leituraAtiva = true;
+var leituraAtiva = false;
 
 function lerTextoEmVozAlta(texto) {
   utterance = new SpeechSynthesisUtterance(texto);
@@ -139,6 +130,16 @@ function pausarLeitura() {
     leituraAtiva = false;
   } else {
     speechSynthesis.resume();
+    leituraAtiva = true;
+  }
+}
+
+function alternarLeitura(texto) {
+  if (leituraAtiva) {
+    speechSynthesis.cancel();
+    leituraAtiva = false;
+  } else {
+    lerTextoEmVozAlta(texto);
     leituraAtiva = true;
   }
 }
