@@ -93,4 +93,34 @@ public class GuiaController {
 
 		return "error";
 	}
+	
+	
+	@GetMapping("/conquistas")
+	@PreAuthorize("hasRole('ROLE_USER')")
+	public String getConquistasPage(Authentication authentication, Model model) {
+	if (authentication != null && authentication.isAuthenticated()) {
+
+		CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+		Usuario usuario = userDetails.getUsuario();
+
+		// Recuperar a lista de livros lidos do repositório para o usuário autenticado
+		List<LivrosLidos> livrosLidos = livrosLidosRepository.findByUsuario(usuario);
+
+		int quantidadeLivrosLidos = livrosLidosRepository.contarLivrosLidos(usuario);
+		int quantidadeLista = listaDesejosRepository.contarListaDesejos(usuario);
+
+		// mostra a quantidade de livros lidos e de items na lista de desejo na página
+
+		model.addAttribute("livrosLidos", quantidadeLivrosLidos);
+		model.addAttribute("listaDesejos", quantidadeLista);
+
+		// adiciona os livros lidos à pagina
+		model.addAttribute("qtlivrosLidos", livrosLidos);
+		model.addAttribute("userLogin", usuario.getLogin());
+		model.addAttribute("userAvatar", usuario.getInfoUsuario().getCaminhoImagem());
+		return "conquistas";
+	}
+
+	return "error";
+}
 }
