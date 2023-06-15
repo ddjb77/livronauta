@@ -14,70 +14,93 @@
 
 <body>
 
-<header>
-    <input type="checkbox" id="check">
-    <label for="check">
-      <i class="fas fa-bars fa-2x menu"></i>
-    </label>
-    	<div class="barra">
-              <div class="item-geral">
-                <div class="item">
-                    <span id="nivel">Nível 1 </span>
-                </div>
-                <div class="img-item">
-                    <img src="img/nv1.png">
-                </div>
-            </div>
 
-            <div class="item-geral">
-                <div class="img-item">
-                    <img src="img/expbars.png"> 
-                </div>
-                <div class="item">
-                   <span id="exp"> 0 / 100</span>
-                </div>
-            </div>
 
-            <div class="item-geral">
-                <div class="img-item">
-                    <img src="img/star-i.png"> 
-                </div>
-                <div class="item">
-                   <span id="estrelas"> 0 </span>
-                </div>
-            </div>
 
-            <div class="item-geral">
-                <div class="img-item">
-                    <img src="img/livro-de-capa-preta-fechado.png" width="20px" > 
-                </div>
-                <div class="item">
-                   <span id="lidos"> 0 </span>
-                </div>
-            </div>
-
-            <div class="item-geral">
-                <div class="img-item">
-                    <span> <a href="/anuncios"> <img src="img/news-b2.png"> </a></span>
-                </div>
-            </div>
-        </div>
-        
-  <nav>
-         <ul>
-				
-				<li>
-				<div class="avatar-menu">
-					<img th:src="${userAvatar}" class="avatar-menu-img">
+	<header>
+		<input type="checkbox" id="check"> <label for="check">
+			<i class="fas fa-bars fa-2x menu"></i>
+		</label>
+		<div class="barra">
+			<div class="item-geral">
+				<div class="item">
+					<span id="nivel">Nível 1 </span>
 				</div>
-				
-					</li>
-					<li>
+				<div class="img-item">
+					<img src="/img/nv1.png" onclick="abrirNivelCard()">
+				</div>
+			</div>
+
+			<div class="item-geral">
+				<div class="img-item">
+					<img src="/img/expbars.png">
+				</div>
+				<div class="item">
+					<span id="exp"> 0 / 100</span>
+				</div>
+			</div>
+
+			<div class="item-geral">
+				<div class="img-item">
+					<img src="/img/star-i.png">
+				</div>
+				<div class="item">
+					<span id="estrelas" th:text="${listaDesejos}"> 0 </span>
+				</div>
+			</div>
+
+			<div class="item-geral">
+				<div class="img-item">
+					<img src="/img/livro-de-capa-preta-fechado.png" width="20px">
+				</div>
+				<div class="item">
+					<span id="lidos" th:text="${livrosLidos}"> 0 </span>
+				</div>
+			</div>
+
+			<div class="item-geral">
+				<div class="img-item">
+					<span> <a href="/anuncios"> <img src="/img/news-b2.png">
+					</a></span>
+				</div>
+			</div>
+		</div>
+
+		<div id="modal-nivel" class="modal-container" style="display: none;">
+			<div class="modalpopup">
+				<div class="topo-form">
+					<h1>Nível de leitura</h1>
+				</div>
+
+				<div class="sucesso">
+					<img src="/img/niveis/card-mercurio.png"
+						alt="desenho-planeta-mercurio" class="icone-nv">
+					<div class="btn-ok">
+						<a id="okNivel" class="ok"> OK </a>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+
+		<nav>
+			<ul>
+
+				<li>
+					<div class="avatar-menu">
+						<img th:src="${userAvatar}" class="avatar-menu-img">
+					</div>
+
+				</li>
+				<li>
 					<h5>
 						<span th:text="${userLogin}" id="userlogin"
 							data-userlogin="${userlogin}"></span>
-					</h5></li>
-				
+					</h5>
+				</li>
+
 				<li><i class="fas fa-home"></i><a th:href="@{/user/profile}">
 						Home </a></li>
 				<li><i class="fas fa-book-reader"></i><a
@@ -99,7 +122,7 @@
 
 			</ul>
 		</nav>
-  </header>
+	</header>
 	
   	
   	
