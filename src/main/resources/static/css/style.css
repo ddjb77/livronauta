@@ -98,8 +98,7 @@ header {
 	width:50px;
 	border-radius:10px;
 	height:50px;
-	border:2px solid #eee639;
-	
+	display: flex;
 }
 
 .avatar-menu > img {
@@ -107,10 +106,13 @@ header {
 	border-radius:10px;
 }
 
+#userlogin {
+  margin: 15px;
+}
 
-
-
-
+.mercurio-menu{
+	cursor: pointer;
+}
 .range {
   -webkit-appearance: none;
   outline: none;
@@ -123,7 +125,8 @@ header {
 
 
   .yellow-star {
-  	color:#eee639
+  	color:#eee639;
+  	font-size: 12px;
   }
   
  
@@ -374,7 +377,7 @@ a {
 #tabela {
     text-align: center;
     padding: 50px;
-    width: 60%;
+    width: 75%;
     margin: 0 auto;
     z-index: 999;
 }
@@ -382,6 +385,7 @@ a {
 
 #tabela > h1 {
 	font-size: 1.7rem;
+	margin: auto;
 }
 
 table {
@@ -496,7 +500,7 @@ input[type=checkbox] {
     padding: 80px 80px 0 80px;
     position: relative;
     margin: 0 auto;
-    height:400px;
+    height:515px;
 }
 
 #verificar-email {
@@ -683,7 +687,6 @@ footer {
     text-align: center;
     bottom: 0;
     height:auto;
-    position:fixed;
 }
 
 .logo-rodape {
@@ -747,34 +750,49 @@ footer {
 
 .img-login {
     text-align: center;
-    margin-bottom: -200px;
-    margin-top: 50px;
+    margin-bottom: -155px;
+    margin-top: 25px;
     position: relative;
 }
 
 .imagem-login {
-    max-width: 100%;
-    
+   max-width: 100%;
+    width: 230px;
 } 
 
 .imagem-cadastro {
-    max-width: 35%;
+    max-width: 20%;
 }
 
-#login, #cadastrar {
-    margin: 150px auto;
-    padding: 50px;
+#login {
+    margin: 115px auto;
+    padding: 20px 50px;
     background-color: #0a0233;
     width: 30%;
     border-radius: 20px;
 }
 
+
+ #cadastrar {
+    margin: 115px auto;
+    padding: 20px 50px;
+    background-color: #0a0233;
+    width: 30%;
+    border-radius: 20px;
+}
+
+
+
+
+
 .formulario h1 {
     color: #fff;
     text-align: center;
     font-size: 1.5rem;
-   
+    margin: 30px auto 20px auto;
 }
+   
+
 .signed {
     text-align: center;
     text-decoration: none;
@@ -782,7 +800,7 @@ footer {
 }
 
 .signed span a {
-    
+    color: #fff;
     color:rgb(196, 194, 194);
     text-decoration: underline;
 
@@ -870,6 +888,8 @@ td {
 
 .img-final {
     text-align: center;
+    margin: 110px auto -80px auto;
+}
 }
 
 .btn-final {
@@ -885,10 +905,10 @@ td {
 }
 
 .titulo {
-    text-align: center;
+   text-align: center;
     color: #fff;
     font-size: 1.5rem;
-    padding: 60px 0 10px 0;
+    padding: 120px 0 10px 0;
 }
 
 
