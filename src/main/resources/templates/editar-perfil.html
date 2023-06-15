@@ -21,7 +21,7 @@ button {
 </style>
 </head>
 <body onload="novaFrase()">
-	<header>
+		<header>
 		<input type="checkbox" id="check"> <label for="check">
 			<i class="fas fa-bars fa-2x menu"></i>
 		</label>
@@ -31,13 +31,13 @@ button {
 					<span id="nivel">Nível 1 </span>
 				</div>
 				<div class="img-item">
-					<img src="/img/nv1.png" onclick="abrirNivelCard()">
+					<img src="/img/nv1.png" onclick="abrirNivelCard()" title ="Nível 1" class='mercurio-menu'>
 				</div>
 			</div>
 
 			<div class="item-geral">
 				<div class="img-item">
-					<img src="/img/expbars.png">
+					<img src="/img/expbars.png" title ="Pontos de Experiências">
 				</div>
 				<div class="item">
 					<span id="exp"> 0 / 100</span>
@@ -46,7 +46,7 @@ button {
 
 			<div class="item-geral">
 				<div class="img-item">
-					<img src="/img/star-i.png">
+					<img src="/img/star-i.png" title = "Quantidade de livros na lista de desejos">
 				</div>
 				<div class="item">
 					<span id="estrelas" th:text="${listaDesejos}"> 0 </span>
@@ -55,7 +55,7 @@ button {
 
 			<div class="item-geral">
 				<div class="img-item">
-					<img src="/img/livro-de-capa-preta-fechado.png" width="20px">
+					<img src="/img/livro-de-capa-preta-fechado.png" width="20px" title =" Quantidade de Livros Lidos">
 				</div>
 				<div class="item">
 					<span id="lidos" th:text="${livrosLidos}"> 0 </span>
@@ -64,7 +64,7 @@ button {
 
 			<div class="item-geral">
 				<div class="img-item">
-					<span> <a href="/anuncios"> <img src="/img/news-b2.png">
+					<span> <a href="/anuncios"> <img src="/img/news-b2.png" title ="Anúncios">
 					</a></span>
 				</div>
 			</div>
@@ -94,16 +94,15 @@ button {
 				
 				<li>
 				<div class="avatar-menu">
-					<img th:src="${userAvatar}" class="avatar-menu-img">
-				</div>
-				
-					</li>
-					<li>
+					<img th:src="${userAvatar}" class="avatar-menu-img" title = "Avatar">
 					<h5>
 						<span th:text="${userLogin}" id="userlogin"
 							data-userlogin="${userlogin}"></span>
-					</h5></li>
+					</h5>
+				</div>
 				
+					</li>
+					
 				<li><i class="fas fa-home"></i><a th:href="@{/user/profile}">
 						Home </a></li>
 				<li><i class="fas fa-book-reader"></i><a
